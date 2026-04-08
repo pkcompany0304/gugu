@@ -7,106 +7,77 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#171719;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-body{padding-top:54px;background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav{position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom:1px solid var(--b1)width:100%;left:0;right:0;}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:16px}
+:root{
+  --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
+  --b1:#242428;--b2:#2e2e34;
+  --r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;
+  --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
+  --max:1100px;
+  --text:#F2F2F5;--muted:#8a8a9a;--surface:#111114;
+  --surface2:#171719;--border:#242428;--accent:#FF3B3B;
+  --accent2:#FF8A00;--green:#22c55e;
+}
+body{padding-top:56px;background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;gap:12px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none}.logo em{color:var(--r);font-style:normal}
 .wrap{max-width:760px;margin:0 auto;padding:48px 28px 80px;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
-/* TOC */
-.toc{position:sticky;top:80px}
-.toc-title{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
-.toc-item{display:block;padding:6px 10px;font-size:12px;color:var(--t2);text-decoration:none;border-radius:7px;transition:.15s;margin-bottom:2px}
-.toc-item:hover{background:var(--s1);color:var(--t)}
-/* 본문 */
-.doc-header{margin-bottom:40px}
-.doc-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:3px;color:var(--t);margin-bottom:8px}
-.doc-title em{color:var(--r);font-style:normal}
-.doc-meta{font-size:13px;color:var(--t2)}
-.doc-section{margin-bottom:36px}
-.doc-section h2{font-size:17px;font-weight:800;color:var(--t);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--b1);letter-spacing:-.3px}
-.doc-section p{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:10px}
-.doc-section p:last-child{margin-bottom:0}
-.doc-section ul{display:flex;flex-direction:column;gap:7px;padding-left:0;list-style:none}
-.doc-section ul li{font-size:14px;color:var(--t2);line-height:1.7;padding-left:14px;position:relative}
-.doc-section ul li::before{content:'·';position:absolute;left:0;color:var(--r)}
-.doc-section strong{color:var(--t)}
-.highlight-box{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px 18px;margin:14px 0}
-.highlight-box p{font-size:13px;color:var(--t2);line-height:1.75;margin:0}
-
-
-/* ══════════════════════════════════════
-   MOBILE RESPONSIVE — terms.html
-══════════════════════════════════════ */
-
-@media (max-width: 768px) {
-  .doc-wrap { padding:24px 16px 60px !important; }
+/* MOBILE RESPONSIVE — terms.html */
+@media(max-width:768px){
+  .wrap{grid-template-columns:1fr !important;padding:24px 16px 60px !important;gap:20px !important}
+  .toc{position:static !important;display:flex;flex-wrap:wrap;gap:4px}
+  .toc-title{display:none}
+  .toc-item{padding:6px 12px;font-size:11px;border:1px solid var(--b1);border-radius:20px}
+  .doc-title{font-size:32px !important}
+}
   .doc-title { font-size:26px !important; }
   .toc { padding:14px 16px !important; }
   .info-table { font-size:12px !important; }
   .info-table th,.info-table td { padding:8px 10px !important; }
 }
 
-
-/* ══════ 공통 모바일 요소 ══════ */
-@media (max-width: 768px) {
-  /* 네비 공통 */
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
+  
   /* 하단 탭바 */
-  .mob-bottom-nav { display:flex !important; }
+  
   body { padding-bottom:60px; }
 }
 
-/* 햄버거 드로어 메뉴 */
-.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
-.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75);  display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
-.mob-drawer.open { opacity:1; pointer-events:all; visibility:visible; }
-.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
-.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
-.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
-.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
-.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
-.mob-drawer-btns { display:flex; gap:8px; }
-.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
-.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
 @media (max-width: 768px) {
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
-}
-
-
-.mob-bottom-nav {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(10,10,10,.97);
   
-  border-top: 1px solid var(--b1, #242428);
-  z-index:9999;
-  padding: 0 8px;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.mob-bottom-nav .mbn-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
-  padding: 10px 4px;
-  text-decoration: none; color: var(--t2, #8a8a9a);
-  transition: .15s;
-}
-.mob-bottom-nav .mbn-item:hover,
-.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
-.mbn-icon { font-size: 18px; position: relative; }
-.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
-.mbn-badge {
-  position: absolute; top: -3px; right: -5px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--r, #FF3B3B);
-  border: 1.5px solid var(--bg, #0A0A0A);
-}
-@media (max-width: 768px) {
-  .mob-bottom-nav { display: flex !important; }
   body { padding-bottom: 64px; }
+}
+
+@media(max-width:768px){
+  body{padding-bottom:64px}
+  input,select,textarea{font-size:16px !important}
+}
+
+
+/* ═══ MOBILE BOTTOM NAV ═══ */
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;width:100%;background:rgba(10,10,10,.97);border-top:1px solid var(--b1,#242428);z-index:9999;padding:0 8px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.mob-bottom-nav .mbn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;text-decoration:none;color:var(--t2,#8a8a9a);transition:.15s}
+.mob-bottom-nav .mbn-item:hover,.mob-bottom-nav .mbn-item.active{color:var(--r,#FF3B3B)}
+.mbn-icon{font-size:18px;position:relative}
+.mbn-label{font-size:10px;font-weight:600;white-space:nowrap}
+.mbn-badge{position:absolute;top:-3px;right:-5px;width:8px;height:8px;border-radius:50%;background:var(--r,#FF3B3B);border:1.5px solid var(--bg,#0A0A0A)}
+.mob-menu-btn{display:none;width:36px;height:36px;border-radius:8px;background:var(--s2,#171719);border:1px solid var(--b1,#242428);align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--t2,#8a8a9a);flex-shrink:0}
+.mob-drawer{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.75);align-items:flex-end}
+.mob-drawer.open{display:flex}
+.mob-drawer-inner{background:var(--s1,#111114);width:100%;border-radius:20px 20px 0 0;padding:20px 20px 40px;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.mob-drawer.open .mob-drawer-inner{transform:translateY(0)}
+.mob-drawer-handle{width:36px;height:4px;background:var(--b2,#2e2e34);border-radius:2px;margin:0 auto 20px}
+.mob-drawer-cats{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.mob-drawer-cats a{padding:12px 16px;border-radius:10px;font-size:15px;font-weight:600;color:var(--t,#F2F2F5);text-decoration:none;border:1px solid var(--b1,#242428);background:var(--s2,#171719);display:flex;align-items:center;gap:10px}
+.mob-drawer-btns{display:flex;gap:8px}
+.mob-drawer-btns button{flex:1;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.mob-search-bar{display:none;align-items:center;gap:8px;background:var(--s2,#171719);border:1px solid var(--b1,#242428);border-radius:10px;padding:10px 14px;margin:6px 16px 0}
+.mob-search-bar input{background:none;border:none;outline:none;color:var(--t,#F2F2F5);font-size:16px;font-family:inherit;width:100%}
+@media(max-width:768px){
+  .mob-menu-btn{display:flex !important}
+  .mob-search-bar{display:flex !important}
+  .mob-bottom-nav{display:flex !important}
+  body{padding-bottom:64px}
+  input,select,textarea{font-size:16px !important}
 }
 
 </style>
@@ -200,7 +171,7 @@ nav{position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom
     <div class="doc-section" id="s10">
       <h2>제10조 (분쟁 해결)</h2>
       <p>서비스 이용과 관련된 분쟁은 회사와 이용자 간의 협의로 해결함을 원칙으로 합니다. 협의가 이루어지지 않을 경우 민사소송법상의 관할 법원에 소를 제기할 수 있습니다.</p>
-      <div class="highlight-box"><p><strong>사업자 정보</strong><br>상호명: GUGU.<br>통신판매업 신고번호: 2026-서울-00000<br>이메일: support@gugu.kr</p></div>
+      <div class="highlight-box"><p><strong>사업자 정보</strong><br>상호명: GUGU.<br>통신판매업 신고번호: 2026-서울-00000<br>이메일: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a2a4a1a1bea3a591b6a4b6a4ffbaa3">[email&#160;protected]</a></p></div>
     </div>
   </div>
 </div>
@@ -223,11 +194,4 @@ nav{position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom
     <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
     <span class="mbn-label">알림</span>
   </a>
-  <a class="mbn-item" href="mypage.html">
-    <span class="mbn-icon">👤</span>
-    <span class="mbn-label">마이</span>
-  </a>
-</nav>
-
-</body>
-</html>
+  <a class="mbn-item" href="mypage.h
