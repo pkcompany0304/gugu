@@ -139,17 +139,18 @@ input, select, textarea { font-size: 16px !important; }
     <div id="login-panel">
       <div class="form-group">
         <label class="form-label">이메일</label>
-        <input class="form-input" type="email" placeholder="email@example.com">
+        <input class="form-input" type="email" placeholder="email@example.com" id="loginEmail">
       </div>
       <div class="form-group">
         <label class="form-label">비밀번호</label>
-        <input class="form-input" type="password" placeholder="••••••••">
+        <input class="form-input" type="password" placeholder="••••••••" id="loginPassword">
       </div>
+      <div id="loginError" style="display:none;color:#FF3B3B;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(255,59,59,0.08);border-radius:8px"></div>
       <div class="form-row">
         <label class="form-check"><input type="checkbox" checked> 로그인 상태 유지</label>
         <a class="form-link" href="#">비밀번호 찾기</a>
       </div>
-      <button class="btn-submit" onclick="location.href='index.html'">로그인</button>
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">로그인</button>
       <div class="social-divider"><span>또는</span></div>
       <div class="social-btns">
         <button class="social-btn">🟡 카카오</button>
@@ -175,26 +176,40 @@ input, select, textarea { font-size: 16px !important; }
       </div>
       <div class="form-group">
         <label class="form-label">이름</label>
-        <input class="form-input" type="text" placeholder="홍길동">
+        <input class="form-input" type="text" placeholder="홍길동" id="signupName">
       </div>
       <div class="form-group">
         <label class="form-label">이메일</label>
-        <input class="form-input" type="email" placeholder="email@example.com">
+        <input class="form-input" type="email" placeholder="email@example.com" id="signupEmail">
       </div>
       <div class="form-group">
         <label class="form-label">비밀번호</label>
-        <input class="form-input" type="password" placeholder="8자 이상">
+        <input class="form-input" type="password" placeholder="8자 이상" id="signupPassword">
       </div>
       <div class="form-group">
         <label class="form-label">휴대폰 번호</label>
-        <input class="form-input" type="tel" placeholder="010-0000-0000">
+        <input class="form-input" type="tel" placeholder="010-0000-0000" id="signupPhone">
       </div>
-      <button class="btn-submit" onclick="location.href='index.html'">가입하기</button>
+      <div id="signupError" style="display:none;color:#FF3B3B;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(255,59,59,0.08);border-radius:8px"></div>
+      <div id="signupSuccess" style="display:none;color:#22c55e;font-size:13px;margin-bottom:12px;padding:10px;background:rgba(34,197,94,0.08);border-radius:8px"></div>
+      <button class="btn-submit" id="signupBtn" onclick="doSignup()">가입하기</button>
       <div class="form-bottom">이미 계정이 있으신가요? <a href="#" onclick="switchTabByName('login')">로그인</a></div>
     </div>
   </div>
 </div>
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 <script>
+// 이미 로그인된 경우 리디렉션
+(async()=>{
+  const u = await getCurrentUser();
+  if(u){
+    if(u.profile?.role==='influencer') location.href='influencer-dashboard.html';
+    else location.href='index.html';
+  }
+})();
+
 function switchTab(name, el){
   document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
@@ -205,7 +220,72 @@ function switchTabByName(name){
   const tabs=document.querySelectorAll('.ftab');
   tabs[name==='login'?0:1].click();
 }
-function selectType(el){document.querySelectorAll('.type-card').forEach(t=>t.classList.remove('active'));el.classList.add('active')}
+
+let selectedRole = 'consumer';
+function selectType(el){
+  document.querySelectorAll('.type-card').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  selectedRole = el.querySelector('.tc-name').textContent.includes('인플루언서') ? 'influencer' : 'consumer';
+}
+
+async function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+
+  if(!email || !pw){ errEl.style.display='block'; errEl.textContent='이메일과 비밀번호를 입력해주세요.'; return; }
+
+  btn.textContent='로그인 중...'; btn.disabled=true;
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+
+  if(error){
+    errEl.style.display='block';
+    errEl.textContent = error.message.includes('Invalid') ? '이메일 또는 비밀번호가 올바르지 않습니다.' : error.message;
+    btn.textContent='로그인'; btn.disabled=false;
+    return;
+  }
+
+  // 프로필에서 역할 확인 후 리디렉션
+  const { data: profile } = await sb.from('profiles').select('role').eq('id', data.user.id).single();
+  if(profile?.role==='influencer') location.href='influencer-dashboard.html';
+  else location.href='index.html';
+}
+
+async function doSignup(){
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pw = document.getElementById('signupPassword').value;
+  const phone = document.getElementById('signupPhone').value.trim();
+  const errEl = document.getElementById('signupError');
+  const okEl = document.getElementById('signupSuccess');
+  const btn = document.getElementById('signupBtn');
+
+  errEl.style.display='none'; okEl.style.display='none';
+  if(!name||!email||!pw){ errEl.style.display='block'; errEl.textContent='이름, 이메일, 비밀번호는 필수입니다.'; return; }
+  if(pw.length<8){ errEl.style.display='block'; errEl.textContent='비밀번호는 8자 이상이어야 합니다.'; return; }
+
+  btn.textContent='가입 중...'; btn.disabled=true;
+  const { data, error } = await sb.auth.signUp({
+    email, password: pw,
+    options: { data: { name, phone, role: selectedRole } }
+  });
+
+  if(error){
+    errEl.style.display='block'; errEl.textContent=error.message;
+    btn.textContent='가입하기'; btn.disabled=false;
+    return;
+  }
+
+  if(selectedRole==='influencer'){
+    okEl.style.display='block';
+    okEl.textContent='가입 완료! 이메일 인증 후 인플루언서 대시보드를 이용할 수 있어요.';
+  } else {
+    okEl.style.display='block';
+    okEl.textContent='가입 완료! 이메일 인증 후 로그인해주세요.';
+  }
+  btn.textContent='가입 완료'; btn.disabled=true;
+}
 </script>
 
 <!-- 모바일 하단 네비게이션 -->

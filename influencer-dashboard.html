@@ -184,8 +184,9 @@ input, select, textarea { font-size: 16px !important; }
     <span class="nav-badge">인플루언서</span>
     <div class="nav-right">
       <button class="btn-new-gugu" onclick="location.href='open-gugu.html'">+ 공구 열기</button>
-      <div class="nav-av">지</div>
-      <div class="nav-name">지민뷰티</div>
+      <div class="nav-av" id="navAv">-</div>
+      <div class="nav-name" id="navName">로딩중...</div>
+      <button onclick="signOut()" style="padding:6px 12px;border-radius:7px;border:1px solid var(--b1);background:none;color:var(--t2);font-size:12px;cursor:pointer;font-family:inherit">로그아웃</button>
     </div>
   </div>
 </nav>
@@ -215,8 +216,8 @@ input, select, textarea { font-size: 16px !important; }
   <div class="main">
     <div class="page-header">
       <div>
-        <div class="page-title">안녕하세요, 지민뷰티님 👋</div>
-        <div style="font-size:13px;color:var(--t2);margin-top:3px">현재 3개 공구가 진행 중이에요</div>
+        <div class="page-title" id="greetingTitle">안녕하세요 👋</div>
+        <div style="font-size:13px;color:var(--t2);margin-top:3px" id="greetingSub">공구 현황을 불러오는 중...</div>
       </div>
       <div class="period-select">
         <button class="period-btn">오늘</button>
@@ -229,27 +230,27 @@ input, select, textarea { font-size: 16px !important; }
     <div class="kpi-grid">
       <div class="kpi">
         <div class="kpi-label">이번달 수익 💰</div>
-        <div class="kpi-val green">4,821,000</div>
+        <div class="kpi-val green" id="kpiRevenue">-</div>
         <div style="font-size:11px;color:var(--t2);margin-bottom:4px">원</div>
-        <div class="kpi-change up">↑ 23.4% 지난달 대비</div>
+        <div class="kpi-change" id="kpiRevenueSub" style="color:var(--t2)">집계 중...</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">총 참여자 👥</div>
-        <div class="kpi-val orange">12,847</div>
+        <div class="kpi-val orange" id="kpiParticipants">-</div>
         <div style="font-size:11px;color:var(--t2);margin-bottom:4px">명</div>
-        <div class="kpi-change up">↑ 8.1% 지난달 대비</div>
+        <div class="kpi-change" id="kpiParticipantsSub" style="color:var(--t2)">집계 중...</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">진행중 공구 🔥</div>
-        <div class="kpi-val red">3</div>
+        <div class="kpi-val red" id="kpiActive">-</div>
         <div style="font-size:11px;color:var(--t2);margin-bottom:4px">개</div>
-        <div class="kpi-change" style="color:var(--t2)">총 18개 완료</div>
+        <div class="kpi-change" id="kpiActiveSub" style="color:var(--t2)">집계 중...</div>
       </div>
       <div class="kpi">
         <div class="kpi-label">평균 달성률 🎯</div>
-        <div class="kpi-val">94</div>
+        <div class="kpi-val" id="kpiAvgPct">-</div>
         <div style="font-size:11px;color:var(--t2);margin-bottom:4px">%</div>
-        <div class="kpi-change up">↑ 2.3% 지난달 대비</div>
+        <div class="kpi-change" id="kpiAvgPctSub" style="color:var(--t2)">집계 중...</div>
       </div>
     </div>
 
@@ -284,36 +285,10 @@ input, select, textarea { font-size: 16px !important; }
       </div>
       <table class="gugu-table">
         <thead>
-          <tr><th>상품</th><th>참여자</th><th>진행률</th><th>수익</th><th>마감</th><th>상태</th><th></th></tr>
+          <tr><th>상품</th><th>참여자</th><th>진행률</th><th>예상수익</th><th>마감</th><th>상태</th><th></th></tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><div class="gt-product"><div class="gt-emoji">🧴</div><div><div class="gt-name">닥터자르트 시카페어 크림</div><div class="gt-cat">스킨케어 · 31,900원</div></div></div></td>
-            <td><strong>4,812</strong><br><span style="font-size:11px;color:var(--t2)">목표 6,500</span></td>
-            <td><div class="gt-prog"><span style="font-size:12px;font-weight:600">74%</span><div class="prog-bar"><div class="prog-fill" style="width:74%"></div></div></div></td>
-            <td><strong style="color:var(--g)">1,832,400원</strong></td>
-            <td><span style="font-size:12px">2일 14시간</span></td>
-            <td><span class="gt-status st-live"><span class="gt-dot"></span> 진행중</span></td>
-            <td><div class="gt-action"><button class="gt-btn">수정</button><button class="gt-btn">상세</button></div></td>
-          </tr>
-          <tr>
-            <td><div class="gt-product"><div class="gt-emoji">💄</div><div><div class="gt-name">롬앤 쥬시래스팅틴트</div><div class="gt-cat">메이크업 · 11,200원</div></div></div></td>
-            <td><strong>3,291</strong><br><span style="font-size:11px;color:var(--t2)">목표 3,500</span></td>
-            <td><div class="gt-prog"><span style="font-size:12px;font-weight:600">94%</span><div class="prog-bar"><div class="prog-fill" style="width:94%"></div></div></div></td>
-            <td><strong style="color:var(--g)">1,021,000원</strong></td>
-            <td><span style="font-size:12px;color:var(--r)">1일 3시간</span></td>
-            <td><span class="gt-status st-live"><span class="gt-dot"></span> 진행중</span></td>
-            <td><div class="gt-action"><button class="gt-btn">수정</button><button class="gt-btn">상세</button></div></td>
-          </tr>
-          <tr>
-            <td><div class="gt-product"><div class="gt-emoji">🌿</div><div><div class="gt-name">이니스프리 그린티 세럼</div><div class="gt-cat">스킨케어 · 22,800원</div></div></div></td>
-            <td><strong>890</strong><br><span style="font-size:11px;color:var(--t2)">목표 2,000</span></td>
-            <td><div class="gt-prog"><span style="font-size:12px;font-weight:600">45%</span><div class="prog-bar"><div class="prog-fill" style="width:45%"></div></div></div></td>
-            <td><strong style="color:var(--g)">382,600원</strong></td>
-            <td><span style="font-size:12px">5일 8시간</span></td>
-            <td><span class="gt-status st-ready">준비중</span></td>
-            <td><div class="gt-action"><button class="gt-btn">수정</button><button class="gt-btn">상세</button></div></td>
-          </tr>
+        <tbody id="guguTableBody">
+          <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--t2)">공구 데이터를 불러오는 중...</td></tr>
         </tbody>
       </table>
     </div>
@@ -373,18 +348,110 @@ input, select, textarea { font-size: 16px !important; }
   </div>
 </div>
 
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 <script>
-const months=['10월','11월','12월','1월','2월','3월'];
-const vals=[2100000,3200000,2800000,3900000,3900000,4821000];
-const max=Math.max(...vals);
-const bc=document.getElementById('barChart');
-months.forEach((m,i)=>{
-  const pct=Math.round(vals[i]/max*100);
-  const isLast=i===months.length-1;
-  bc.innerHTML+=`<div class="bar-wrap"><div class="bar-track"><div class="bar" style="height:${pct}%;background:${isLast?'linear-gradient(180deg,var(--r),var(--o))':'var(--s2)'};border:1px solid ${isLast?'transparent':'var(--b1)'}"></div></div><div class="bar-label">${m}</div></div>`;
-});
 document.querySelectorAll('.sb-item').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.sb-item').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
 document.querySelectorAll('.period-btn').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.period-btn').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
+
+const statusMap = {
+  active: '<span class="gt-status st-live"><span class="gt-dot"></span> 진행중</span>',
+  ready:  '<span class="gt-status st-ready">준비중</span>',
+  closed: '<span class="gt-status st-end">종료</span>',
+  cancelled: '<span class="gt-status st-end">취소</span>',
+};
+const catEmoji = { '뷰티 · 스킨케어':'🧴','뷰티 · 메이크업':'💄','패션':'👗','푸드':'🍱','라이프':'🌿','피트니스':'💪' };
+
+function renderGuguTable(gugus) {
+  const tbody = document.getElementById('guguTableBody');
+  if(!gugus.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t2)">아직 등록된 공구가 없어요.<br><a href="open-gugu.html" style="color:var(--r);text-decoration:none;font-weight:600">+ 첫 공구 열기</a></td></tr>';
+    return;
+  }
+  tbody.innerHTML = gugus.map(g => {
+    const pct = progressPct(g.current_participants, g.target_participants);
+    const rev = Math.round(g.sale_price * g.current_participants * 0.95);
+    const emoji = catEmoji[g.category] || '🛍️';
+    const dl = daysLeft(g.end_date);
+    return `<tr>
+      <td><div class="gt-product"><div class="gt-emoji">${emoji}</div><div>
+        <div class="gt-name">${g.product_name}</div>
+        <div class="gt-cat">${g.category||''} · ${Number(g.sale_price).toLocaleString()}원</div>
+      </div></div></td>
+      <td><strong>${Number(g.current_participants).toLocaleString()}</strong><br>
+        <span style="font-size:11px;color:var(--t2)">목표 ${Number(g.target_participants||0).toLocaleString()}</span></td>
+      <td><div class="gt-prog"><span style="font-size:12px;font-weight:600">${pct}%</span>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div></div></td>
+      <td><strong style="color:var(--g)">${Number(rev).toLocaleString()}원</strong></td>
+      <td><span style="font-size:12px">${dl}</span></td>
+      <td>${statusMap[g.status]||''}</td>
+      <td><div class="gt-action">
+        <button class="gt-btn" onclick="location.href='open-gugu.html?id=${g.id}'">수정</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderBarChart(gugus) {
+  // 최근 6개월 월별 예상수익
+  const now = new Date();
+  const months = [];
+  for(let i=5;i>=0;i--){
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    months.push({ label: `${d.getMonth()+1}월`, year: d.getFullYear(), month: d.getMonth() });
+  }
+  const vals = months.map(m => {
+    return gugus
+      .filter(g => { if(!g.created_at) return false; const d=new Date(g.created_at); return d.getFullYear()===m.year && d.getMonth()===m.month; })
+      .reduce((s,g) => s + Math.round(g.sale_price * g.current_participants * 0.95), 0);
+  });
+  const maxV = Math.max(...vals, 1);
+  const bc = document.getElementById('barChart');
+  bc.innerHTML = months.map((m,i)=>{
+    const pct = Math.round(vals[i]/maxV*100)||4;
+    const isLast = i===months.length-1;
+    return `<div class="bar-wrap"><div class="bar-track"><div class="bar" style="height:${pct}%;background:${isLast?'linear-gradient(180deg,var(--r),var(--o))':'var(--s2)'};border:1px solid ${isLast?'transparent':'var(--b1)'}"></div></div><div class="bar-label">${m.label}</div></div>`;
+  }).join('');
+}
+
+// 메인 진입
+(async()=>{
+  const u = await getCurrentUser();
+  if(!u){ location.href='login.html'; return; }
+  if(u.profile?.role !== 'influencer'){ location.href='index.html'; return; }
+
+  const name = u.profile?.channel_name || u.profile?.name || '인플루언서';
+  const initial = name[0] || '?';
+
+  document.getElementById('navAv').textContent = initial;
+  document.getElementById('navName').textContent = name;
+
+  // 공구 목록 조회
+  const gugus = await getInfluencerGugus(u.id);
+
+  const activeGugus = gugus.filter(g=>g.status==='active');
+  const closedGugus = gugus.filter(g=>g.status==='closed');
+  const totalParticipants = gugus.reduce((s,g)=>s+g.current_participants,0);
+  const thisMonthRev = gugus
+    .filter(g=>{ if(!g.created_at)return false; const d=new Date(g.created_at); const now=new Date(); return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear(); })
+    .reduce((s,g)=>s+Math.round(g.sale_price*g.current_participants*0.95),0);
+  const avgPct = gugus.length ? Math.round(gugus.reduce((s,g)=>s+progressPct(g.current_participants,g.target_participants),0)/gugus.length) : 0;
+
+  document.getElementById('greetingTitle').textContent = `안녕하세요, ${name}님 👋`;
+  document.getElementById('greetingSub').textContent = activeGugus.length ? `현재 ${activeGugus.length}개 공구가 진행 중이에요` : '진행중인 공구가 없어요. 새 공구를 열어보세요!';
+  document.getElementById('kpiRevenue').textContent = Number(thisMonthRev).toLocaleString();
+  document.getElementById('kpiRevenueSub').textContent = '이번달 예상 순수익 (수수료 제외)';
+  document.getElementById('kpiParticipants').textContent = Number(totalParticipants).toLocaleString();
+  document.getElementById('kpiParticipantsSub').textContent = `총 ${gugus.length}개 공구 합산`;
+  document.getElementById('kpiActive').textContent = activeGugus.length;
+  document.getElementById('kpiActiveSub').textContent = `총 ${closedGugus.length}개 완료`;
+  document.getElementById('kpiAvgPct').textContent = avgPct;
+  document.getElementById('kpiAvgPctSub').textContent = '전체 공구 평균 달성률';
+
+  renderGuguTable(gugus);
+  renderBarChart(gugus);
+})();
 </script>
 
 <!-- 모바일 하단 네비게이션 -->

@@ -144,8 +144,8 @@ input, select, textarea { font-size: 16px !important; }
     <div class="logo">GUGU<span>.</span></div>
     <span class="nav-badge">인플루언서</span>
     <div class="nav-right">
-      <div class="nav-av">지</div>
-      <div class="nav-name">지민뷰티</div>
+      <div class="nav-av" id="navAv">-</div>
+      <div class="nav-name" id="navName">로딩중...</div>
     </div>
   </div>
 </nav>
@@ -329,7 +329,7 @@ input, select, textarea { font-size: 16px !important; }
       <div class="preview-card">
         <div class="preview-img">🛍️</div>
         <div class="preview-body">
-          <div class="preview-inf">지민뷰티 공구</div>
+          <div class="preview-inf" id="prevInf">인플루언서 공구</div>
           <div class="preview-name" id="prevName">제품명을 입력해주세요</div>
           <div class="preview-price-row">
             <span class="preview-orig" id="prevOrig">-</span>
@@ -347,13 +347,30 @@ input, select, textarea { font-size: 16px !important; }
     </div>
   </div>
 
+  <div id="submitError" style="display:none;color:#FF3B3B;font-size:13px;margin-top:12px;padding:12px;background:rgba(255,59,59,0.08);border-radius:8px"></div>
   <div class="bottom-cta">
     <button class="btn-back" onclick="location.href='influencer-dashboard.html'">← 대시보드로</button>
-    <button class="btn-next">다음 단계 →</button>
+    <button class="btn-next" id="submitBtn" onclick="submitGugu()">공구 등록하기</button>
   </div>
 </div>
 
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 <script>
+let currentUser = null;
+
+(async()=>{
+  const u = await getCurrentUser();
+  if(!u){ location.href='login.html'; return; }
+  if(u.profile?.role!=='influencer'){ location.href='index.html'; return; }
+  currentUser = u;
+  const name = u.profile?.channel_name || u.profile?.name || '인플루언서';
+  document.getElementById('navAv').textContent = name[0]||'?';
+  document.getElementById('navName').textContent = name;
+  document.getElementById('prevInf').textContent = name + ' 공구';
+})();
+
 function updatePreview(){
   const n=document.getElementById('pname').value;
   document.getElementById('prevName').textContent=n||'제품명을 입력해주세요';
@@ -381,6 +398,60 @@ function calcPrice(){
   } else { calc.style.display='none' }
 }
 function setPeriod(el){document.querySelectorAll('.period-opt').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+
+async function submitGugu(){
+  const errEl = document.getElementById('submitError');
+  const btn = document.getElementById('submitBtn');
+  errEl.style.display='none';
+
+  const productName = document.getElementById('pname').value.trim();
+  const origPrice = Number(document.getElementById('origprice').value);
+  const salePrice = Number(document.getElementById('saleprice').value);
+  const startDate = document.querySelector('input[type=date]')?.value;
+  const target = Number(document.getElementById('target')?.value)||0;
+  const category = document.querySelector('.form-select')?.value;
+  const desc = document.getElementById('pdesc')?.value?.trim()||'';
+
+  if(!productName){ errEl.style.display='block'; errEl.textContent='제품명을 입력해주세요.'; return; }
+  if(!origPrice||!salePrice){ errEl.style.display='block'; errEl.textContent='정가와 공구가를 입력해주세요.'; return; }
+  if(salePrice>origPrice){ errEl.style.display='block'; errEl.textContent='공구가는 정가보다 낮아야 합니다.'; return; }
+  if(!startDate){ errEl.style.display='block'; errEl.textContent='시작일을 선택해주세요.'; return; }
+  if(!currentUser){ errEl.style.display='block'; errEl.textContent='로그인이 필요합니다.'; return; }
+
+  // 공구 기간 계산
+  const activePeriod = document.querySelector('.period-opt.active')?.textContent;
+  const periodDays = activePeriod==='3일'?3:activePeriod==='7일'?7:5;
+  const endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate()+periodDays);
+
+  btn.textContent='등록 중...'; btn.disabled=true;
+
+  const { data, error } = await sb.from('gugus').insert({
+    influencer_id: currentUser.id,
+    product_name: productName,
+    description: desc,
+    category: category==='카테고리 선택' ? null : category,
+    original_price: origPrice,
+    sale_price: salePrice,
+    target_participants: target,
+    current_participants: 0,
+    status: 'active',
+    start_date: startDate,
+    end_date: endDate.toISOString().split('T')[0],
+    commission_rate: 0.05,
+  }).select().single();
+
+  if(error){
+    errEl.style.display='block';
+    errEl.textContent='등록 중 오류가 발생했습니다: '+error.message;
+    btn.textContent='공구 등록하기'; btn.disabled=false;
+    return;
+  }
+
+  // 성공 → 대시보드로
+  alert('공구가 성공적으로 등록되었습니다! 🎉');
+  location.href='influencer-dashboard.html';
+}
 </script>
 
 <!-- 모바일 하단 네비게이션 -->
