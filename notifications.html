@@ -2,245 +2,155 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>알림 — GUGU.</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GUGU. — 알림</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95)border-bottom:1px solid var(--b1)}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:16px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none}.logo em{color:var(--r);font-style:normal}
-.nav-title{font-size:16px;font-weight:700;color:var(--t)}
-.nav-r{margin-left:auto;display:flex;gap:8px}
-.btn-sm{padding:6px 14px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.btn-ghost{background:none;border:1px solid var(--b2);color:var(--t2)}.btn-ghost:hover{color:var(--t)}
-
-.wrap{max-width:720px;margin:0 auto;padding:32px 28px 80px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
+html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
+body{padding-top:52px;padding-bottom:66px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid var(--b1)}
+.nav-back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
+.nav-title-wrap{flex:1;display:flex;align-items:center;gap:8px}
+.nav-title{font-size:18px;font-weight:800}
+.nav-badge{font-size:11px;font-weight:700;color:var(--r);background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.2);padding:2px 8px;border-radius:99px}
+.nav-read{font-size:12px;color:var(--t3);cursor:pointer}
 
 /* 필터 탭 */
-.notif-tabs{display:flex;gap:6px;margin-bottom:20px}
-.nt{padding:7px 16px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--b1);background:none;color:var(--t2);font-family:inherit;transition:.2s;position:relative}
-.nt:hover{border-color:var(--b2);color:var(--t)}.nt.on{background:var(--r);border-color:var(--r);color:#fff}
-.nt .cnt{position:absolute;top:-5px;right:-5px;background:var(--r);color:#fff;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--bg)}
-.nt.on .cnt{display:none}
+.filter-strip{display:flex;gap:6px;overflow-x:auto;padding:10px 16px 8px;border-bottom:1px solid var(--b1)}
+.filter-strip::-webkit-scrollbar{display:none}
+.ftab{flex-shrink:0;padding:6px 13px;border-radius:18px;font-size:12px;font-weight:600;border:1px solid var(--b1);background:none;color:var(--t2);font-family:inherit;cursor:pointer;white-space:nowrap;transition:.15s}
+.ftab.on{background:var(--r);border-color:var(--r);color:#fff}
 
 /* 날짜 그룹 */
-.notif-date{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;padding:8px 0;margin-bottom:2px}
+.date-group{margin:0 16px;margin-top:14px;margin-bottom:4px}
+.dg-label{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;text-transform:uppercase;padding-bottom:8px}
 
-/* 알림 카드 */
-.notif-item{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:16px;background:var(--s1);border:1px solid var(--b1);
-  border-radius:13px;margin-bottom:8px;cursor:pointer;transition:.2s;
-  position:relative;text-decoration:none;
-}
-.notif-item:hover{border-color:var(--b2)}
-.notif-item.unread{background:var(--s1);border-color:rgba(255,59,59,.18)}
-.notif-item.unread::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--r);border-radius:13px 0 0 13px}
-.ni-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.ni-new-gugu{background:rgba(255,59,59,.12)}
-.ni-deadline{background:rgba(255,138,0,.12)}
-.ni-order{background:rgba(34,197,94,.12)}
-.ni-follow{background:rgba(99,102,241,.12)}
-.ni-system{background:rgba(100,100,120,.12)}
+/* 알림 아이템 */
+.nitem{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer;transition:.1s;border-bottom:1px solid rgba(36,36,40,.5);position:relative}
+.nitem.unread{background:rgba(255,59,59,.03)}
+.nitem.unread::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:52%;background:var(--r);border-radius:0 2px 2px 0}
+.ni-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ni-body{flex:1;min-width:0}
-.ni-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px}
-.ni-title{font-size:14px;font-weight:700;color:var(--t);line-height:1.4}
-.notif-item.unread .ni-title{color:var(--t)}
-.notif-item:not(.unread) .ni-title{color:var(--t2)}
-.ni-time{font-size:11px;color:var(--t3);white-space:nowrap;flex-shrink:0}
-.ni-desc{font-size:13px;color:var(--t2);line-height:1.5}
-.ni-tag{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px}
-.tag-r{background:rgba(255,59,59,.1);color:var(--r)}
-.tag-o{background:rgba(255,138,0,.1);color:var(--o)}
-.tag-g{background:rgba(34,197,94,.1);color:var(--g)}
-.tag-b{background:rgba(99,102,241,.1);color:var(--bl)}
-.ni-thumb{width:48px;height:48px;border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-
-/* 읽음 처리 버튼 */
-.notif-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.na-left{font-size:13px;color:var(--t2)}.na-left span{color:var(--r);font-weight:600}
-.mark-all{font-size:13px;color:var(--t2);cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline}
-.mark-all:hover{color:var(--t)}
+.ni-top{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.ni-tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px}
+.tag-new{background:rgba(255,59,59,.1);color:var(--r)}
+.tag-end{background:rgba(255,138,0,.1);color:var(--o)}
+.tag-ship{background:rgba(34,197,94,.1);color:var(--g)}
+.tag-follow{background:rgba(99,102,241,.1);color:var(--bl)}
+.ni-time{font-size:10px;color:var(--t3);margin-left:auto}
+.ni-title{font-size:14px;font-weight:700;color:var(--t);margin-bottom:3px;line-height:1.4}
+.ni-sub{font-size:12px;color:var(--t2);line-height:1.4}
+.ni-img{width:44px;height:44px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 
 /* 빈 상태 */
-.empty-state{text-align:center;padding:64px 0}
-.es-icon{font-size:52px;margin-bottom:16px;opacity:.3}
-.es-title{font-size:18px;font-weight:700;color:var(--t);margin-bottom:8px}
-.es-desc{font-size:14px;color:var(--t2);line-height:1.7}
+.empty{display:flex;flex-direction:column;align-items:center;padding:64px 20px;text-align:center}
+.empty-icon{font-size:52px;opacity:.2;margin-bottom:16px}
+.empty-title{font-size:18px;font-weight:800;margin-bottom:8px}
+.empty-sub{font-size:13px;color:var(--t2);line-height:1.6}
 
-@media(max-width:768px){
-  .wrap{padding:20px 16px}
-  .notif-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .notif-tabs::-webkit-scrollbar{display:none}
-  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
-  .mob-bottom-nav{display:flex}
-  body{padding-bottom:62px}
-  input,select,textarea{font-size:16px !important}
-}
-
+/* 하단 탭바 */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:var(--t3);text-decoration:none;font-size:10px;font-weight:600}
+.bn-item.on{color:var(--r)}
+.bn-icon{font-size:20px;line-height:1}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">GUGU<em>.</em></a>
+<div class="nav">
+  <div class="nav-back" onclick="history.back()">←</div>
+  <div class="nav-title-wrap">
     <div class="nav-title">알림</div>
-    <div class="nav-r">
-      <button class="btn-sm btn-ghost" onclick="markAllRead()">모두 읽음</button>
-    </div>
+    <div class="nav-badge">3 미읽음</div>
   </div>
-</nav>
-
-<div class="wrap">
-  <div class="notif-tabs">
-    <button class="nt on" onclick="setTab(this,'all')">전체<span class="cnt">8</span></button>
-    <button class="nt" onclick="setTab(this,'gugu')">새 공구<span class="cnt">3</span></button>
-    <button class="nt" onclick="setTab(this,'deadline')">마감임박<span class="cnt">2</span></button>
-    <button class="nt" onclick="setTab(this,'order')">주문/배송<span class="cnt">2</span></button>
-    <button class="nt" onclick="setTab(this,'system')">시스템</button>
-  </div>
-
-  <div class="notif-actions">
-    <div class="na-left">읽지 않은 알림 <span>8개</span></div>
-    <button class="mark-all" onclick="markAllRead()">모두 읽음 처리</button>
-  </div>
-
-  <div id="notif-list">
-    <div class="notif-date">오늘</div>
-
-    <a class="notif-item unread" href="product-detail.html" data-type="gugu">
-      <div class="ni-icon ni-new-gugu">🛍️</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">지민뷰티가 새 공구를 열었어요</div><div class="ni-time">방금</div></div>
-        <div class="ni-desc">레티날 0.1% 나이트 세럼 30ml — 팔로워 전용 40% 할인</div>
-        <div class="ni-tag tag-r">🔥 새 공구</div>
-      </div>
-      <div class="ni-thumb">🧴</div>
-    </a>
-
-    <a class="notif-item unread" href="product-detail.html" data-type="deadline">
-      <div class="ni-icon ni-deadline">⏰</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">찜한 공구가 2시간 후 마감돼요</div><div class="ni-time">14분 전</div></div>
-        <div class="ni-desc">효리핏 · 마이프로틴 웨이프로틴 2.5kg — 지금 바로 참여하세요</div>
-        <div class="ni-tag tag-o">⏰ 마감임박</div>
-      </div>
-      <div class="ni-thumb">🏋️</div>
-    </a>
-
-    <a class="notif-item unread" href="product-detail.html" data-type="gugu">
-      <div class="ni-icon ni-new-gugu">🛍️</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">채링이가 새 공구를 열었어요</div><div class="ni-time">34분 전</div></div>
-        <div class="ni-desc">나이아신아마이드 10% 토너패드 100매 — 오늘 마감 특가</div>
-        <div class="ni-tag tag-r">🔥 새 공구</div>
-      </div>
-      <div class="ni-thumb">💊</div>
-    </a>
-
-    <a class="notif-item unread" href="order-complete.html" data-type="order">
-      <div class="ni-icon ni-order">📦</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">주문하신 상품이 출발했어요</div><div class="ni-time">2시간 전</div></div>
-        <div class="ni-desc">엑소좀 앰플 + 크림 세트 · CJ대한통운 1234567890</div>
-        <div class="ni-tag tag-g">🚚 배송 시작</div>
-      </div>
-      <div class="ni-thumb">📦</div>
-    </a>
-
-    <div class="notif-date" style="margin-top:16px">어제</div>
-
-    <a class="notif-item unread" href="product-detail.html" data-type="gugu">
-      <div class="ni-icon ni-new-gugu">🛍️</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">나리스타일이 새 공구를 열었어요</div><div class="ni-time">어제 오후 6:22</div></div>
-        <div class="ni-desc">배럴핏 와이드 데님 3컬러 SS26 — 40% 할인</div>
-        <div class="ni-tag tag-r">🔥 새 공구</div>
-      </div>
-      <div class="ni-thumb">👗</div>
-    </a>
-
-    <a class="notif-item unread" href="product-detail.html" data-type="deadline">
-      <div class="ni-icon ni-deadline">⏰</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">머슬박사 공구가 6시간 후 마감돼요</div><div class="ni-time">어제 오후 3:10</div></div>
-        <div class="ni-desc">제로슈거 웨이프로틴 초코맛 2kg — 91% 목표 달성</div>
-        <div class="ni-tag tag-o">⏰ 마감임박</div>
-      </div>
-      <div class="ni-thumb">💪</div>
-    </a>
-
-    <a class="notif-item" href="mypage.html" data-type="order">
-      <div class="ni-icon ni-order">✅</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">배송이 완료됐어요</div><div class="ni-time">어제 오후 1:42</div></div>
-        <div class="ni-desc">롬앤 쥬시래스팅틴트 · 수령하셨나요? 리뷰를 남겨주세요</div>
-        <div class="ni-tag tag-g">✅ 배송 완료</div>
-      </div>
-      <div class="ni-thumb">💄</div>
-    </a>
-
-    <div class="notif-date" style="margin-top:16px">3일 전</div>
-
-    <a class="notif-item" href="#" data-type="system">
-      <div class="ni-icon ni-system">📢</div>
-      <div class="ni-body">
-        <div class="ni-top"><div class="ni-title">GUGU 서비스 업데이트 안내</div><div class="ni-time">3일 전</div></div>
-        <div class="ni-desc">공구 알림 기능이 추가됐어요. 팔로잉 인플루언서 새 공구 오픈 시 즉시 알림을 받을 수 있어요.</div>
-        <div class="ni-tag tag-b">📢 공지</div>
-      </div>
-    </a>
-  </div>
+  <div class="nav-read" onclick="readAll()">모두 읽음</div>
 </div>
 
-<script>
-function setTab(btn,type){
-  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('on'));
-  btn.classList.add('on');
-  const items=document.querySelectorAll('.notif-item');
-  items.forEach(item=>{
-    if(type==='all'||item.dataset.type===type){item.style.display='flex';}
-    else{item.style.display='none';}
-  });
-  document.querySelectorAll('.notif-date').forEach(d=>{
-    d.style.display='block';
-  });
-}
-function markAllRead(){
-  document.querySelectorAll('.notif-item.unread').forEach(item=>{
-    item.classList.remove('unread');
-  });
-  document.querySelectorAll('.nt .cnt').forEach(c=>c.remove());
-  document.querySelector('.na-left').innerHTML='읽지 않은 알림 <span style="color:var(--t2)">0개</span>';
-}
-</script>
+<div class="filter-strip">
+  <button class="ftab on" onclick="setFtab(this)">전체</button>
+  <button class="ftab" onclick="setFtab(this)">새 공구</button>
+  <button class="ftab" onclick="setFtab(this)">마감임박</button>
+  <button class="ftab" onclick="setFtab(this)">배송</button>
+  <button class="ftab" onclick="setFtab(this)">팔로잉</button>
+</div>
 
-<!-- 모바일 하단 네비게이션 -->
-<nav class="mob-bottom-nav" id="mobBottomNav">
-  <a class="mbn-item" href="index.html">
-    <span class="mbn-icon">🏠</span>
-    <span class="mbn-label">홈</span>
-  </a>
-  <a class="mbn-item" href="category.html">
-    <span class="mbn-icon">🔍</span>
-    <span class="mbn-label">탐색</span>
-  </a>
-  <a class="mbn-item" href="search.html">
-    <span class="mbn-icon">⌕</span>
-    <span class="mbn-label">검색</span>
-  </a>
-  <a class="mbn-item" href="notifications.html">
-    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
-    <span class="mbn-label">알림</span>
-  </a>
-  <a class="mbn-item" href="mypage.html">
-    <span class="mbn-icon">👤</span>
-    <span class="mbn-label">마이</span>
-  </a>
+<!-- 오늘 -->
+<div class="date-group"><div class="dg-label">오늘</div></div>
+
+<div class="nitem unread" onclick="location.href='product-detail.html'">
+  <div class="ni-icon" style="background:rgba(255,59,59,.1)">🆕</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-new">새 공구</span><span class="ni-time">방금 전</span></div>
+    <div class="ni-title">지민뷰티가 새 공구를 열었어요</div>
+    <div class="ni-sub">레티날 0.1% 나이트 세럼 — 팔로워 전용 40% 할인</div>
+  </div>
+  <div class="ni-img">🧴</div>
+</div>
+
+<div class="nitem unread" onclick="location.href='product-detail.html'">
+  <div class="ni-icon" style="background:rgba(255,138,0,.1)">⏰</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-end">마감임박</span><span class="ni-time">14분 전</span></div>
+    <div class="ni-title">찜한 공구가 2시간 후 마감돼요</div>
+    <div class="ni-sub">효리핏 · 마이프로틴 웨이프로틴 2.5kg — 지금 바로 참여하세요</div>
+  </div>
+  <div class="ni-img">🏋️</div>
+</div>
+
+<div class="nitem unread" onclick="location.href='product-detail.html'">
+  <div class="ni-icon" style="background:rgba(99,102,241,.1)">🛍️</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-new">새 공구</span><span class="ni-time">34분 전</span></div>
+    <div class="ni-title">채링이가 새 공구를 열었어요</div>
+    <div class="ni-sub">나이아신아마이드 10% 토너패드 100매 — 오늘 마감 특가</div>
+  </div>
+  <div class="ni-img">🧴</div>
+</div>
+
+<div class="nitem" onclick="location.href='order-complete.html'">
+  <div class="ni-icon" style="background:rgba(34,197,94,.1)">📦</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-ship">배송 시작</span><span class="ni-time">2시간 전</span></div>
+    <div class="ni-title">주문하신 상품이 출발했어요</div>
+    <div class="ni-sub">엑소좀 앰플 + 크림 세트 · CJ대한통운 1234567890</div>
+  </div>
+  <div class="ni-img">📦</div>
+</div>
+
+<!-- 어제 -->
+<div class="date-group" style="margin-top:10px"><div class="dg-label">어제</div></div>
+
+<div class="nitem" onclick="location.href='product-detail.html'">
+  <div class="ni-icon" style="background:rgba(99,102,241,.1)">👗</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-new">새 공구</span><span class="ni-time">어제 09:10</span></div>
+    <div class="ni-title">나리스타일이 새 공구를 열었어요</div>
+    <div class="ni-sub">배럴핏 와이드 데님 3컬러 — 7일간 진행</div>
+  </div>
+  <div class="ni-img">👗</div>
+</div>
+
+<div class="nitem" onclick="">
+  <div class="ni-icon" style="background:rgba(34,197,94,.1)">✅</div>
+  <div class="ni-body">
+    <div class="ni-top"><span class="ni-tag tag-ship">배송 완료</span><span class="ni-time">어제 14:23</span></div>
+    <div class="ni-title">배송이 완료됐어요 · 리뷰를 남겨주세요!</div>
+    <div class="ni-sub">롬앤 쥬시래스팅틴트 · 리뷰 작성 시 100P 지급</div>
+  </div>
+  <div class="ni-img">💄</div>
+</div>
+
+<nav class="bottom-nav">
+  <a class="bn-item" href="index.html"><span class="bn-icon">🏠</span>홈</a>
+  <a class="bn-item" href="category.html"><span class="bn-icon">🔍</span>탐색</a>
+  <a class="bn-item" href="search.html"><span class="bn-icon">⌕</span>검색</a>
+  <a class="bn-item on" href="notifications.html"><span class="bn-icon">🔔</span>알림</a>
+  <a class="bn-item" href="mypage.html"><span class="bn-icon">👤</span>마이</a>
 </nav>
-
+<script>
+function setFtab(b){document.querySelectorAll('.ftab').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+function readAll(){document.querySelectorAll('.nitem.unread').forEach(n=>n.classList.remove('unread'));document.querySelector('.nav-badge').style.display='none'}
+</script>
 </body>
 </html>

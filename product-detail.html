@@ -2,348 +2,253 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레티날 0.1% 나이트 세럼 — GUGU.</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GUGU. — 레티날 나이트 세럼</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;--max:1100px}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95)border-bottom:1px solid var(--b1)}
-.nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:16px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none;flex-shrink:0}
-.logo em{color:var(--r);font-style:normal}
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t2);flex:1}
-.breadcrumb a{color:var(--t2);text-decoration:none;transition:.15s}.breadcrumb a:hover{color:var(--t)}
-.bc-sep{font-size:11px;color:var(--t3)}
-.bc-cur{color:var(--t);font-weight:500}
-.nav-r{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.btn-sm{padding:6px 14px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.btn-line{background:none;border:1px solid var(--b2);color:var(--t)}.btn-fill{background:var(--r);border:none;color:#fff}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
+html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
+body{padding-top:52px;padding-bottom:90px}}
 
-/* 레이아웃 */
-.pd-wrap{display:grid;grid-template-columns:1fr 380px;gap:32px;padding:28px 0 48px}
-/* 좌측 */
-.pd-left{}
-.pd-img-main{height:400px;background:linear-gradient(135deg,#180808,#260e0e);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--b1)}
-.pd-img-thumbs{display:flex;gap:8px}
-.pd-thumb{width:72px;height:72px;border-radius:9px;background:var(--s2);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:.2s}
-.pd-thumb:hover,.pd-thumb.on{border-color:var(--r)}
-/* 공유 버튼 */
-.share-row{display:flex;align-items:center;gap:8px;margin-top:14px}
-.share-label{font-size:12px;color:var(--t2);font-weight:500}
-.share-btn{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--b1);background:var(--s1);color:var(--t2);transition:.2s}
-.share-btn:hover{border-color:var(--b2);color:var(--t)}
-.share-copy{border-color:rgba(255,59,59,.2);color:var(--r);background:rgba(255,59,59,.06)}
-/* 탭 */
-.tab-nav{display:flex;border-bottom:1px solid var(--b1);margin-top:20px}
-.tab-btn{padding:11px 16px;font-size:14px;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s}
-.tab-btn:hover{color:var(--t)}.tab-btn.on{color:var(--t);font-weight:700;border-bottom-color:var(--r)}
-.tab-content{padding:20px 0;display:none}.tab-content.on{display:block}
-/* 상품 설명 */
-.prod-desc p{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
-.prod-desc h4{font-size:15px;font-weight:700;color:var(--t);margin:16px 0 8px}
-.desc-list{display:flex;flex-direction:column;gap:8px}
-.dl-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2)}
-.dl-dot{width:5px;height:5px;border-radius:50%;background:var(--r);flex-shrink:0;margin-top:6px}
-/* 리뷰 */
-.review-summary{display:flex;align-items:center;gap:20px;padding:16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin-bottom:16px}
-.rs-score{font-size:48px;font-weight:800;color:var(--t);line-height:1}
-.rs-stars{display:flex;gap:2px;font-size:18px;margin-bottom:4px}
-.rs-cnt{font-size:12px;color:var(--t2)}
-.rs-bars{flex:1}
-.rs-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:12px;color:var(--t2)}
-.rs-bar-bg{flex:1;height:5px;background:var(--b2);border-radius:2px}
-.rs-bar-fill{height:100%;background:var(--o);border-radius:2px}
-.review-list{display:flex;flex-direction:column;gap:12px}
-.rv-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:16px}
-.rv-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.rv-av{width:26px;height:26px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--t)}
-.rv-name{font-size:13px;font-weight:600;color:var(--t)}
-.rv-date{font-size:11px;color:var(--t2);margin-left:auto}
-.rv-stars{font-size:12px;margin-bottom:6px}
-.rv-txt{font-size:13px;color:var(--t2);line-height:1.65}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
+.nav-back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
+.nav-title{font-size:15px;font-weight:700;flex:1;letter-spacing:-.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-share{font-size:18px;cursor:pointer}
 
-/* 우측 패널 */
-.pd-right{}
-.pd-panel{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:22px;position:sticky;top:72px}
-.pd-inf-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.pd-av{width:36px;height:36px;border-radius:50%;background:#e83e8c;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
-.pd-inf-name{font-size:14px;font-weight:700}
-.pd-inf-sub{font-size:11px;color:var(--t2)}
-.pd-follow-btn{margin-left:auto;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--b2);background:none;color:var(--t2);font-family:inherit;transition:.2s}
-.pd-follow-btn:hover{border-color:var(--r);color:var(--r)}
+/* 상품 이미지 */
+.pd-img{height:280px;background:linear-gradient(135deg,#180808,#260d0d);display:flex;align-items:center;justify-content:center;font-size:100px;position:relative}
+.pd-badge{position:absolute;top:16px;left:16px;background:var(--r);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:5px}
+.pd-thumb-strip{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid var(--b1)}
+.pd-thumb-strip::-webkit-scrollbar{display:none}
+.pd-thumb{width:56px;height:56px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid transparent;flex-shrink:0}
+.pd-thumb.on{border-color:var(--r)}
+
+/* 인플루언서 정보 */
+.inf-bar{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--b1);cursor:pointer}
+.ib-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;background:#e83e8c;flex-shrink:0;border:2px solid var(--r)}
+.ib-info{flex:1}
+.ib-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.ib-sub{font-size:11px;color:var(--t2)}
+.ib-follow{padding:7px 14px;border-radius:20px;background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.3);color:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+
+/* 상품 정보 */
+.pd-info{padding:16px}
+.pd-cat{font-size:11px;color:var(--t3);margin-bottom:6px}
 .pd-title{font-size:17px;font-weight:800;line-height:1.4;margin-bottom:12px;letter-spacing:-.3px}
-.pd-price-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pd-price-block{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px;margin-bottom:12px}
+.pd-price-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .pd-orig{font-size:13px;color:var(--t3);text-decoration:line-through}
-.pd-sale{font-size:28px;font-weight:800;color:var(--t)}
-.pd-disc{font-size:13px;font-weight:700;color:var(--r);background:rgba(255,59,59,.1);padding:3px 8px;border-radius:5px}
+.pd-sale{font-size:26px;font-weight:900;letter-spacing:-.5px}
+.pd-disc{font-size:13px;font-weight:700;color:var(--r);background:rgba(255,59,59,.1);padding:3px 8px;border-radius:4px}
+.pd-prog-wrap{margin-bottom:4px}
+.pd-prog-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}
+.pd-prog-label span:last-child{color:var(--r);font-weight:700}
+.pd-prog-bar{height:6px;background:var(--b2);border-radius:3px}
+.pd-prog-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--o));border-radius:3px;width:82%}
+.pd-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-top:6px}
+
 /* 타이머 */
-.pd-timer-box{background:var(--s2);border:1px solid var(--b2);border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.pd-timer{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,59,59,.06);border:1px solid rgba(255,59,59,.12);border-radius:10px;padding:10px;margin-bottom:12px}
 .pt-label{font-size:12px;color:var(--t2)}
-.pt-time{display:flex;gap:4px;align-items:center}
-.ptc{background:var(--bg);border-radius:5px;padding:4px 8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--r)}
-/* 진행률 */
-.pd-prog{margin-bottom:14px}
-.pd-prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:5px}
-.pd-prog-bar{height:5px;background:var(--b2);border-radius:3px}
-.pd-prog-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--o));border-radius:3px}
-.pd-viewers{font-size:11px;color:var(--t3);text-align:center;margin-bottom:12px}
-.pd-viewers span{color:var(--o);font-weight:600}
+.pt-units{display:flex;align-items:center;gap:4px}
+.pt-unit{background:var(--s3,#1e1e22);border-radius:6px;padding:4px 8px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;min-width:36px;text-align:center}
+.pt-sep{color:var(--t3);font-size:18px}
+
 /* 옵션 */
-.pd-option-label{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:7px}
-.pd-options{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.opt{padding:6px 13px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--b1);background:none;color:var(--t2);font-family:inherit;transition:.2s}
-.opt:hover{border-color:var(--b2);color:var(--t)}.opt.on{border-color:var(--r);color:var(--r);background:rgba(255,59,59,.07)}
+.pd-option{margin-bottom:12px}
+.po-label{font-size:13px;font-weight:700;margin-bottom:8px}
+.po-items{display:flex;gap:7px;flex-wrap:wrap}
+.po-item{padding:7px 14px;border-radius:8px;border:1px solid var(--b1);background:none;font-size:12px;color:var(--t2);cursor:pointer;font-family:inherit;transition:.15s}
+.po-item.on{border-color:var(--r);color:var(--r);background:rgba(255,59,59,.06)}
+
 /* 수량 */
-.qty-row{display:flex;align-items:center;gap:0;margin-bottom:14px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;overflow:hidden;width:fit-content}
-.qty-btn{width:36px;height:36px;background:none;border:none;color:var(--t);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
-.qty-btn:hover{background:var(--b1)}.qty-val{padding:0 16px;font-size:15px;font-weight:700;min-width:42px;text-align:center}
-/* 최종 금액 */
-.pd-total{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--b1);margin-bottom:14px}
-.pt-k{font-size:14px;font-weight:600;color:var(--t2)}.pt-v{font-size:20px;font-weight:800;color:var(--t)}
-/* CTA */
-.btn-buy-main{width:100%;padding:14px;border-radius:11px;background:var(--r);border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s;margin-bottom:8px}
-.btn-buy-main:hover{background:#e03333}
-.btn-wish{width:100%;padding:12px;border-radius:11px;background:none;border:1px solid var(--b2);color:var(--t2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-wish:hover{border-color:var(--t3);color:var(--t)}
-/* 배송 정보 */
-.pd-delivery{background:var(--s2);border-radius:8px;padding:12px 14px;margin-top:12px}
-.pd-del-row{display:flex;gap:10px;font-size:12px;margin-bottom:5px}
-.pd-del-row:last-child{margin-bottom:0}
-.pd-del-k{color:var(--t3);flex-shrink:0;width:52px}.pd-del-v{color:var(--t2)}
+.pd-qty{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.qty-label{font-size:13px;font-weight:700;flex:1}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--b1);border-radius:10px;overflow:hidden}
+.qty-btn{width:36px;height:36px;background:var(--s2);border:none;color:var(--t);font-size:18px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center}
+.qty-val{width:40px;text-align:center;font-size:15px;font-weight:700;background:none;border:none;color:var(--t);border-left:1px solid var(--b1);border-right:1px solid var(--b1);padding:0}
 
-/* 관련 공구 */
-.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 0}
-.rc{background:var(--s1);border:1px solid var(--b1);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;text-decoration:none;display:block}
-.rc:hover{border-color:var(--b2);transform:translateY(-2px)}
-.rc-img{height:100px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:32px}
-.rc-body{padding:10px}
-.rc-name{font-size:12px;font-weight:600;color:var(--t);margin-bottom:4px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:30px}
-.rc-price{font-size:14px;font-weight:800;color:var(--t)}.rc-disc{font-size:10px;color:var(--r);font-weight:600}
+/* 탭 */
+.pd-tabs{display:flex;border-bottom:1px solid var(--b1);margin:0 16px}
+.pd-tab{flex:1;padding:12px 0;text-align:center;font-size:13px;font-weight:600;color:var(--t3);border-bottom:2px solid transparent;cursor:pointer;transition:.15s}
+.pd-tab.on{color:var(--r);border-bottom-color:var(--r)}
+.pd-tab-content{padding:16px;font-size:13px;color:var(--t2);line-height:1.8}
+.desc-section{margin-bottom:20px}
+.desc-title{font-size:14px;font-weight:700;color:var(--t);margin-bottom:8px}
+.desc-list{display:flex;flex-direction:column;gap:6px}
+.dl-item{display:flex;gap:8px}
+.dl-item::before{content:'✓';color:var(--g);flex-shrink:0;font-weight:700}
 
-@media(max-width:768px){
-  .wrap{padding:0 16px}
-  .pd-wrap{grid-template-columns:1fr;gap:16px}
-  .pd-panel{position:static !important}
-  .pd-gallery{height:240px}
-  .related-grid{grid-template-columns:1fr 1fr;gap:10px}
-  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
-  .breadcrumb{display:none}
-  .mob-bottom-nav{display:flex}
-  body{padding-bottom:62px}
-  input,select,textarea{font-size:16px !important}
-}
+/* 리뷰 카드 */
+.rv-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px;margin-bottom:8px}
+.rv-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rv-av{width:32px;height:32px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.rv-info{flex:1}
+.rv-name{font-size:12px;font-weight:700}
+.rv-date{font-size:10px;color:var(--t3)}
+.rv-stars{color:#FFB800;font-size:12px}
+.rv-text{font-size:13px;color:var(--t2);line-height:1.6}
 
+/* 하단 CTA */
+.pd-cta{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--b1);padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0));display:flex;gap:10px}
+.cta-wish{width:48px;height:48px;border-radius:12px;background:var(--s2);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;flex-shrink:0}
+.cta-buy{flex:1;height:48px;border-radius:12px;background:var(--r);border:none;color:#fff;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;letter-spacing:-.3px}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">GUGU<em>.</em></a>
-    <div class="breadcrumb">
-      <a href="index.html">홈</a><span class="bc-sep">›</span>
-      <a href="category.html">뷰티</a><span class="bc-sep">›</span>
-      <span class="bc-cur">레티날 0.1% 나이트 세럼</span>
-    </div>
-    <div class="nav-r">
-      <button class="btn-sm btn-line" onclick="location.href='login.html'">로그인</button>
-      <button class="btn-sm btn-fill" onclick="location.href='login.html'">회원가입</button>
-    </div>
+<div class="nav">
+  <div class="nav-back" onclick="history.back()">←</div>
+  <div class="nav-title">레티날 0.1% 나이트 세럼 30ml 단독 특가</div>
+  <div class="nav-share">⬆️</div>
+</div>
+
+<!-- 이미지 -->
+<div class="pd-img">🧴<div class="pd-badge">🔥 마감임박</div></div>
+<div class="pd-thumb-strip">
+  <div class="pd-thumb on">🧴</div>
+  <div class="pd-thumb">📦</div>
+  <div class="pd-thumb">🔬</div>
+  <div class="pd-thumb">📋</div>
+</div>
+
+<!-- 인플루언서 -->
+<div class="inf-bar" onclick="location.href='influencer-profile.html'">
+  <div class="ib-av">지</div>
+  <div class="ib-info">
+    <div class="ib-name">지민뷰티 <span style="font-size:11px;background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2);padding:1px 6px;border-radius:3px;font-weight:700">✓ 인증</span></div>
+    <div class="ib-sub">팔로워 89.2만 · 뷰티 · 공구 247회 진행</div>
   </div>
-</nav>
+  <button class="ib-follow">팔로우</button>
+</div>
 
-<div class="wrap">
-  <div class="pd-wrap">
-    <!-- 좌측 -->
-    <div class="pd-left">
-      <div class="pd-img-main">🧴</div>
-      <div class="pd-img-thumbs">
-        <div class="pd-thumb on">🧴</div>
-        <div class="pd-thumb">📦</div>
-        <div class="pd-thumb">✨</div>
-        <div class="pd-thumb">📋</div>
-      </div>
-      <!-- 공유 버튼 -->
-      <div class="share-row">
-        <span class="share-label">공유하기</span>
-        <div class="share-btn" onclick="shareKakao()">💬 카카오톡</div>
-        <div class="share-btn" onclick="shareInsta()">📸 인스타</div>
-        <div class="share-btn share-copy" onclick="copyLink()">🔗 링크 복사</div>
-      </div>
-      <!-- 탭 -->
-      <div class="tab-nav">
-        <button class="tab-btn on" onclick="setTab(this,'tab-desc')">상품 정보</button>
-        <button class="tab-btn" onclick="setTab(this,'tab-review')">리뷰 (284)</button>
-        <button class="tab-btn" onclick="setTab(this,'tab-delivery')">배송 안내</button>
-        <button class="tab-btn" onclick="setTab(this,'tab-rules')">공구 규칙</button>
-      </div>
-      <div class="tab-content on" id="tab-desc">
-        <div class="prod-desc">
-          <h4>지민뷰티가 직접 고른 이유</h4>
-          <p>레티날은 레티놀의 업그레이드 버전이에요. 자극은 낮추고 효과는 높였어요. 화해 데이터 기준 2025년 검색량 500% 급증한 성분이에요. 저도 3개월 이상 써봤고 자신있게 추천해요.</p>
-          <h4>주요 성분</h4>
-          <div class="desc-list">
-            <div class="dl-item"><div class="dl-dot"></div>레티날 0.1% — 세포 재생 촉진, 잔주름 개선</div>
-            <div class="dl-item"><div class="dl-dot"></div>히알루론산 — 피부 속 수분 공급 및 유지</div>
-            <div class="dl-item"><div class="dl-dot"></div>나이아신아마이드 5% — 모공 축소, 피부톤 균일화</div>
-            <div class="dl-item"><div class="dl-dot"></div>세라마이드 — 피부 장벽 강화, 보습 유지</div>
-          </div>
-          <h4>사용 방법</h4>
-          <p>저녁 스킨케어 루틴 마지막 단계에 2~3방울을 취해 얼굴 전체에 부드럽게 펴 발라주세요. 처음 사용 시 일주일에 2~3회부터 시작하여 피부 적응 후 매일 사용을 권장합니다.</p>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-review">
-        <div class="review-summary">
-          <div>
-            <div class="rs-score">4.8</div>
-            <div class="rs-stars">⭐⭐⭐⭐⭐</div>
-            <div class="rs-cnt">284개 리뷰</div>
-          </div>
-          <div class="rs-bars">
-            <div class="rs-bar-row"><span>5점</span><div class="rs-bar-bg"><div class="rs-bar-fill" style="width:80%"></div></div><span>78%</span></div>
-            <div class="rs-bar-row"><span>4점</span><div class="rs-bar-bg"><div class="rs-bar-fill" style="width:14%"></div></div><span>14%</span></div>
-            <div class="rs-bar-row"><span>3점</span><div class="rs-bar-bg"><div class="rs-bar-fill" style="width:5%"></div></div><span>5%</span></div>
-            <div class="rs-bar-row"><span>2점</span><div class="rs-bar-bg"><div class="rs-bar-fill" style="width:2%"></div></div><span>2%</span></div>
-            <div class="rs-bar-row"><span>1점</span><div class="rs-bar-bg"><div class="rs-bar-fill" style="width:1%"></div></div><span>1%</span></div>
-          </div>
-        </div>
-        <div class="review-list">
-          <div class="rv-card"><div class="rv-top"><div class="rv-av">김</div><div class="rv-name">김*린</div><div class="rv-date">2026.03.15</div></div><div class="rv-stars">⭐⭐⭐⭐⭐</div><div class="rv-txt">3주 사용했는데 모공이 확연히 좁아졌어요. 자극 없이 효과가 느껴지는 세럼이에요. 지민뷰티 추천 믿고 샀는데 역시 실망 안 시키네요.</div></div>
-          <div class="rv-card"><div class="rv-top"><div class="rv-av">이</div><div class="rv-name">이*지</div><div class="rv-date">2026.03.10</div></div><div class="rv-stars">⭐⭐⭐⭐⭐</div><div class="rv-txt">레티놀 자극 때문에 못 쓰던 분들께 추천해요. 레티날은 정말 순하면서도 효과가 있어요. 이 가격에 살 수 있는 게 공구 덕분이에요.</div></div>
-          <div class="rv-card"><div class="rv-top"><div class="rv-av">박</div><div class="rv-name">박*수</div><div class="rv-date">2026.03.07</div></div><div class="rv-stars">⭐⭐⭐⭐☆</div><div class="rv-txt">효과는 좋은데 처음 2주는 약간 당기는 느낌이 있었어요. 적응 기간이 필요한 것 같아요. 그 이후로는 너무 좋아요.</div></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-delivery">
-        <div class="prod-desc">
-          <h4>배송 정보</h4>
-          <div class="desc-list">
-            <div class="dl-item"><div class="dl-dot"></div>공구 마감 후 2~3 영업일 내 일괄 발송</div>
-            <div class="dl-item"><div class="dl-dot"></div>배송사: CJ대한통운</div>
-            <div class="dl-item"><div class="dl-dot"></div>배송비: 3,000원 (50,000원 이상 무료)</div>
-            <div class="dl-item"><div class="dl-dot"></div>도서산간 지역 추가 배송비 발생 가능</div>
-          </div>
-          <h4>반품/교환</h4>
-          <div class="desc-list">
-            <div class="dl-item"><div class="dl-dot"></div>수령 후 7일 이내 반품/교환 가능</div>
-            <div class="dl-item"><div class="dl-dot"></div>개봉 후 단순 변심은 반품 불가</div>
-            <div class="dl-item"><div class="dl-dot"></div>제품 불량/오배송 시 무료 반품</div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-rules">
-        <div class="prod-desc">
-          <h4>공구 참여 규칙</h4>
-          <div class="desc-list">
-            <div class="dl-item"><div class="dl-dot"></div>공구 참여 후 취소는 마감 24시간 전까지 가능</div>
-            <div class="dl-item"><div class="dl-dot"></div>1인 최대 구매 수량: 3개</div>
-            <div class="dl-item"><div class="dl-dot"></div>공구가는 이 공구에서만 적용되는 단독 특가</div>
-            <div class="dl-item"><div class="dl-dot"></div>최소 참여 인원 미달 시 자동 취소 및 전액 환불</div>
-          </div>
-        </div>
-      </div>
+<!-- 상품 정보 -->
+<div class="pd-info">
+  <div class="pd-cat">뷰티 > 스킨케어 > 세럼·앰플</div>
+  <div class="pd-title">레티날 0.1% 나이트 세럼 30ml<br>단독 특가 · 팔로워 전용</div>
+
+  <div class="pd-price-block">
+    <div class="pd-price-row">
+      <span class="pd-orig">68,000원</span>
+      <span class="pd-sale">40,800원</span>
+      <span class="pd-disc">-40%</span>
     </div>
-
-    <!-- 우측 패널 -->
-    <div class="pd-right">
-      <div class="pd-panel">
-        <div class="pd-inf-row">
-          <div class="pd-av">지</div>
-          <div><div class="pd-inf-name">지민뷰티</div><div class="pd-inf-sub">팔로워 89.2만 · 뷰티</div></div>
-          <button class="pd-follow-btn" onclick="this.textContent=this.textContent==='+ 팔로우'?'✓ 팔로잉':'+ 팔로우'">+ 팔로우</button>
-        </div>
-        <div class="pd-title">레티날 0.1% 나이트 세럼 30ml — 팔로워 단독 특가</div>
-        <div class="pd-price-row"><span class="pd-orig">68,000원</span><span class="pd-sale">40,800원</span><span class="pd-disc">-40%</span></div>
-        <div class="pd-timer-box">
-          <div class="pt-label">⏰ 공구 종료까지</div>
-          <div class="pt-time"><span class="ptc" id="ph">02</span>:<span class="ptc" id="pm">14</span>:<span class="ptc" id="ps">38</span></div>
-        </div>
-        <div class="pd-prog">
-          <div class="pd-prog-row"><span>4,812명 참여</span><span style="color:var(--r);font-weight:600">마감까지 18% 남음</span></div>
-          <div class="pd-prog-bar"><div class="pd-prog-fill" style="width:82%"></div></div>
-        </div>
-        <div class="pd-viewers">지금 <span>127명</span>이 이 공구를 보고 있어요</div>
-        <div class="pd-option-label">향 선택</div>
-        <div class="pd-options">
-          <button class="opt on" onclick="setOpt(this)">기본향</button>
-          <button class="opt" onclick="setOpt(this)">무향</button>
-          <button class="opt" onclick="setOpt(this)">시트러스향</button>
-        </div>
-        <div class="pd-option-label">수량</div>
-        <div class="qty-row">
-          <button class="qty-btn" onclick="changeQty(-1)">−</button>
-          <div class="qty-val" id="qty">1</div>
-          <button class="qty-btn" onclick="changeQty(1)">+</button>
-        </div>
-        <div class="pd-total">
-          <span class="pt-k">최종 금액</span>
-          <span class="pt-v" id="total-price">40,800원</span>
-        </div>
-        <button class="btn-buy-main">지금 공구 참여하기 🛍️</button>
-        <button class="btn-wish" id="wish-btn" onclick="toggleWish()">♡ 찜하기</button>
-        <div class="pd-delivery">
-          <div class="pd-del-row"><span class="pd-del-k">발송일</span><span class="pd-del-v">공구 마감 후 2~3 영업일</span></div>
-          <div class="pd-del-row"><span class="pd-del-k">배송비</span><span class="pd-del-v">3,000원 (5만원 이상 무료)</span></div>
-          <div class="pd-del-row"><span class="pd-del-k">반품</span><span class="pd-del-v">수령 후 7일 이내</span></div>
-        </div>
+    <div class="pd-prog-wrap">
+      <div class="pd-prog-label">
+        <span><strong style="color:var(--t)">4,812명</strong> 참여 중</span>
+        <span>18% 남음</span>
       </div>
+      <div class="pd-prog-bar"><div class="pd-prog-fill"></div></div>
+    </div>
+    <div class="pd-stats"><span>무료배송</span><span>마감까지 </span><span>최대 3개/인</span></div>
+  </div>
+
+  <div class="pd-timer">
+    <span class="pt-label">종료까지</span>
+    <div class="pt-units">
+      <div class="pt-unit" id="ph">02</div>
+      <div class="pt-sep">:</div>
+      <div class="pt-unit" id="pm">14</div>
+      <div class="pt-sep">:</div>
+      <div class="pt-unit" id="ps">38</div>
     </div>
   </div>
 
-  <!-- 같은 인플루언서 다른 공구 -->
-  <div style="padding:0 0 20px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div style="font-size:16px;font-weight:700">지민뷰티의 다른 공구</div>
-      <a href="influencer-profile.html" style="font-size:13px;color:var(--t2);text-decoration:none">전체보기 →</a>
+  <div class="pd-option">
+    <div class="po-label">용량 선택</div>
+    <div class="po-items">
+      <button class="po-item on" onclick="selOpt(this)">30ml (기본)</button>
+      <button class="po-item" onclick="selOpt(this)">50ml (+8,000원)</button>
+      <button class="po-item" onclick="selOpt(this)">30ml × 2개 세트</button>
     </div>
-    <div class="related-grid">
-      <a class="rc" href="product-detail.html"><div class="rc-img">💄</div><div class="rc-body"><div class="rc-name">엑소좀 앰플 + 크림 세트</div><div class="rc-price">75,000원 <span class="rc-disc">-40%</span></div></div></a>
-      <a class="rc" href="product-detail.html"><div class="rc-img">☀️</div><div class="rc-body"><div class="rc-name">울트라 선세럼 SPF50+</div><div class="rc-price">25,200원 <span class="rc-disc">-40%</span></div></div></a>
-      <a class="rc" href="product-detail.html"><div class="rc-img">🌙</div><div class="rc-body"><div class="rc-name">미러스킨 하이브리드 쿠션</div><div class="rc-price">27,000원 <span class="rc-disc">-40%</span></div></div></a>
-      <a class="rc" href="product-detail.html"><div class="rc-img">💊</div><div class="rc-body"><div class="rc-name">나이아신아마이드 토너패드</div><div class="rc-price">22,800원 <span class="rc-disc">-40%</span></div></div></a>
+  </div>
+
+  <div class="pd-qty">
+    <div class="qty-label">수량</div>
+    <div class="qty-ctrl">
+      <button class="qty-btn" onclick="chg(-1)">−</button>
+      <input class="qty-val" id="qty" value="1" readonly>
+      <button class="qty-btn" onclick="chg(1)">+</button>
     </div>
   </div>
 </div>
 
+<!-- 탭 -->
+<div class="pd-tabs">
+  <div class="pd-tab on" onclick="setTab(this,'desc')">상품 정보</div>
+  <div class="pd-tab" onclick="setTab(this,'review')">리뷰 <span style="color:var(--r)">4.9</span></div>
+  <div class="pd-tab" onclick="setTab(this,'info')">배송/환불</div>
+</div>
+
+<div id="tab-desc" class="pd-tab-content">
+  <div class="desc-section">
+    <div class="desc-title">🔬 제품 특징</div>
+    <div class="desc-list">
+      <div class="dl-item">순수 레티날 0.1% 함유 — 레티놀보다 10배 효과적</div>
+      <div class="dl-item">자기 전 바르는 나이트 세럼 · 파라벤 무첨가</div>
+      <div class="dl-item">피부 결 개선, 모공 축소, 안티에이징 복합 효과</div>
+      <div class="dl-item">독일 피부과 테스트 완료 · 민감성 피부 가능</div>
+    </div>
+  </div>
+  <div class="desc-section">
+    <div class="desc-title">💡 지민뷰티 추천 이유</div>
+    <p style="color:var(--t2);font-size:13px;line-height:1.7">3개월 직접 사용 후 추천하는 제품이에요. 레티날 제품 중 자극이 가장 적으면서도 효과는 확실히 느꼈어요. 저처럼 민감성 피부도 문제없이 사용했습니다.</p>
+  </div>
+</div>
+<div id="tab-review" class="pd-tab-content" style="display:none">
+  <div style="display:flex;align-items:center;gap:12px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:16px;margin-bottom:12px">
+    <div style="text-align:center"><div style="font-size:36px;font-weight:900;letter-spacing:-1px">4.9</div><div style="color:#FFB800;font-size:16px">★★★★★</div><div style="font-size:11px;color:var(--t2)">4,812개 리뷰</div></div>
+    <div style="flex:1">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:11px;width:20px;color:var(--t2)">5★</span><div style="flex:1;height:4px;background:var(--b2);border-radius:2px"><div style="width:85%;height:100%;background:var(--r);border-radius:2px"></div></div><span style="font-size:11px;color:var(--t2)">85%</span></div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:11px;width:20px;color:var(--t2)">4★</span><div style="flex:1;height:4px;background:var(--b2);border-radius:2px"><div style="width:12%;height:100%;background:var(--o);border-radius:2px"></div></div><span style="font-size:11px;color:var(--t2)">12%</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;width:20px;color:var(--t2)">3★</span><div style="flex:1;height:4px;background:var(--b2);border-radius:2px"><div style="width:3%;height:100%;background:var(--t3);border-radius:2px"></div></div><span style="font-size:11px;color:var(--t2)">3%</span></div>
+    </div>
+  </div>
+  <div class="rv-card"><div class="rv-top"><div class="rv-av" style="background:#e83e8c">김</div><div class="rv-info"><div class="rv-name">김**</div><div class="rv-date">2026.03.15</div></div><div class="rv-stars">★★★★★</div></div><div class="rv-text">레티날 처음 써봤는데 자극 없이 피부 결이 확실히 좋아졌어요. 3주 사용 후 모공이 눈에 띄게 작아졌습니다.</div></div>
+  <div class="rv-card"><div class="rv-top"><div class="rv-av" style="background:#6f42c1">박</div><div class="rv-info"><div class="rv-name">박**</div><div class="rv-date">2026.03.10</div></div><div class="rv-stars">★★★★★</div></div><div class="rv-text">지민뷰티 믿고 구매했는데 역시 실망 없네요. 피부가 촉촉해지고 칙칙했던 피부가 밝아진 느낌이에요.</div></div>
+</div>
+<div id="tab-info" class="pd-tab-content" style="display:none">
+  <div class="desc-section">
+    <div class="desc-title">🚚 배송 안내</div>
+    <div class="desc-list">
+      <div class="dl-item">무료배송 (CJ대한통운)</div>
+      <div class="dl-item">공구 마감 후 2~3 영업일 내 발송</div>
+      <div class="dl-item">주문 취합 후 일괄 발송</div>
+    </div>
+  </div>
+  <div class="desc-section">
+    <div class="desc-title">🔄 교환/반품</div>
+    <div class="desc-list">
+      <div class="dl-item">수령 후 7일 이내 반품 가능</div>
+      <div class="dl-item">단순 변심 반품 시 왕복 배송비 부담</div>
+      <div class="dl-item">상품 불량·오배송은 무상 처리</div>
+    </div>
+  </div>
+</div>
+
+<!-- 하단 CTA -->
+<div class="pd-cta">
+  <div class="cta-wish" id="wish" onclick="toggleWish()">🤍</div>
+  <button class="cta-buy" onclick="location.href='checkout.html'">지금 참여하기 · 40,800원</button>
+</div>
+
 <script>
-let qty=1,price=40800;
-function changeQty(d){qty=Math.max(1,Math.min(3,qty+d));document.getElementById('qty').textContent=qty;document.getElementById('total-price').textContent=(price*qty).toLocaleString()+'원';}
-function setOpt(btn){document.querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));btn.classList.add('on');}
-function setTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('on'));btn.classList.add('on');document.getElementById(id).classList.add('on');}
-function toggleWish(){const b=document.getElementById('wish-btn');b.textContent=b.textContent.includes('♡')?'♥ 찜 완료':'♡ 찜하기';b.style.color=b.textContent.includes('♥')?'var(--r)':'';}
-function copyLink(){navigator.clipboard?.writeText(location.href).then(()=>alert('링크가 복사됐어요!'));}
-function shareKakao(){alert('카카오톡 공유 (Kakao SDK 연동 필요)');}
-function shareInsta(){alert('인스타그램 공유');}
-let t=2*3600+14*60+38;
-setInterval(()=>{t--;if(t<0)t=86400;const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;const pad=n=>String(n).padStart(2,'0');document.getElementById('ph').textContent=pad(h);document.getElementById('pm').textContent=pad(m);document.getElementById('ps').textContent=pad(s);},1000);
-document.querySelectorAll('.pd-thumb').forEach(th=>th.addEventListener('click',function(){document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('on'));this.classList.add('on');}));
+let wishl=false;
+function toggleWish(){wishl=!wishl;document.getElementById('wish').textContent=wishl?'❤️':'🤍'}
+function selOpt(b){document.querySelectorAll('.po-item').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+function chg(d){const q=document.getElementById('qty');let v=parseInt(q.value)+d;if(v<1)v=1;if(v>3)v=3;q.value=v}
+function setTab(b,id){document.querySelectorAll('.pd-tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');['desc','review','info'].forEach(x=>document.getElementById('tab-'+x).style.display=x===id?'block':'none')}
+let t=2*3600+14*60+38;const p=n=>String(n).padStart(2,'0');
+setInterval(()=>{t--;if(t<0)t=86400;document.getElementById('ph').textContent=p(Math.floor(t/3600));document.getElementById('pm').textContent=p(Math.floor((t%3600)/60));document.getElementById('ps').textContent=p(t%60)},1000);
 </script>
 
-<!-- 모바일 하단 네비게이션 -->
-<nav class="mob-bottom-nav" id="mobBottomNav">
-  <a class="mbn-item" href="index.html">
-    <span class="mbn-icon">🏠</span>
-    <span class="mbn-label">홈</span>
-  </a>
-  <a class="mbn-item" href="category.html">
-    <span class="mbn-icon">🔍</span>
-    <span class="mbn-label">탐색</span>
-  </a>
-  <a class="mbn-item" href="search.html">
-    <span class="mbn-icon">⌕</span>
-    <span class="mbn-label">검색</span>
-  </a>
-  <a class="mbn-item" href="notifications.html">
-    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
-    <span class="mbn-label">알림</span>
-  </a>
-  <a class="mbn-item" href="mypage.html">
-    <span class="mbn-icon">👤</span>
-    <span class="mbn-label">마이</span>
-  </a>
+<nav style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0px)">
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="index.html"><span style="font-size:20px;line-height:1">🏠</span>홈</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="category.html"><span style="font-size:20px;line-height:1">🔍</span>탐색</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="search.html"><span style="font-size:20px;line-height:1">⌕</span>검색</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="notifications.html"><span style="font-size:20px;line-height:1">🔔</span>알림</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="mypage.html"><span style="font-size:20px;line-height:1">👤</span>마이</a>
 </nav>
-
 </body>
 </html>

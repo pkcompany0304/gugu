@@ -2,214 +2,171 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUGU. — 결제</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GUGU. — 결제하기</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--green:#22c55e;--text:#F5F5F5;--muted:#888}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav:not(.mob-bottom-nav){background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
-.logo span{color:var(--accent)}
-.steps{display:flex;align-items:center;gap:0;margin-left:40px}
-.step{display:flex;align-items:center;gap:6px;font-size:12px}
-.step-c{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
-.step.done .step-c{background:var(--green);color:#fff}
-.step.active .step-c{background:var(--accent);color:#fff}
-.step.idle .step-c{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
-.step.active .step-l{color:var(--text);font-weight:600}
-.step.idle .step-l{color:var(--muted)}
-.step.done .step-l{color:var(--green)}
-.step-line{width:32px;height:1px;background:var(--border);margin:0 4px}
-.step-line.done{background:var(--green)}
-.wrap{max-width:1100px;margin:0 auto;padding:32px}
-.layout{display:grid;grid-template-columns:1fr 360px;gap:28px}
-.section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px}
-.section-title{font-size:15px;font-weight:700;margin-bottom:18px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group.full{grid-column:1/-1}
-.form-label{font-size:12px;color:var(--muted);font-weight:500}
-.form-input{padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
-.form-input:focus{border-color:var(--accent)}
-.form-input::placeholder{color:var(--muted)}
-.form-select{padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;appearance:none;cursor:pointer}
-.addr-btn{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
-.addr-btn:hover{background:var(--surface2)}
-.pay-methods{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.pay-method{padding:12px 8px;border-radius:10px;border:1px solid var(--border);background:none;cursor:pointer;text-align:center;transition:.2s;font-family:inherit}
-.pay-method:hover{border-color:var(--muted)}
-.pay-method.active{border-color:var(--accent);background:rgba(255,59,59,0.06)}
-.pay-method .pm-icon{font-size:20px;margin-bottom:4px}
-.pay-method .pm-name{font-size:11px;color:var(--muted)}
-.pay-method.active .pm-name{color:var(--accent)}
-.card-inputs{background:var(--surface2);border-radius:10px;padding:16px}
-.agree-list{display:flex;flex-direction:column;gap:10px}
-.agree-item{display:flex;align-items:center;justify-content:space-between}
-.agree-left{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
-.agree-left input{accent-color:var(--accent)}
-.agree-req{font-size:11px;color:var(--accent)}
-.agree-link{font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline}
-/* ORDER SUMMARY */
-.order-summary{position:sticky;top:20px}
-.order-product{display:flex;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.order-img{width:64px;height:64px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
-.order-info .name{font-size:14px;font-weight:600;margin-bottom:4px}
-.order-info .opt{font-size:12px;color:var(--muted);margin-bottom:4px}
-.order-info .price{font-size:14px;font-weight:700;color:var(--accent)}
-.price-table{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.price-row{display:flex;justify-content:space-between;font-size:13px}
-.price-row .k{color:var(--muted)}
-.price-row .v.green{color:var(--green)}
-.price-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;margin-bottom:20px}
-.price-total .v{color:var(--accent)}
-.btn-pay{width:100%;padding:14px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px}
-.btn-pay:hover{background:#e63535}
-.pay-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.6}
-.coupon-row{display:flex;gap:8px;margin-bottom:16px}
-.coupon-input{flex:1;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none}
-.coupon-input::placeholder{color:var(--muted)}
-.coupon-btn{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
-.coupon-btn:hover{background:var(--surface2)}
-.point-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:12px;background:var(--surface2);border-radius:8px;margin-bottom:16px}
-.point-row .k{color:var(--muted)}
-.point-row .v{color:var(--green);font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
+html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
+body{padding-top:52px;padding-bottom:90px}}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
+.nb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
+.nt{font-size:17px;font-weight:800;flex:1}
 
-@media(max-width:768px){
-  .wrap{padding:20px 16px}
-  .layout{grid-template-columns:1fr;gap:16px}
-  .order-summary{position:static !important;order:-1}
-  .form-grid{grid-template-columns:1fr}
-  .pay-methods{grid-template-columns:1fr 1fr}
-  .steps{display:none}
-  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
-  .mob-bottom-nav{display:flex}
-  body{padding-bottom:62px}
-  input,select,textarea{font-size:16px !important}
-}
+/* 단계 표시 */
+.steps{display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid var(--b1)}
+.step{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--t3)}
+.step.on{color:var(--t)}
+.step-circle{width:20px;height:20px;border-radius:50%;background:var(--b1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.step.on .step-circle{background:var(--r);color:#fff}
+.step-line{flex:1;height:1px;background:var(--b1);margin:0 8px}
 
+/* 섹션 카드 */
+.sec{padding:12px 16px}
+.form-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px;margin-bottom:10px}
+.fc-title{font-size:13px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--t)}
+.fc-title span{font-size:18px}
+.fg{margin-bottom:12px}
+.fg:last-child{margin-bottom:0}
+.fg-label{font-size:11px;color:var(--t2);font-weight:600;margin-bottom:5px}
+.fg-input,.fg-select{width:100%;padding:13px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--t);font-size:16px;font-family:inherit;outline:none;transition:.15s}
+.fg-input:focus{border-color:var(--r)}
+.fg-input::placeholder{color:var(--t3)}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* 결제수단 */
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-btn{padding:12px;border-radius:10px;border:1px solid var(--b1);background:none;font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;text-align:center;transition:.15s}
+.pay-btn.on{border-color:var(--r);color:var(--r);background:rgba(255,59,59,.06)}
+
+/* 상품 요약 */
+.order-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--s2);border-radius:10px;margin-bottom:12px}
+.oi-img{width:48px;height:48px;border-radius:8px;background:var(--s1);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.oi-info{flex:1}
+.oi-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.oi-meta{font-size:11px;color:var(--t2)}
+.oi-price{font-size:14px;font-weight:800;color:var(--r)}
+.price-table{display:flex;flex-direction:column;gap:8px}
+.pt-row{display:flex;justify-content:space-between;font-size:13px}
+.pt-row .l{color:var(--t2)}.pt-row .v{color:var(--t)}
+.pt-row.total{padding-top:10px;border-top:1px solid var(--b1);font-size:15px;font-weight:800}
+.pt-row.total .v{color:var(--r)}
+
+/* 쿠폰/포인트 */
+.coupon-row{display:flex;gap:8px}
+.coupon-input{flex:1;padding:12px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--t);font-size:16px;font-family:inherit;outline:none}
+.coupon-btn{padding:12px 16px;border-radius:10px;background:var(--r);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+
+/* CTA */
+.cta-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--b1);padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0))}
+.cta-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cta-total-l{font-size:12px;color:var(--t2)}
+.cta-total-v{font-size:18px;font-weight:900;color:var(--r)}
+.cta-pay{width:100%;padding:14px;border-radius:12px;background:var(--r);border:none;color:#fff;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">GUGU<span>.</span></a>
-    <div class="steps">
-      <div class="step done"><div class="step-c">✓</div><span class="step-l">장바구니</span></div>
-      <div class="step-line done"></div>
-      <div class="step active"><div class="step-c">2</div><span class="step-l">주문/결제</span></div>
-      <div class="step-line"></div>
-      <div class="step idle"><div class="step-c">3</div><span class="step-l">완료</span></div>
+<div class="nav">
+  <div class="nb" onclick="history.back()">←</div>
+  <div class="nt">결제하기</div>
+</div>
+
+<div class="steps">
+  <div class="step on"><div class="step-circle">1</div>배송</div>
+  <div class="step-line"></div>
+  <div class="step on"><div class="step-circle">2</div>결제</div>
+  <div class="step-line"></div>
+  <div class="step"><div class="step-circle">3</div>완료</div>
+</div>
+
+<div class="sec">
+  <!-- 배송 정보 -->
+  <div class="form-card">
+    <div class="fc-title"><span>📦</span>배송 정보</div>
+    <div class="fg"><div class="fg-label">받는 분 *</div><input class="fg-input" type="text" placeholder="이름을 입력해주세요"></div>
+    <div class="fg"><div class="fg-label">연락처 *</div><input class="fg-input" type="tel" placeholder="010-0000-0000"></div>
+    <div class="fg"><div class="fg-label">주소 *</div><input class="fg-input" type="text" placeholder="주소 검색" onclick="alert('주소 검색')"></div>
+    <div class="fg"><div class="fg-label">상세 주소</div><input class="fg-input" type="text" placeholder="동, 호수 등"></div>
+    <div class="fg"><div class="fg-label">배송 메모</div>
+      <select class="fg-select"><option>선택 없음</option><option>문 앞에 놔주세요</option><option>경비실에 맡겨주세요</option><option>직접 받겠습니다</option><option>직접 입력</option></select>
     </div>
   </div>
-</nav>
-<div class="wrap">
-  <div style="font-size:20px;font-weight:700;margin-bottom:24px">주문/결제</div>
-  <div class="layout">
-    <div>
-      <div class="section">
-        <div class="section-title">배송지 정보</div>
-        <div class="form-grid">
-          <div class="form-group"><label class="form-label">받으시는 분</label><input class="form-input" type="text" value="나혜진"></div>
-          <div class="form-group"><label class="form-label">휴대폰 번호</label><input class="form-input" type="tel" value="010-1234-5678"></div>
-          <div class="form-group full" style="flex-direction:row;align-items:flex-end;gap:8px">
-            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><label class="form-label">주소</label><input class="form-input" type="text" value="서울특별시 강남구 테헤란로 152" placeholder="주소 검색"></div>
-            <button class="addr-btn">주소 검색</button>
-          </div>
-          <div class="form-group full"><label class="form-label">상세 주소</label><input class="form-input" type="text" placeholder="상세 주소 입력"></div>
-          <div class="form-group full"><label class="form-label">배송 요청사항</label><input class="form-input" type="text" placeholder="예: 문 앞에 놔주세요"></div>
-        </div>
+
+  <!-- 주문 상품 -->
+  <div class="form-card">
+    <div class="fc-title"><span>🛍️</span>주문 상품</div>
+    <div class="order-item">
+      <div class="oi-img">🧴</div>
+      <div class="oi-info">
+        <div class="oi-name">레티날 0.1% 나이트 세럼 30ml</div>
+        <div class="oi-meta">지민뷰티 공구 · 30ml × 1</div>
       </div>
-      <div class="section">
-        <div class="section-title">결제 수단</div>
-        <div class="pay-methods">
-          <button class="pay-method active" onclick="selectPay(this)"><div class="pm-icon">💳</div><div class="pm-name">신용카드</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🟡</div><div class="pm-name">카카오페이</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🟢</div><div class="pm-name">네이버페이</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🏦</div><div class="pm-name">계좌이체</div></button>
-        </div>
-        <div class="card-inputs">
-          <div class="form-grid">
-            <div class="form-group full"><label class="form-label">카드 번호</label><input class="form-input" type="text" placeholder="0000 - 0000 - 0000 - 0000"></div>
-            <div class="form-group"><label class="form-label">유효기간</label><input class="form-input" type="text" placeholder="MM / YY"></div>
-            <div class="form-group"><label class="form-label">CVC</label><input class="form-input" type="text" placeholder="000"></div>
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <div class="section-title">약관 동의</div>
-        <div class="agree-list">
-          <div class="agree-item">
-            <label class="agree-left"><input type="checkbox" id="allAgree" onclick="toggleAll(this)"> 전체 동의</label>
-          </div>
-          <div style="height:1px;background:var(--border);margin:4px 0"></div>
-          <div class="agree-item"><label class="agree-left"><input type="checkbox" class="agree-cb"> <span class="agree-req">[필수]</span> 이용약관 동의</label><span class="agree-link">보기</span></div>
-          <div class="agree-item"><label class="agree-left"><input type="checkbox" class="agree-cb"> <span class="agree-req">[필수]</span> 개인정보 수집 및 이용 동의</label><span class="agree-link">보기</span></div>
-          <div class="agree-item"><label class="agree-left"><input type="checkbox" class="agree-cb"> [선택] 마케팅 정보 수신 동의</label><span class="agree-link">보기</span></div>
-        </div>
+      <div class="oi-price">40,800원</div>
+    </div>
+  </div>
+
+  <!-- 쿠폰/포인트 -->
+  <div class="form-card">
+    <div class="fc-title"><span>🎫</span>쿠폰 · 포인트</div>
+    <div class="fg">
+      <div class="fg-label">쿠폰</div>
+      <div class="coupon-row">
+        <input class="coupon-input" type="text" placeholder="쿠폰 코드 입력">
+        <button class="coupon-btn">적용</button>
       </div>
     </div>
-    <div class="order-summary">
-      <div class="section">
-        <div class="section-title">주문 상품</div>
-        <div class="order-product">
-          <div class="order-img">🧴</div>
-          <div class="order-info">
-            <div class="name">닥터자르트 시카페어 크림 50ml</div>
-            <div class="opt">지민뷰티 공구 · 50ml · 1개</div>
-            <div class="price">31,900원</div>
-          </div>
-        </div>
-        <div class="coupon-row">
-          <input class="coupon-input" type="text" placeholder="쿠폰 코드 입력">
-          <button class="coupon-btn">적용</button>
-        </div>
-        <div class="point-row">
-          <span class="k">적립 포인트</span>
-          <span class="v">+319P 적립 예정</span>
-        </div>
-        <div class="price-table">
-          <div class="price-row"><span class="k">상품 금액</span><span class="v">31,900원</span></div>
-          <div class="price-row"><span class="k">배송비</span><span class="v green">무료</span></div>
-          <div class="price-row"><span class="k">할인</span><span class="v green">-0원</span></div>
-        </div>
-        <div class="price-total"><span>최종 결제금액</span><span class="v">31,900원</span></div>
-        <button class="btn-pay" onclick="location.href='order-complete.html'">31,900원 결제하기</button>
-        <div class="pay-note">결제 버튼 클릭 시 이용약관 및<br>개인정보처리방침에 동의하게 됩니다</div>
+    <div class="fg">
+      <div class="fg-label">포인트 <span style="color:var(--r);font-weight:700">2,300P 보유</span></div>
+      <div class="coupon-row">
+        <input class="coupon-input" type="number" placeholder="0" id="point-input">
+        <button class="coupon-btn" onclick="document.getElementById('point-input').value=2300">전액</button>
       </div>
+    </div>
+  </div>
+
+  <!-- 결제 수단 -->
+  <div class="form-card">
+    <div class="fc-title"><span>💳</span>결제 수단</div>
+    <div class="pay-grid">
+      <button class="pay-btn on" onclick="setPay(this)">신용/체크카드</button>
+      <button class="pay-btn" onclick="setPay(this)">카카오페이</button>
+      <button class="pay-btn" onclick="setPay(this)">네이버페이</button>
+      <button class="pay-btn" onclick="setPay(this)">토스페이</button>
+    </div>
+  </div>
+
+  <!-- 최종 금액 -->
+  <div class="form-card">
+    <div class="fc-title"><span>💰</span>결제 금액</div>
+    <div class="price-table">
+      <div class="pt-row"><span class="l">상품 금액</span><span class="v">40,800원</span></div>
+      <div class="pt-row"><span class="l">배송비</span><span class="v" style="color:var(--g)">무료</span></div>
+      <div class="pt-row"><span class="l">쿠폰 할인</span><span class="v" style="color:var(--r)">-0원</span></div>
+      <div class="pt-row"><span class="l">포인트 사용</span><span class="v" style="color:var(--r)">-0원</span></div>
+      <div class="pt-row total"><span class="l">최종 결제</span><span class="v">40,800원</span></div>
     </div>
   </div>
 </div>
+
+<div class="cta-bar">
+  <div class="cta-total">
+    <span class="cta-total-l">최종 결제금액</span>
+    <span class="cta-total-v">40,800원</span>
+  </div>
+  <button class="cta-pay" onclick="location.href='order-complete.html'">결제하기 →</button>
+</div>
+
 <script>
-function selectPay(el){document.querySelectorAll('.pay-method').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
-function toggleAll(el){document.querySelectorAll('.agree-cb').forEach(c=>c.checked=el.checked)}
+function setPay(b){document.querySelectorAll('.pay-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
 </script>
 
-<!-- 모바일 하단 네비게이션 -->
-<nav class="mob-bottom-nav" id="mobBottomNav">
-  <a class="mbn-item" href="index.html">
-    <span class="mbn-icon">🏠</span>
-    <span class="mbn-label">홈</span>
-  </a>
-  <a class="mbn-item" href="category.html">
-    <span class="mbn-icon">🔍</span>
-    <span class="mbn-label">탐색</span>
-  </a>
-  <a class="mbn-item" href="search.html">
-    <span class="mbn-icon">⌕</span>
-    <span class="mbn-label">검색</span>
-  </a>
-  <a class="mbn-item" href="notifications.html">
-    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
-    <span class="mbn-label">알림</span>
-  </a>
-  <a class="mbn-item" href="mypage.html">
-    <span class="mbn-icon">👤</span>
-    <span class="mbn-label">마이</span>
-  </a>
+<nav style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0px)">
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="index.html"><span style="font-size:20px;line-height:1">🏠</span>홈</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="category.html"><span style="font-size:20px;line-height:1">🔍</span>탐색</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="search.html"><span style="font-size:20px;line-height:1">⌕</span>검색</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="notifications.html"><span style="font-size:20px;line-height:1">🔔</span>알림</a>
+  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="mypage.html"><span style="font-size:20px;line-height:1">👤</span>마이</a>
 </nav>
-
 </body>
 </html>

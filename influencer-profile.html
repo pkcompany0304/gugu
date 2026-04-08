@@ -2,246 +2,90 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUGU. — 지민뷰티 프로필</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GUGU. — 인플루언서 프로필</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav:not(.mob-bottom-nav){background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;height:56px}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
-.logo span{color:var(--accent)}
-.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
-.btn-login{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit}
-.btn-join{padding:6px 14px;border-radius:6px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.profile-hero{height:220px;background:linear-gradient(135deg,#1a0505,#2a0a0a,#0a0a1a);position:relative;display:flex;align-items:flex-end}
-.profile-hero-inner{max-width:1100px;width:100%;margin:0 auto;padding:0 32px;display:flex;align-items:flex-end;gap:24px}
-.profile-av-wrap{position:relative;margin-bottom:-28px}
-.profile-av{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#fff;border:3px solid var(--bg)}
-.live-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--accent);animation:ring 2s infinite}
-@keyframes ring{0%,100%{opacity:1}50%{opacity:.3}}
-.profile-hero-info{padding-bottom:16px}
-.profile-name{font-size:22px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.verified{width:20px;height:20px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff}
-.profile-handle{font-size:13px;color:var(--muted)}
-.live-now{display:inline-flex;align-items:center;gap:5px;background:rgba(255,59,59,0.15);border:1px solid rgba(255,59,59,0.3);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--accent);margin-left:8px}
-.live-now .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.wrap{max-width:1100px;margin:0 auto;padding:0 32px}
-.profile-meta{display:flex;align-items:center;justify-content:space-between;padding:44px 0 24px;border-bottom:1px solid var(--border)}
-.meta-stats{display:flex;gap:32px}
-.meta-stat .n{font-size:22px;font-weight:700}
-.meta-stat .l{font-size:11px;color:var(--muted);margin-top:2px}
-.meta-actions{display:flex;gap:10px}
-.btn-follow{padding:9px 24px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-alarm{width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.btn-alarm:hover{border-color:var(--muted);color:var(--text)}
-.profile-tags{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
-.tag{padding:4px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
-.profile-layout{display:grid;grid-template-columns:1fr 300px;gap:32px;padding-top:28px}
-.profile-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px}
-.profile-tab{padding:10px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;white-space:nowrap}
-.profile-tab.active{color:var(--text);border-bottom-color:var(--accent);font-weight:600}
-.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.pc{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s}
-.pc:hover{transform:translateY(-2px);border-color:#444}
-.pc-img{height:160px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
-.pc-badge{position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
-.pc-badge.done{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
-.pc-body{padding:12px}
-.pc-name{font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
-.pc-price-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap}
-.pc-orig{font-size:11px;color:var(--muted);text-decoration:line-through}
-.pc-sale{font-size:15px;font-weight:700}
-.pc-disc{font-size:11px;font-weight:700;color:var(--accent)}
-.pc-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:4px}
-.pc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.pc-meta{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
-.sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-.sidebar-card h4{font-size:13px;font-weight:600;margin-bottom:14px}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat-item{background:var(--surface2);border-radius:8px;padding:12px;text-align:center}
-.stat-item .n{font-size:18px;font-weight:700;color:var(--accent)}
-.stat-item .l{font-size:10px;color:var(--muted);margin-top:2px}
-.recent-list{display:flex;flex-direction:column;gap:8px}
-.recent-item{display:flex;align-items:center;gap:10px;padding:8px;background:var(--surface2);border-radius:8px}
-.recent-emoji{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:6px;flex-shrink:0}
-.recent-info .name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
-.recent-info .price{font-size:12px;color:var(--accent);font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
+html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden;min-height:100vh}
+body{padding-top:52px;padding-bottom:70px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
+.nb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
+.nt{font-size:17px;font-weight:800;flex:1}
+.bna{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600}
 
-@media(max-width:768px){
-  .wrap{padding:0 16px 40px}
-  .profile-layout{grid-template-columns:1fr;gap:16px}
-  .profile-side{position:static !important}
-  .pg-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .stat-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .profile-hero{height:160px}
-  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
-  .mob-bottom-nav{display:flex}
-  body{padding-bottom:62px}
-  input,select,textarea{font-size:16px !important}
-}
+.profile-hero{background:linear-gradient(170deg,#160303,#0d0d0d);padding:28px 16px 20px}
+.ph-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.ph-av{width:64px;height:64px;border-radius:50%;background:#e83e8c;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;border:3px solid var(--r);flex-shrink:0}
+.ph-info h1{font-size:20px;font-weight:900}
+.ph-info p{font-size:12px;color:var(--t2);margin-top:3px}
+.ph-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--g);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin-top:4px}
+.ph-btns{display:flex;gap:8px}
+.ph-btn{flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.ph-btn.follow{background:var(--r);border:none;color:#fff}
+.ph-btn.share{background:none;border:1px solid var(--b1);color:var(--t2)}
+.stats-bar{display:flex;border-bottom:1px solid var(--b1)}
+.sb-item{flex:1;padding:14px 0;text-align:center;border-right:1px solid var(--b1)}
+.sb-item:last-child{border-right:none}
+.sb-n{font-size:18px;font-weight:800}.sb-l{font-size:10px;color:var(--t2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;border-bottom:1px solid var(--b1)}
+.tag{padding:5px 12px;border-radius:99px;background:rgba(255,59,59,.07);border:1px solid rgba(255,59,59,.15);font-size:12px;color:var(--r);font-weight:600}
+.sec-title{font-size:15px;font-weight:800;padding:14px 16px 10px}
+.gugu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.gc{background:var(--s1);border:1px solid var(--b1);border-radius:12px;overflow:hidden;cursor:pointer}
+.gc-img{height:130px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:44px}
+.gc-body{padding:10px}
+.gc-name{font-size:12px;font-weight:700;margin-bottom:5px;line-height:1.3}
+.gc-pr{display:flex;align-items:center;gap:5px}
+.gc-sale{font-size:14px;font-weight:800}.gc-disc{font-size:10px;color:var(--r);font-weight:700}
 
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <div class="logo">GUGU<span>.</span></div>
-    <div class="nav-right">
-      <button class="btn-login">로그인</button>
-      <button class="btn-join">회원가입</button>
-    </div>
-  </div>
-</nav>
 
+<div class="nav"><div class="nb" onclick="history.back()">←</div><div class="nt">인플루언서</div></div>
 <div class="profile-hero">
-  <div class="profile-hero-inner">
-    <div class="profile-av-wrap">
-      <div class="profile-av">지</div>
-      <div class="live-ring"></div>
+  <div class="ph-top">
+    <div class="ph-av">지</div>
+    <div class="ph-info">
+      <h1>지민뷰티</h1>
+      <p>@jiminbeauty</p>
+      <div class="ph-verified">✓ GUGU 인증</div>
     </div>
-    <div class="profile-hero-info">
-      <div class="profile-name">
-        지민뷰티
-        <div class="verified">✓</div>
-        <span class="live-now"><span class="dot"></span> 공구 진행중</span>
-      </div>
-      <div class="profile-handle">@jiminbeauty · 뷰티 인플루언서</div>
-    </div>
+  </div>
+  <div class="ph-btns">
+    <button class="ph-btn follow" onclick="this.textContent=this.textContent==='팔로우'?'팔로잉 ✓':'팔로우';this.style.background=this.textContent.includes('✓')?'var(--g)':'var(--r)'">팔로우</button>
+    <button class="ph-btn share">공유</button>
   </div>
 </div>
-
-<div class="wrap">
-  <div class="profile-meta">
-    <div>
-      <div class="meta-stats">
-        <div class="meta-stat"><div class="n">89.2만</div><div class="l">팔로워</div></div>
-        <div class="meta-stat"><div class="n">247</div><div class="l">진행한 공구</div></div>
-        <div class="meta-stat"><div class="n">4.9</div><div class="l">평균 평점</div></div>
-        <div class="meta-stat"><div class="n">12.4만</div><div class="l">누적 구매자</div></div>
-      </div>
-      <div class="profile-tags">
-        <span class="tag"># 뷰티</span>
-        <span class="tag"># 스킨케어</span>
-        <span class="tag"># 메이크업</span>
-        <span class="tag"># 민감성피부</span>
-        <span class="tag"># 코스메틱</span>
-      </div>
-    </div>
-    <div class="meta-actions">
-      <button class="btn-alarm">🔔</button>
-      <button class="btn-follow" onclick="this.textContent=this.textContent.includes('✓')?'팔로우':'팔로잉 ✓';this.style.background=this.textContent.includes('✓')?'var(--surface2)':'var(--accent)';this.style.border=this.textContent.includes('✓')?'1px solid var(--border)':'none'">팔로우</button>
-    </div>
+<div class="stats-bar">
+  <div class="sb-item"><div class="sb-n">89.2만</div><div class="sb-l">팔로워</div></div>
+  <div class="sb-item"><div class="sb-n">247</div><div class="sb-l">공구 진행</div></div>
+  <div class="sb-item"><div class="sb-n">4.9</div><div class="sb-l">평균 평점</div></div>
+  <div class="sb-item"><div class="sb-n">12.4만</div><div class="sb-l">누적 구매자</div></div>
+</div>
+<div class="tags">
+  <span class="tag">#뷰티</span><span class="tag">#스킨케어</span><span class="tag">#메이크업</span><span class="tag">#민감성피부</span>
+</div>
+<div class="sec-title">진행 중인 공구</div>
+<div class="gugu-grid">
+  <div class="gc" onclick="location.href='product-detail.html'">
+    <div class="gc-img" style="background:linear-gradient(135deg,#140505,#200a0a)">🧴</div>
+    <div class="gc-body"><div class="gc-name">레티날 0.1% 나이트 세럼 30ml</div><div class="gc-pr"><span class="gc-sale">40,800원</span><span class="gc-disc">-40%</span></div></div>
   </div>
-
-  <div class="profile-layout">
-    <div>
-      <div class="profile-tabs">
-        <button class="profile-tab active">진행중 공구</button>
-        <button class="profile-tab">지난 공구</button>
-        <button class="profile-tab">후기</button>
-      </div>
-      <div class="pg-grid">
-        <div class="pc">
-          <div class="pc-img">🧴<div class="pc-badge">마감임박</div></div>
-          <div class="pc-body">
-            <div class="pc-name">닥터자르트 시카페어 크림 50ml</div>
-            <div class="pc-price-row"><span class="pc-orig">52,000원</span><span class="pc-sale">31,900원</span><span class="pc-disc">-38%</span></div>
-            <div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div>
-            <div class="pc-meta"><span>4,812명</span><span>2일 남음</span></div>
-          </div>
-        </div>
-        <div class="pc">
-          <div class="pc-img">💄</div>
-          <div class="pc-body">
-            <div class="pc-name">롬앤 쥬시래스팅틴트 전색상</div>
-            <div class="pc-price-row"><span class="pc-orig">18,000원</span><span class="pc-sale">11,200원</span><span class="pc-disc">-38%</span></div>
-            <div class="pc-bar"><div class="pc-fill" style="width:89%"></div></div>
-            <div class="pc-meta"><span>3,291명</span><span>1일 남음</span></div>
-          </div>
-        </div>
-        <div class="pc">
-          <div class="pc-img">🌿<div class="pc-badge done">종료</div></div>
-          <div class="pc-body">
-            <div class="pc-name">이니스프리 그린티 씨드 세럼</div>
-            <div class="pc-price-row"><span class="pc-orig">38,000원</span><span class="pc-sale">22,800원</span><span class="pc-disc">-40%</span></div>
-            <div class="pc-bar"><div class="pc-fill" style="width:100%"></div></div>
-            <div class="pc-meta"><span>6,102명</span><span>완료</span></div>
-          </div>
-        </div>
-        <div class="pc">
-          <div class="pc-img">✨<div class="pc-badge done">종료</div></div>
-          <div class="pc-body">
-            <div class="pc-name">설화수 윤조에센스 기획세트</div>
-            <div class="pc-price-row"><span class="pc-orig">95,000원</span><span class="pc-sale">62,000원</span><span class="pc-disc">-35%</span></div>
-            <div class="pc-bar"><div class="pc-fill" style="width:100%"></div></div>
-            <div class="pc-meta"><span>2,847명</span><span>완료</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-card">
-        <h4>공구 성과</h4>
-        <div class="stat-grid">
-          <div class="stat-item"><div class="n">98%</div><div class="l">목표 달성률</div></div>
-          <div class="stat-item"><div class="n">4.9★</div><div class="l">평균 평점</div></div>
-          <div class="stat-item"><div class="n">42%</div><div class="l">재구매율</div></div>
-          <div class="stat-item"><div class="n">247회</div><div class="l">총 공구 수</div></div>
-        </div>
-      </div>
-      <div class="sidebar-card">
-        <h4>최근 완료된 공구</h4>
-        <div class="recent-list">
-          <div class="recent-item">
-            <div class="recent-emoji">🌿</div>
-            <div class="recent-info"><div class="name">이니스프리 그린티 세럼</div><div class="price">22,800원 · 6,102명</div></div>
-          </div>
-          <div class="recent-item">
-            <div class="recent-emoji">✨</div>
-            <div class="recent-info"><div class="name">설화수 윤조에센스</div><div class="price">62,000원 · 2,847명</div></div>
-          </div>
-          <div class="recent-item">
-            <div class="recent-emoji">💊</div>
-            <div class="recent-info"><div class="name">닥터지 레드 블레미쉬 크림</div><div class="price">18,500원 · 4,231명</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="gc" onclick="location.href='product-detail.html'">
+    <div class="gc-img" style="background:linear-gradient(135deg,#050514,#0a0a20)">💄</div>
+    <div class="gc-body"><div class="gc-name">롬앤 쥬시래스팅틴트 전색상</div><div class="gc-pr"><span class="gc-sale">11,200원</span><span class="gc-disc">-38%</span></div></div>
   </div>
 </div>
-
-<script>
-document.querySelectorAll('.profile-tab').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.profile-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
-</script>
-
-<!-- 모바일 하단 네비게이션 -->
-<nav class="mob-bottom-nav" id="mobBottomNav">
-  <a class="mbn-item" href="index.html">
-    <span class="mbn-icon">🏠</span>
-    <span class="mbn-label">홈</span>
-  </a>
-  <a class="mbn-item" href="category.html">
-    <span class="mbn-icon">🔍</span>
-    <span class="mbn-label">탐색</span>
-  </a>
-  <a class="mbn-item" href="search.html">
-    <span class="mbn-icon">⌕</span>
-    <span class="mbn-label">검색</span>
-  </a>
-  <a class="mbn-item" href="notifications.html">
-    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
-    <span class="mbn-label">알림</span>
-  </a>
-  <a class="mbn-item" href="mypage.html">
-    <span class="mbn-icon">👤</span>
-    <span class="mbn-label">마이</span>
-  </a>
+<nav class="bna">
+  <a class="bi" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
+  <a class="bi" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
+  <a class="bi" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
+  <a class="bi" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
+  <a class="bi" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
 </nav>
-
 </body>
 </html>
