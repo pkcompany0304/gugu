@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 고객센터</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.btn-login{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit}
+.btn-join{padding:6px 14px;border-radius:6px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:40px 32px;text-align:center}
+.hero-title{font-size:28px;font-weight:700;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.search-box{max-width:480px;margin:0 auto;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 18px;display:flex;align-items:center;gap:8px}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-size:15px;font-family:inherit;width:100%}
+.search-box input::placeholder{color:var(--muted)}
+.wrap{max-width:1100px;margin:0 auto;padding:32px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:28px}
+.sidebar-nav{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;height:fit-content}
+.sn-item{padding:13px 18px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--muted);transition:.15s}
+.sn-item:last-child{border-bottom:none}
+.sn-item:hover{background:var(--surface2);color:var(--text)}
+.sn-item.active{color:var(--text);background:var(--surface2);border-left:2px solid var(--accent);font-weight:600}
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;cursor:pointer;font-size:14px;font-weight:500;transition:.15s}
+.faq-q:hover{background:var(--surface2)}
+.faq-q .q-icon{color:var(--accent);font-weight:700;margin-right:10px;flex-shrink:0}
+.faq-q .arrow{color:var(--muted);font-size:16px;transition:.2s;flex-shrink:0}
+.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 18px 16px 42px;font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border)}
+.faq-a.open{display:block}
+.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.cc-icon{font-size:28px;margin-bottom:10px}
+.cc-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.cc-desc{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.cc-btn{padding:8px 20px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text);font-size:12px;cursor:pointer;font-family:inherit}
+.cc-btn:hover{background:var(--surface2)}
+.cc-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.section-title{font-size:16px;font-weight:700;margin-bottom:16px}
+
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — help.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .wrap { padding-left:16px !important; padding-right:16px !important; }
+  .layout { grid-template-columns:1fr !important; }
+  .cat-sidebar {
+    display:flex !important; flex-direction:row !important; overflow-x:auto !important;
+    border-right:none !important; padding:0 0 10px !important; gap:6px !important;
+  }
+  .cat-sidebar::-webkit-scrollbar { display:none; }
+  .cat-item { white-space:nowrap !important; }
+  .contact-cards { grid-template-columns:1fr !important; }
+}
+
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
+}
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75); backdrop-filter:blur(4px); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<span>.</span></a>
+    <div class="nav-right">
+      <button class="btn-login" onclick="location.href='login.html'">로그인</button>
+      <button class="btn-join" onclick="location.href='login.html'">회원가입</button>
+    </div>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-title">무엇을 도와드릴까요?</div>
+  <div class="hero-sub">자주 묻는 질문이나 문의 사항을 검색해보세요</div>
+  <div class="search-box"><span style="color:var(--muted);font-size:18px">⌕</span><input type="text" placeholder="배송, 환불, 공구 참여 방법 등 검색"></div>
+</div>
+<div class="wrap">
+  <div class="layout">
+    <div class="sidebar-nav">
+      <div class="sn-item active" onclick="selectCat(this)">전체</div>
+      <div class="sn-item" onclick="selectCat(this)">공구/주문</div>
+      <div class="sn-item" onclick="selectCat(this)">배송</div>
+      <div class="sn-item" onclick="selectCat(this)">결제/환불</div>
+      <div class="sn-item" onclick="selectCat(this)">회원/계정</div>
+      <div class="sn-item" onclick="selectCat(this)">인플루언서</div>
+    </div>
+    <div>
+      <div class="section-title">자주 묻는 질문</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>공구 참여 후 취소할 수 있나요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">공구 마감 전까지는 취소가 가능해요. 마이페이지 > 주문내역에서 취소 신청을 하시면 돼요. 단, 공구 마감 후에는 취소가 어려울 수 있으니 신중하게 참여해주세요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>배송은 언제 시작되나요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">공구 마감 이후 셀러가 상품을 준비하고 발송해요. 일반적으로 공구 마감 후 3~5일 이내에 배송이 시작돼요. 배송 시작 시 문자 및 앱 푸시 알림을 보내드려요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>환불/반품은 어떻게 하나요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">상품 수령 후 7일 이내에 마이페이지 > 주문내역 > 반품/교환 신청을 통해 접수하실 수 있어요. 단순 변심의 경우 왕복 배송비가 발생할 수 있어요. 상품 불량이나 오배송의 경우 무료로 처리해드려요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>목표 인원에 미달되면 어떻게 되나요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">GUGU의 공구는 목표 인원에 미달되더라도 기본적으로 진행돼요. 단, 일부 공구는 최소 인원이 설정된 경우가 있으며, 이 경우 미달 시 자동으로 취소되고 전액 환불돼요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>인플루언서 공구와 일반 쇼핑몰의 차이는 뭔가요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">인플루언서가 직접 셀러와 협상해 만든 단독 특가예요. 팔로워 집단구매를 통해 일반 시중가보다 훨씬 저렴하게 구매할 수 있어요. 또한 인플루언서가 직접 검증하고 추천한 제품이라 신뢰도가 높아요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>결제 수단은 어떤 것들이 있나요?</span><span class="arrow">▾</span></div>
+          <div class="faq-a">신용카드, 카카오페이, 네이버페이, 계좌이체를 지원해요. 무통장입금은 지원하지 않아요. 카드 할부는 5만원 이상 결제 시 최대 12개월까지 가능해요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>인플루언서로 활동하고 싶어요</span><span class="arrow">▾</span></div>
+          <div class="faq-a">인플루언서 신청 페이지에서 신청하시면 돼요. 팔로워 수, SNS 채널 정보 등을 입력하시면 검토 후 승인 메일을 발송해드려요. 현재는 인스타그램, 유튜브, 틱톡 채널 운영자를 대상으로 해요.</div>
+        </div>
+      </div>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="cc-icon">💬</div>
+          <div class="cc-title">채팅 상담</div>
+          <div class="cc-desc">평일 오전 9시 ~ 오후 6시<br>실시간 채팅으로 빠르게 해결해요</div>
+          <button class="cc-btn primary">채팅 시작</button>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">📧</div>
+          <div class="cc-title">이메일 문의</div>
+          <div class="cc-desc">24시간 접수 가능<br>영업일 기준 1일 이내 답변드려요</div>
+          <button class="cc-btn">문의하기</button>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">📞</div>
+          <div class="cc-title">전화 상담</div>
+          <div class="cc-desc">02-1234-5678<br>평일 오전 9시 ~ 오후 6시</div>
+          <button class="cc-btn">전화하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleFaq(el){
+  const a=el.nextElementSibling;
+  const isOpen=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(x=>x.classList.remove('open'));
+  if(!isOpen){a.classList.add('open');el.classList.add('open')}
+}
+function selectCat(el){document.querySelectorAll('.sn-item').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+</script>
+
+<!-- 모바일 하단 네비게이션 -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+  <a class="mbn-item" href="index.html">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">홈</span>
+  </a>
+  <a class="mbn-item" href="category.html">
+    <span class="mbn-icon">🔍</span>
+    <span class="mbn-label">탐색</span>
+  </a>
+  <a class="mbn-item" href="search.html">
+    <span class="mbn-icon">⌕</span>
+    <span class="mbn-label">검색</span>
+  </a>
+  <a class="mbn-item" href="notifications.html">
+    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
+    <span class="mbn-label">알림</span>
+  </a>
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
+</body>
+</html>

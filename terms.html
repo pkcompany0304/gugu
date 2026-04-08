@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이용약관 — GUGU.</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--s1:#111114;--s2:#171719;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
+body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+nav{position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--b1)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:16px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none}.logo em{color:var(--r);font-style:normal}
+.wrap{max-width:760px;margin:0 auto;padding:48px 28px 80px;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
+/* TOC */
+.toc{position:sticky;top:80px}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
+.toc-item{display:block;padding:6px 10px;font-size:12px;color:var(--t2);text-decoration:none;border-radius:7px;transition:.15s;margin-bottom:2px}
+.toc-item:hover{background:var(--s1);color:var(--t)}
+/* 본문 */
+.doc-header{margin-bottom:40px}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:3px;color:var(--t);margin-bottom:8px}
+.doc-title em{color:var(--r);font-style:normal}
+.doc-meta{font-size:13px;color:var(--t2)}
+.doc-section{margin-bottom:36px}
+.doc-section h2{font-size:17px;font-weight:800;color:var(--t);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--b1);letter-spacing:-.3px}
+.doc-section p{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:10px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section ul{display:flex;flex-direction:column;gap:7px;padding-left:0;list-style:none}
+.doc-section ul li{font-size:14px;color:var(--t2);line-height:1.7;padding-left:14px;position:relative}
+.doc-section ul li::before{content:'·';position:absolute;left:0;color:var(--r)}
+.doc-section strong{color:var(--t)}
+.highlight-box{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px 18px;margin:14px 0}
+.highlight-box p{font-size:13px;color:var(--t2);line-height:1.75;margin:0}
+
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — terms.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .doc-wrap { padding:24px 16px 60px !important; }
+  .doc-title { font-size:26px !important; }
+  .toc { padding:14px 16px !important; }
+  .info-table { font-size:12px !important; }
+  .info-table th,.info-table td { padding:8px 10px !important; }
+}
+
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
+}
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75); backdrop-filter:blur(4px); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<em>.</em></a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="toc">
+    <div class="toc-title">목차</div>
+    <a class="toc-item" href="#s1">제1조 목적</a>
+    <a class="toc-item" href="#s2">제2조 용어 정의</a>
+    <a class="toc-item" href="#s3">제3조 서비스 내용</a>
+    <a class="toc-item" href="#s4">제4조 회원 가입</a>
+    <a class="toc-item" href="#s5">제5조 서비스 이용</a>
+    <a class="toc-item" href="#s6">제6조 공구 참여</a>
+    <a class="toc-item" href="#s7">제7조 결제 및 환불</a>
+    <a class="toc-item" href="#s8">제8조 인플루언서</a>
+    <a class="toc-item" href="#s9">제9조 책임 제한</a>
+    <a class="toc-item" href="#s10">제10조 분쟁 해결</a>
+  </div>
+  <div class="content">
+    <div class="doc-header">
+      <div class="doc-title">이용<em>약관</em></div>
+      <div class="doc-meta">시행일: 2026년 01월 01일 · 최종 수정: 2026년 04월 01일</div>
+    </div>
+    <div class="highlight-box"><p>본 약관은 GUGU.(이하 "회사")가 운영하는 인플루언서 공구 플랫폼 GUGU 서비스(이하 "서비스") 이용에 관한 조건 및 절차, 회사와 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p></div>
+    <div class="doc-section" id="s1">
+      <h2>제1조 (목적)</h2>
+      <p>이 약관은 GUGU.(이하 "회사")가 운영하는 인플루언서 공구 전용 플랫폼 GUGU(이하 "서비스")의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+    </div>
+    <div class="doc-section" id="s2">
+      <h2>제2조 (용어의 정의)</h2>
+      <ul>
+        <li><strong>"서비스"</strong>란 회사가 운영하는 인플루언서 공구(공동구매) 전용 플랫폼을 의미합니다.</li>
+        <li><strong>"이용자"</strong>란 본 약관에 따라 서비스를 이용하는 소비자, 인플루언서, 셀러를 총칭합니다.</li>
+        <li><strong>"공구"</strong>란 인플루언서가 셀러와 협상하여 팔로워에게 제공하는 공동구매 이벤트를 의미합니다.</li>
+        <li><strong>"인플루언서"</strong>란 서비스에서 공구를 진행하는 콘텐츠 창작자를 의미합니다.</li>
+        <li><strong>"셀러"</strong>란 공구 상품을 공급하는 판매자를 의미합니다.</li>
+      </ul>
+    </div>
+    <div class="doc-section" id="s3">
+      <h2>제3조 (서비스의 내용)</h2>
+      <p>회사는 다음과 같은 서비스를 제공합니다.</p>
+      <ul>
+        <li>인플루언서 공구 페이지 생성 및 운영</li>
+        <li>공구 참여 및 주문 처리 서비스</li>
+        <li>결제 처리 및 정산 서비스</li>
+        <li>팔로잉 인플루언서 공구 알림 서비스</li>
+        <li>공구 관련 CS 1차 대응 서비스</li>
+      </ul>
+    </div>
+    <div class="doc-section" id="s4">
+      <h2>제4조 (회원 가입)</h2>
+      <p>이용자는 회사가 정한 가입 양식에 따라 이용 신청을 하며, 회사가 이를 승낙하면 회원 가입이 성립됩니다. 만 14세 미만의 아동은 법정대리인의 동의 없이 회원 가입을 할 수 없습니다.</p>
+    </div>
+    <div class="doc-section" id="s5">
+      <h2>제5조 (서비스 이용)</h2>
+      <p>서비스는 연중 24시간 제공됩니다. 단, 시스템 유지보수 등의 사유로 서비스가 일시 중단될 수 있으며, 이 경우 사전에 공지합니다.</p>
+    </div>
+    <div class="doc-section" id="s6">
+      <h2>제6조 (공구 참여)</h2>
+      <ul>
+        <li>공구 참여 후 취소는 공구 마감 24시간 전까지 가능합니다.</li>
+        <li>공구 마감 후에는 단순 변심에 의한 취소가 불가합니다.</li>
+        <li>최소 참여 인원 미달 시 공구가 자동 취소되며 전액 환불됩니다.</li>
+        <li>공구 특가는 해당 공구에서만 적용되는 단독 가격입니다.</li>
+      </ul>
+    </div>
+    <div class="doc-section" id="s7">
+      <h2>제7조 (결제 및 환불)</h2>
+      <p>결제는 신용카드, 체크카드, 카카오페이, 토스페이 등 회사가 지정한 방법으로 가능합니다.</p>
+      <ul>
+        <li>공구 참여 후 취소 시: 공구 마감 24시간 전까지 전액 환불</li>
+        <li>상품 미수령 또는 상품 불량의 경우: 수령일로부터 7일 이내 전액 환불</li>
+        <li>단순 변심(개봉 후): 환불 불가</li>
+      </ul>
+    </div>
+    <div class="doc-section" id="s8">
+      <h2>제8조 (인플루언서 파트너)</h2>
+      <p>인플루언서는 GUGU 파트너 신청 후 승인을 받아야 공구를 진행할 수 있습니다. 인플루언서는 공구 진행 시 상품에 대한 정확한 정보를 제공해야 하며, 허위 과장 광고를 해서는 안 됩니다.</p>
+      <p>GUGU 수수료는 판매가의 5%이며, 공구 마감 후 7영업일 이내 정산됩니다.</p>
+    </div>
+    <div class="doc-section" id="s9">
+      <h2>제9조 (책임의 제한)</h2>
+      <p>회사는 천재지변, 전쟁, 테러, 해킹 등 회사의 귀책 사유 없이 발생한 서비스 장애에 대해 책임을 지지 않습니다. 상품의 배송, CS, 반품/교환은 셀러가 직접 처리하며 이에 대한 책임은 셀러에게 있습니다.</p>
+    </div>
+    <div class="doc-section" id="s10">
+      <h2>제10조 (분쟁 해결)</h2>
+      <p>서비스 이용과 관련된 분쟁은 회사와 이용자 간의 협의로 해결함을 원칙으로 합니다. 협의가 이루어지지 않을 경우 민사소송법상의 관할 법원에 소를 제기할 수 있습니다.</p>
+      <div class="highlight-box"><p><strong>사업자 정보</strong><br>상호명: GUGU.<br>통신판매업 신고번호: 2026-서울-00000<br>이메일: support@gugu.kr</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 모바일 하단 네비게이션 -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+  <a class="mbn-item" href="index.html">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">홈</span>
+  </a>
+  <a class="mbn-item" href="category.html">
+    <span class="mbn-icon">🔍</span>
+    <span class="mbn-label">탐색</span>
+  </a>
+  <a class="mbn-item" href="search.html">
+    <span class="mbn-icon">⌕</span>
+    <span class="mbn-label">검색</span>
+  </a>
+  <a class="mbn-item" href="notifications.html">
+    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
+    <span class="mbn-label">알림</span>
+  </a>
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
+</body>
+</html>

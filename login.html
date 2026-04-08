@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 로그인</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
+.logo span{color:var(--accent)}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;gap:80px}
+.left{display:flex;flex-direction:column;gap:20px;max-width:360px}
+.left-title{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.2}
+.left-title .red{color:var(--accent)}
+.left-sub{font-size:14px;color:var(--muted);line-height:1.7}
+.left-points{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.lp{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.lp-dot{width:20px;height:20px;border-radius:50%;background:rgba(255,59,59,0.12);border:1px solid rgba(255,59,59,0.25);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);flex-shrink:0}
+.divider{width:1px;height:280px;background:var(--border)}
+.form-box{width:380px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px}
+.form-tabs{display:flex;margin-bottom:28px;background:var(--surface2);border-radius:8px;padding:3px}
+.ftab{flex:1;padding:8px;text-align:center;border-radius:6px;font-size:14px;cursor:pointer;transition:.15s;font-family:inherit;border:none;background:none;color:var(--muted)}
+.ftab.active{background:var(--surface);color:var(--text);font-weight:600}
+.form-group{margin-bottom:16px}
+.form-label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block;font-weight:500}
+.form-input{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+.form-input:focus{border-color:var(--accent)}
+.form-input::placeholder{color:var(--muted)}
+.form-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:12px}
+.form-check{display:flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer}
+.form-check input{accent-color:var(--accent)}
+.form-link{color:var(--muted);text-decoration:none}
+.form-link:hover{color:var(--text)}
+.btn-submit{width:100%;padding:13px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:16px}
+.btn-submit:hover{background:#e63535}
+.social-divider{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.social-divider span{font-size:12px;color:var(--muted);white-space:nowrap}
+.social-divider::before,.social-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.social-btns{display:flex;gap:8px;margin-bottom:20px}
+.social-btn{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
+.social-btn:hover{background:var(--surface2)}
+.form-bottom{text-align:center;font-size:13px;color:var(--muted)}
+.form-bottom a{color:var(--accent);text-decoration:none;font-weight:600}
+.signup-panel{display:none}
+.type-select{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.type-card{padding:16px;border-radius:10px;border:1px solid var(--border);background:none;cursor:pointer;text-align:center;transition:.2s;font-family:inherit}
+.type-card:hover{border-color:var(--muted)}
+.type-card.active{border-color:var(--accent);background:rgba(255,59,59,0.06)}
+.type-card .tc-icon{font-size:24px;margin-bottom:6px}
+.type-card .tc-name{font-size:13px;font-weight:600;color:var(--text)}
+.type-card .tc-desc{font-size:11px;color:var(--muted);margin-top:2px}
+
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — login.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  body { display:flex; align-items:flex-start; justify-content:center; }
+  .login-wrap { padding:20px 16px 60px !important; width:100% !important; }
+  .form-box { width:100% !important; max-width:100% !important; padding:20px 16px !important; }
+  .type-select { grid-template-columns:1fr !important; gap:8px !important; }
+  .social-buttons { flex-direction:column !important; }
+}
+
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
+}
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75); backdrop-filter:blur(4px); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<span>.</span></a>
+  </div>
+</nav>
+<div class="main">
+  <div class="left">
+    <div class="left-title">인플루언서 공구<br>플랫폼 <span class="red">GUGU</span></div>
+    <div class="left-sub">팔로우하는 인플루언서의 공동구매를 한 곳에서. 놓치지 않게.</div>
+    <div class="left-points">
+      <div class="lp"><div class="lp-dot">✓</div>인플루언서 단독 특가</div>
+      <div class="lp"><div class="lp-dot">✓</div>실시간 공구 참여 현황</div>
+      <div class="lp"><div class="lp-dot">✓</div>자동 정산 & 배송 추적</div>
+      <div class="lp"><div class="lp-dot">✓</div>팔로우 인플루언서 공구 알림</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="form-box">
+    <div class="form-tabs">
+      <button class="ftab active" onclick="switchTab('login',this)">로그인</button>
+      <button class="ftab" onclick="switchTab('signup',this)">회원가입</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-panel">
+      <div class="form-group">
+        <label class="form-label">이메일</label>
+        <input class="form-input" type="email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">비밀번호</label>
+        <input class="form-input" type="password" placeholder="••••••••">
+      </div>
+      <div class="form-row">
+        <label class="form-check"><input type="checkbox" checked> 로그인 상태 유지</label>
+        <a class="form-link" href="#">비밀번호 찾기</a>
+      </div>
+      <button class="btn-submit" onclick="location.href='index.html'">로그인</button>
+      <div class="social-divider"><span>또는</span></div>
+      <div class="social-btns">
+        <button class="social-btn">🟡 카카오</button>
+        <button class="social-btn">🟢 네이버</button>
+        <button class="social-btn">⬜ 구글</button>
+      </div>
+      <div class="form-bottom">계정이 없으신가요? <a href="#" onclick="switchTabByName('signup')">회원가입</a></div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="signup-panel" style="display:none">
+      <div class="type-select">
+        <button class="type-card active" onclick="selectType(this)">
+          <div class="tc-icon">🛍️</div>
+          <div class="tc-name">소비자</div>
+          <div class="tc-desc">공구 참여하기</div>
+        </button>
+        <button class="type-card" onclick="selectType(this)">
+          <div class="tc-icon">✨</div>
+          <div class="tc-name">인플루언서</div>
+          <div class="tc-desc">공구 열기</div>
+        </button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">이름</label>
+        <input class="form-input" type="text" placeholder="홍길동">
+      </div>
+      <div class="form-group">
+        <label class="form-label">이메일</label>
+        <input class="form-input" type="email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">비밀번호</label>
+        <input class="form-input" type="password" placeholder="8자 이상">
+      </div>
+      <div class="form-group">
+        <label class="form-label">휴대폰 번호</label>
+        <input class="form-input" type="tel" placeholder="010-0000-0000">
+      </div>
+      <button class="btn-submit" onclick="location.href='index.html'">가입하기</button>
+      <div class="form-bottom">이미 계정이 있으신가요? <a href="#" onclick="switchTabByName('login')">로그인</a></div>
+    </div>
+  </div>
+</div>
+<script>
+function switchTab(name, el){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('login-panel').style.display=name==='login'?'block':'none';
+  document.getElementById('signup-panel').style.display=name==='signup'?'block':'none';
+}
+function switchTabByName(name){
+  const tabs=document.querySelectorAll('.ftab');
+  tabs[name==='login'?0:1].click();
+}
+function selectType(el){document.querySelectorAll('.type-card').forEach(t=>t.classList.remove('active'));el.classList.add('active')}
+</script>
+
+<!-- 모바일 하단 네비게이션 -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+  <a class="mbn-item" href="index.html">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">홈</span>
+  </a>
+  <a class="mbn-item" href="category.html">
+    <span class="mbn-icon">🔍</span>
+    <span class="mbn-label">탐색</span>
+  </a>
+  <a class="mbn-item" href="search.html">
+    <span class="mbn-icon">⌕</span>
+    <span class="mbn-label">검색</span>
+  </a>
+  <a class="mbn-item" href="notifications.html">
+    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
+    <span class="mbn-label">알림</span>
+  </a>
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
+</body>
+</html>

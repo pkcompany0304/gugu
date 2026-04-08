@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 검색결과</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;height:56px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
+.logo span{color:var(--accent)}
+.search-wrap{flex:1;max-width:500px}
+.search-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 14px;display:flex;align-items:center;gap:8px;width:100%}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-size:14px;font-family:inherit;width:100%}
+.search-box input::placeholder{color:var(--muted)}
+.search-icon{color:var(--muted);font-size:16px;cursor:pointer}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.btn-login{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit}
+.btn-join{padding:6px 14px;border-radius:6px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 32px}
+.search-header{margin-bottom:24px}
+.search-query{font-size:22px;font-weight:700;margin-bottom:4px}
+.search-query span{color:var(--accent)}
+.search-count{font-size:13px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:28px}
+/* FILTER SIDEBAR */
+.filter-sidebar{}
+.filter-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px}
+.filter-title{font-size:13px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.filter-title .reset{font-size:11px;color:var(--muted);cursor:pointer;font-weight:400}
+.filter-title .reset:hover{color:var(--accent)}
+.filter-list{display:flex;flex-direction:column;gap:8px}
+.filter-item{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.filter-item label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--muted)}
+.filter-item input{accent-color:var(--accent)}
+.filter-item label.active-label{color:var(--text)}
+.filter-cnt{font-size:11px;color:var(--muted)}
+.price-range{margin-top:8px}
+.range-inputs{display:flex;align-items:center;gap:8px;margin-top:8px}
+.range-input{flex:1;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;font-family:inherit;outline:none;text-align:center}
+.range-sep{font-size:12px;color:var(--muted)}
+.sort-filter{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.active-filters{display:flex;gap:6px;flex-wrap:wrap}
+.af-tag{display:flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(255,59,59,0.1);border:1px solid rgba(255,59,59,0.25);border-radius:20px;font-size:12px;color:var(--accent)}
+.af-tag button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:14px;line-height:1;padding:0}
+.sort-select{padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;cursor:pointer}
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s}
+.product-card:hover{transform:translateY(-3px);border-color:#444}
+.product-card-img{height:180px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.badge{position:absolute;top:8px;left:8px;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.badge-live{background:var(--accent)}
+.badge-end{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.product-card-body{padding:14px}
+.pc-inf{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.pc-av{width:22px;height:22px;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.pc-inf-name{font-size:11px;color:var(--muted)}
+.pc-name{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+.pc-price-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.pc-orig{font-size:11px;color:var(--muted);text-decoration:line-through}
+.pc-sale{font-size:16px;font-weight:700}
+.pc-disc{font-size:11px;font-weight:700;color:var(--accent)}
+.pc-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:5px}
+.pc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.pc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:32px}
+.pg-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.pg-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.pg-btn:hover:not(.active){background:var(--surface2)}
+.no-result{text-align:center;padding:60px 0;color:var(--muted)}
+.no-result .icon{font-size:48px;margin-bottom:16px}
+
+.empty-state{text-align:center;padding:64px 20px;display:flex;flex-direction:column;align-items:center}
+.es-icon{font-size:56px;opacity:.22;margin-bottom:18px}
+.es-title{font-size:20px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-.3px}
+.es-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:320px}
+.es-cta{display:flex;gap:10px;justify-content:center}
+.es-btn{padding:11px 22px;border-radius:10px;background:var(--accent);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.es-btn-out{padding:11px 22px;border-radius:10px;background:none;border:1px solid var(--border);color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — search.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .wrap { padding-left:16px !important; padding-right:16px !important; }
+  .layout { grid-template-columns:1fr !important; }
+  .filter-col { display:none !important; }
+  .product-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
+  .sort-row { flex-wrap:wrap !important; gap:8px !important; }
+}
+
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
+}
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75); backdrop-filter:blur(4px); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<span>.</span></a>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" value="닥터자르트" onkeydown="if(event.key==='Enter')doSearch()">
+        <span class="search-icon" onclick="doSearch()" style="cursor:pointer">→</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="btn-login" onclick="location.href='login.html'">로그인</button>
+      <button class="btn-join" onclick="location.href='login.html'">회원가입</button>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="search-header">
+    <div class="search-query">"<span id="queryText">닥터자르트</span>" 검색결과</div>
+    <div class="search-count">총 <strong id="resultCount">24</strong>개의 공구를 찾았어요</div>
+  </div>
+  <div class="layout">
+    <div class="filter-sidebar">
+      <div class="filter-section">
+        <div class="filter-title">카테고리 <span class="reset" onclick="resetFilters()">초기화</span></div>
+        <div class="filter-list">
+          <div class="filter-item"><label><input type="checkbox" checked> <span class="active-label">뷰티</span></label><span class="filter-cnt">18</span></div>
+          <div class="filter-item"><label><input type="checkbox"> 패션</label><span class="filter-cnt">3</span></div>
+          <div class="filter-item"><label><input type="checkbox"> 푸드</label><span class="filter-cnt">2</span></div>
+          <div class="filter-item"><label><input type="checkbox"> 라이프</label><span class="filter-cnt">1</span></div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-title">가격대</div>
+        <div class="price-range">
+          <input type="range" min="0" max="200000" value="100000" style="width:100%;accent-color:var(--accent)">
+          <div class="range-inputs">
+            <input class="range-input" type="text" value="0원">
+            <span class="range-sep">~</span>
+            <input class="range-input" type="text" value="100,000원">
+          </div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-title">할인율</div>
+        <div class="filter-list">
+          <div class="filter-item"><label><input type="checkbox"> 10% 이상</label></div>
+          <div class="filter-item"><label><input type="checkbox" checked> <span class="active-label">30% 이상</span></label></div>
+          <div class="filter-item"><label><input type="checkbox"> 50% 이상</label></div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-title">공구 상태</div>
+        <div class="filter-list">
+          <div class="filter-item"><label><input type="checkbox" checked> <span class="active-label">진행중</span></label><span class="filter-cnt">19</span></div>
+          <div class="filter-item"><label><input type="checkbox"> 예정</label><span class="filter-cnt">5</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sort-filter">
+        <div class="active-filters">
+          <div class="af-tag">뷰티 <button onclick="this.parentElement.remove()">×</button></div>
+          <div class="af-tag">30% 이상 <button onclick="this.parentElement.remove()">×</button></div>
+          <div class="af-tag">진행중 <button onclick="this.parentElement.remove()">×</button></div>
+        </div>
+        <select class="sort-select">
+          <option>인기순</option>
+          <option>최신순</option>
+          <option>할인율 높은순</option>
+          <option>가격 낮은순</option>
+          <option>마감임박순</option>
+        </select>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">🧴<div class="badge badge-live">진행중</div></div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div>
+            <div class="pc-name">닥터자르트 시카페어 크림 50ml</div>
+            <div class="pc-price-row"><span class="pc-orig">52,000원</span><span class="pc-sale">31,900원</span><span class="pc-disc">-38%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div>
+            <div class="pc-meta"><span>4,812명</span><span>2일 남음</span></div>
+          </div>
+        </div>
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">💊</div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div>
+            <div class="pc-name">닥터자르트 V7 비타민 크림</div>
+            <div class="pc-price-row"><span class="pc-orig">45,000원</span><span class="pc-sale">27,000원</span><span class="pc-disc">-40%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:61%"></div></div>
+            <div class="pc-meta"><span>2,341명</span><span>4일 남음</span></div>
+          </div>
+        </div>
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">🌿</div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#6f42c1">하</div><span class="pc-inf-name">하루뷰티</span></div>
+            <div class="pc-name">닥터자르트 세라마이딘 크림</div>
+            <div class="pc-price-row"><span class="pc-orig">38,000원</span><span class="pc-sale">22,800원</span><span class="pc-disc">-40%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:88%"></div></div>
+            <div class="pc-meta"><span>3,891명</span><span>1일 남음</span></div>
+          </div>
+        </div>
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">✨</div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#fd7e14">이</div><span class="pc-inf-name">이루미</span></div>
+            <div class="pc-name">닥터자르트 울트라 선 세럼</div>
+            <div class="pc-price-row"><span class="pc-orig">42,000원</span><span class="pc-sale">25,200원</span><span class="pc-disc">-40%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:45%"></div></div>
+            <div class="pc-meta"><span>1,203명</span><span>6일 남음</span></div>
+          </div>
+        </div>
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">🧪</div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#20c997">채</div><span class="pc-inf-name">채링이</span></div>
+            <div class="pc-name">닥터자르트 시카페어 세럼 40ml</div>
+            <div class="pc-price-row"><span class="pc-orig">55,000원</span><span class="pc-sale">33,000원</span><span class="pc-disc">-40%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:33%"></div></div>
+            <div class="pc-meta"><span>891명</span><span>7일 남음</span></div>
+          </div>
+        </div>
+        <div class="product-card" onclick="location.href='product-detail.html'">
+          <div class="product-card-img">💆<div class="badge badge-end">마감</div></div>
+          <div class="product-card-body">
+            <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div>
+            <div class="pc-name">닥터자르트 크리미 로션 200ml</div>
+            <div class="pc-price-row"><span class="pc-orig">30,000원</span><span class="pc-sale">18,000원</span><span class="pc-disc">-40%</span></div>
+            <div class="pc-bar"><div class="pc-fill" style="width:100%"></div></div>
+            <div class="pc-meta"><span>5,102명</span><span>완료</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination">
+        <button class="pg-btn">←</button>
+        <button class="pg-btn active">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <button class="pg-btn">4</button>
+        <button class="pg-btn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function doSearch(){
+  const q=document.getElementById('searchInput').value.trim();
+  if(q) document.getElementById('queryText').textContent=q;
+}
+document.querySelectorAll('.pg-btn').forEach(b=>b.addEventListener('click',function(){
+  if(this.textContent==='←'||this.textContent==='→') return;
+  document.querySelectorAll('.pg-btn').forEach(x=>x.classList.remove('active'));
+  this.classList.add('active');
+}));
+function resetFilters(){document.querySelectorAll('.filter-item input').forEach(i=>i.checked=false)}
+</script>
+
+<div class="empty-state" id="emptySearch" style="display:none">
+  <div class="es-icon">🔍</div>
+  <div class="es-title">검색 결과가 없어요</div>
+  <p class="es-sub">다른 검색어를 입력하거나<br>카테고리에서 둘러보세요</p>
+  <div class="es-cta">
+    <button class="es-btn" onclick="location.href='category.html'">카테고리 둘러보기</button>
+    <button class="es-btn-out" onclick="location.href='index.html'">홈으로</button>
+  </div>
+</div>
+
+<!-- 모바일 하단 네비게이션 -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+  <a class="mbn-item" href="index.html">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">홈</span>
+  </a>
+  <a class="mbn-item" href="category.html">
+    <span class="mbn-icon">🔍</span>
+    <span class="mbn-label">탐색</span>
+  </a>
+  <a class="mbn-item" href="search.html">
+    <span class="mbn-icon">⌕</span>
+    <span class="mbn-label">검색</span>
+  </a>
+  <a class="mbn-item" href="notifications.html">
+    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
+    <span class="mbn-label">알림</span>
+  </a>
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
+</body>
+</html>

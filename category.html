@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 카테고리</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
+nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;height:56px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
+.logo span{color:var(--accent)}
+.nav-tabs{display:flex;gap:2px}
+.nav-tab{padding:5px 12px;border-radius:6px;font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;white-space:nowrap;transition:.15s}
+.nav-tab:hover{color:var(--text);background:var(--surface2)}
+.nav-tab.active{color:var(--text);background:var(--surface2)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.search-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;display:flex;align-items:center;gap:7px;width:180px}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-size:13px;font-family:inherit;width:100%}
+.search-box input::placeholder{color:var(--muted)}
+.btn-login{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text);font-size:13px;cursor:pointer;font-family:inherit}
+.btn-join{padding:6px 14px;border-radius:6px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.cat-hero{background:var(--surface);border-bottom:1px solid var(--border);padding:28px 32px}
+.cat-hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.cat-icon{font-size:40px}
+.cat-title{font-size:28px;font-weight:700;letter-spacing:-1px}
+.cat-count{font-size:13px;color:var(--muted);margin-top:3px}
+.cat-tabs-wrap{max-width:1100px;margin:0 auto;display:flex;gap:8px;padding:16px 32px;overflow-x:auto}
+.cat-tabs-wrap::-webkit-scrollbar{display:none}
+.sub-tab{padding:7px 16px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--muted);font-family:inherit;white-space:nowrap;transition:.2s}
+.sub-tab:hover{border-color:var(--muted);color:var(--text)}
+.sub-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 32px}
+.sort-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.result-count{font-size:13px;color:var(--muted)}
+.sort-select{padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;cursor:pointer}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s}
+.product-card:hover{transform:translateY(-3px);border-color:#444}
+.product-card-img{height:180px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.badge{position:absolute;top:8px;left:8px;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.badge-live{background:var(--accent)}
+.badge-hot{background:var(--accent2)}
+.badge-end{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.product-card-body{padding:12px}
+.pc-inf{display:flex;align-items:center;gap:5px;margin-bottom:7px}
+.pc-av{width:20px;height:20px;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.pc-inf-name{font-size:11px;color:var(--muted)}
+.pc-name{font-size:13px;font-weight:600;margin-bottom:7px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+.pc-price-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.pc-orig{font-size:11px;color:var(--muted);text-decoration:line-through}
+.pc-sale{font-size:16px;font-weight:700}
+.pc-disc{font-size:11px;font-weight:700;color:var(--accent)}
+.pc-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:5px}
+.pc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.pc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.load-more{display:flex;justify-content:center;margin-top:32px}
+.btn-load{padding:12px 40px;border-radius:10px;border:1px solid var(--border);background:none;color:var(--text);font-size:14px;cursor:pointer;font-family:inherit}
+.btn-load:hover{background:var(--surface2)}
+
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — category.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .wrap { padding-left:16px !important; padding-right:16px !important; }
+  .product-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
+  .subcat-strip { flex-wrap:nowrap !important; overflow-x:auto !important; }
+  .subcat-strip::-webkit-scrollbar { display:none; }
+}
+
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
+}
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75); backdrop-filter:blur(4px); display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<span>.</span></a>
+    <div class="nav-tabs">
+      <button class="nav-tab active">전체</button>
+      <button class="nav-tab" onclick="location.href='category.html'">뷰티</button>
+      <button class="nav-tab">패션</button>
+      <button class="nav-tab">푸드</button>
+      <button class="nav-tab">라이프</button>
+      <button class="nav-tab">피트니스</button>
+      <button class="nav-tab">테크</button>
+    </div>
+    <div class="nav-right">
+      <div class="search-box"><span style="color:var(--muted)">⌕</span><input type="text" placeholder="검색"></div>
+      <button class="btn-login" onclick="location.href='login.html'">로그인</button>
+      <button class="btn-join" onclick="location.href='login.html'">회원가입</button>
+    </div>
+  </div>
+</nav>
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-icon">💄</div>
+    <div>
+      <div class="cat-title">뷰티</div>
+      <div class="cat-count">스킨케어, 메이크업, 헤어케어 등 총 <strong>247개</strong> 공구</div>
+    </div>
+  </div>
+</div>
+<div style="border-bottom:1px solid var(--border)">
+  <div class="cat-tabs-wrap">
+    <button class="sub-tab active">전체</button>
+    <button class="sub-tab">스킨케어</button>
+    <button class="sub-tab">메이크업</button>
+    <button class="sub-tab">선케어</button>
+    <button class="sub-tab">헤어케어</button>
+    <button class="sub-tab">바디케어</button>
+    <button class="sub-tab">향수</button>
+    <button class="sub-tab">클렌징</button>
+  </div>
+</div>
+<div class="wrap">
+  <div class="sort-row">
+    <div class="result-count">총 <strong>247개</strong> 공구</div>
+    <select class="sort-select">
+      <option>인기순</option>
+      <option>최신순</option>
+      <option>할인율 높은순</option>
+      <option>가격 낮은순</option>
+      <option>마감임박순</option>
+    </select>
+  </div>
+  <div class="product-grid">
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">🧴<div class="badge badge-live">마감임박</div></div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div><div class="pc-name">닥터자르트 시카페어 크림 50ml</div><div class="pc-price-row"><span class="pc-orig">52,000원</span><span class="pc-sale">31,900원</span><span class="pc-disc">-38%</span></div><div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div><div class="pc-meta"><span>4,812명</span><span>2일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">💄<div class="badge badge-hot">HOT</div></div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div><div class="pc-name">롬앤 쥬시래스팅틴트 전색상</div><div class="pc-price-row"><span class="pc-orig">18,000원</span><span class="pc-sale">11,200원</span><span class="pc-disc">-38%</span></div><div class="pc-bar"><div class="pc-fill" style="width:89%"></div></div><div class="pc-meta"><span>3,291명</span><span>1일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">🌿</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#20c997">채</div><span class="pc-inf-name">채링이</span></div><div class="pc-name">이니스프리 그린티 씨드 세럼</div><div class="pc-price-row"><span class="pc-orig">38,000원</span><span class="pc-sale">22,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:55%"></div></div><div class="pc-meta"><span>2,108명</span><span>5일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">✨</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#6f42c1">하</div><span class="pc-inf-name">하루뷰티</span></div><div class="pc-name">설화수 윤조에센스 기획세트</div><div class="pc-price-row"><span class="pc-orig">95,000원</span><span class="pc-sale">62,000원</span><span class="pc-disc">-35%</span></div><div class="pc-bar"><div class="pc-fill" style="width:42%"></div></div><div class="pc-meta"><span>1,847명</span><span>6일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">💆</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#fd7e14">이</div><span class="pc-inf-name">이루미</span></div><div class="pc-name">아벤느 클렌징 워터 200ml</div><div class="pc-price-row"><span class="pc-orig">28,000원</span><span class="pc-sale">16,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:67%"></div></div><div class="pc-meta"><span>2,341명</span><span>3일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">🌸</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#e83e8c">나</div><span class="pc-inf-name">나리뷰티</span></div><div class="pc-name">라네즈 립 슬리핑 마스크 20g</div><div class="pc-price-row"><span class="pc-orig">22,000원</span><span class="pc-sale">13,200원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:38%"></div></div><div class="pc-meta"><span>891명</span><span>7일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">🔆</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#28a745">수</div><span class="pc-inf-name">수빈스킨</span></div><div class="pc-name">스킨푸드 블랙슈가 마스크 워시오프 100ml</div><div class="pc-price-row"><span class="pc-orig">15,000원</span><span class="pc-sale">9,000원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:81%"></div></div><div class="pc-meta"><span>3,102명</span><span>2일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="product-card-img">🧖</div><div class="product-card-body"><div class="pc-inf"><div class="pc-av" style="background:#dc3545">민</div><span class="pc-inf-name">민지뷰티</span></div><div class="pc-name">투쿨포스쿨 아트클래스 바이로댕 섀딩</div><div class="pc-price-row"><span class="pc-orig">18,000원</span><span class="pc-sale">10,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:52%"></div></div><div class="pc-meta"><span>1,482명</span><span>4일 남음</span></div></div></div>
+  </div>
+  <div class="load-more"><button class="btn-load">더 보기 (239개 남음)</button></div>
+</div>
+<script>
+document.querySelectorAll('.nav-tab').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
+document.querySelectorAll('.sub-tab').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
+</script>
+
+<!-- 모바일 하단 네비게이션 -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+  <a class="mbn-item" href="index.html">
+    <span class="mbn-icon">🏠</span>
+    <span class="mbn-label">홈</span>
+  </a>
+  <a class="mbn-item" href="category.html">
+    <span class="mbn-icon">🔍</span>
+    <span class="mbn-label">탐색</span>
+  </a>
+  <a class="mbn-item" href="search.html">
+    <span class="mbn-icon">⌕</span>
+    <span class="mbn-label">검색</span>
+  </a>
+  <a class="mbn-item" href="notifications.html">
+    <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
+    <span class="mbn-label">알림</span>
+  </a>
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
+</body>
+</html>
