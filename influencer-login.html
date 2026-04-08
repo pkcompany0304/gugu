@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 인플루언서 로그인</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0A0A0A;--s1:#111114;--s2:#171719;
+  --b1:#242428;--b2:#2e2e34;
+  --r:#FF3B3B;--o:#FF8A00;--g:#22c55e;
+  --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
+}
+body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 32px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--t)}
+.logo span{color:var(--r)}
+.nav-badge{background:rgba(255,59,59,0.12);border:1px solid rgba(255,59,59,0.25);color:var(--r);font-size:11px;padding:3px 10px;border-radius:4px;font-weight:700;letter-spacing:1px}
+.consumer-link{font-size:13px;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px}
+.consumer-link:hover{color:var(--t)}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;gap:80px}
+
+/* 왼쪽 */
+.left{display:flex;flex-direction:column;gap:24px;max-width:380px}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap}
+.badge{padding:5px 12px;border-radius:99px;font-size:11px;font-weight:700;border:1px solid}
+.b-green{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.2);color:var(--g)}
+.b-orange{background:rgba(255,138,0,.1);border-color:rgba(255,138,0,.2);color:var(--o)}
+.b-red{background:rgba(255,59,59,.1);border-color:rgba(255,59,59,.2);color:var(--r)}
+.left-title{font-size:38px;font-weight:800;letter-spacing:-1.5px;line-height:1.15}
+.left-title .red{color:var(--r)}
+.left-sub{font-size:14px;color:var(--t2);line-height:1.75}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.stat-box{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:14px;text-align:center}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.stat-n.red{color:var(--r)}.stat-n.green{color:var(--g)}.stat-n.orange{color:var(--o)}
+.stat-l{font-size:11px;color:var(--t2);margin-top:2px}
+
+/* 구분선 */
+.divider{width:1px;height:320px;background:var(--b1)}
+
+/* 폼 */
+.box{width:400px;background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:32px}
+.box-tabs{display:flex;margin-bottom:28px;background:var(--s2);border-radius:8px;padding:3px}
+.tab{flex:1;padding:8px;text-align:center;border-radius:6px;font-size:14px;cursor:pointer;border:none;background:none;color:var(--t2);font-family:inherit;transition:.15s}
+.tab.active{background:var(--s1);color:var(--t);font-weight:700}
+.form-group{margin-bottom:16px}
+.label{font-size:12px;color:var(--t2);margin-bottom:6px;display:block;font-weight:600}
+.label .req{color:var(--r)}
+.input{width:100%;padding:11px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+.input:focus{border-color:var(--r)}
+.input::placeholder{color:var(--t3)}
+.err{display:none;color:var(--r);font-size:13px;margin-bottom:14px;padding:10px 14px;background:rgba(255,59,59,0.08);border-radius:8px}
+.ok{display:none;color:var(--g);font-size:13px;margin-bottom:14px;padding:10px 14px;background:rgba(34,197,94,0.08);border-radius:8px}
+.btn-submit{width:100%;padding:13px;border-radius:10px;border:none;background:var(--r);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:16px;transition:.2s}
+.btn-submit:hover{background:#e03333}
+.btn-submit:disabled{background:var(--t3);cursor:default}
+.bottom{text-align:center;font-size:13px;color:var(--t2)}
+.bottom a{color:var(--r);text-decoration:none;font-weight:600}
+.divider-signup{display:flex;align-items:center;gap:10px;margin:20px 0 0}
+.divider-signup::before,.divider-signup::after{content:'';flex:1;height:1px;background:var(--b1)}
+.divider-signup span{font-size:12px;color:var(--t2);white-space:nowrap}
+.apply-btn{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--b1);border-radius:10px;background:none;width:100%;cursor:pointer;font-family:inherit;transition:.2s;text-align:left;margin-top:12px}
+.apply-btn:hover{border-color:var(--r);background:rgba(255,59,59,0.04)}
+.apply-icon{font-size:22px}
+.apply-text .t{font-size:14px;font-weight:700;color:var(--t)}
+.apply-text .s{font-size:12px;color:var(--t2)}
+.apply-arrow{margin-left:auto;color:var(--t3)}
+
+@media(max-width:768px){
+  .main{flex-direction:column;gap:32px;padding:24px 16px 60px}
+  .left{max-width:100%}
+  .divider{display:none}
+  .box{width:100%;padding:24px 18px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">GUGU<span>.</span></a>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span class="nav-badge">INFLUENCER</span>
+      <a class="consumer-link" href="login.html">← 소비자 로그인</a>
+    </div>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="left">
+    <div class="badge-row">
+      <span class="badge b-green">✓ 입점 무료</span>
+      <span class="badge b-orange">✓ 3개월 수수료 0%</span>
+      <span class="badge b-red">✓ 자동 정산</span>
+    </div>
+    <div class="left-title">공구 수익,<br><span class="red">GUGU</span>와<br>함께 키우세요</div>
+    <div class="left-sub">제품만 골라오세요. 페이지 생성, 주문 취합,<br>정산, CS — 나머지는 GUGU가 다 합니다.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-n red">5%</div><div class="stat-l">낮은 수수료</div></div>
+      <div class="stat-box"><div class="stat-n green">D+7</div><div class="stat-l">정산 주기</div></div>
+      <div class="stat-box"><div class="stat-n orange">24h</div><div class="stat-l">CS 대응</div></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <div class="box-tabs">
+      <button class="tab active" onclick="switchTab('login',this)">로그인</button>
+      <button class="tab" onclick="switchTab('signup',this)">신규 신청</button>
+    </div>
+
+    <!-- 로그인 패널 -->
+    <div id="loginPanel">
+      <div class="form-group">
+        <label class="label">이메일</label>
+        <input class="input" type="email" id="loginEmail" placeholder="example@gmail.com">
+      </div>
+      <div class="form-group">
+        <label class="label">비밀번호</label>
+        <input class="input" type="password" id="loginPw" placeholder="••••••••">
+      </div>
+      <div class="err" id="loginErr"></div>
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">인플루언서 로그인</button>
+      <div class="bottom">계정이 없으신가요? <a href="#" onclick="switchTabByName('signup')">파트너 신청하기</a></div>
+    </div>
+
+    <!-- 신규 신청 패널 -->
+    <div id="signupPanel" style="display:none">
+      <div style="background:rgba(255,59,59,0.06);border:1px solid rgba(255,59,59,0.15);border-radius:10px;padding:14px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:4px">✨ 인플루언서 파트너 신청</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.6">더 자세한 정보 입력은 아래에서 해주세요. 기본 계정을 먼저 만들고 채널 정보를 추가할 수 있어요.</div>
+      </div>
+      <div class="form-group">
+        <label class="label">활동명 (닉네임) <span class="req">*</span></label>
+        <input class="input" type="text" id="signupChannel" placeholder="예: 지민뷰티">
+      </div>
+      <div class="form-group">
+        <label class="label">이메일 <span class="req">*</span></label>
+        <input class="input" type="email" id="signupEmail" placeholder="example@gmail.com">
+      </div>
+      <div class="form-group">
+        <label class="label">비밀번호 <span class="req">*</span></label>
+        <input class="input" type="password" id="signupPw" placeholder="8자 이상">
+      </div>
+      <div class="form-group">
+        <label class="label">휴대폰</label>
+        <input class="input" type="tel" id="signupPhone" placeholder="010-0000-0000">
+      </div>
+      <div class="err" id="signupErr"></div>
+      <div class="ok" id="signupOk"></div>
+      <button class="btn-submit" id="signupBtn" onclick="doSignup()">파트너 계정 만들기</button>
+      <div class="bottom">이미 계정이 있으신가요? <a href="#" onclick="switchTabByName('login')">로그인</a></div>
+      <div class="divider-signup"><span>또는 상세 신청서 작성</span></div>
+      <button class="apply-btn" onclick="location.href='influencer-apply.html'">
+        <div class="apply-icon">📋</div>
+        <div class="apply-text">
+          <div class="t">인플루언서 파트너 신청서</div>
+          <div class="s">SNS 채널, 팔로워 규모 등 상세 정보 입력</div>
+        </div>
+        <div class="apply-arrow">→</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+// 이미 인플루언서로 로그인 중이면 바로 대시보드로
+(async()=>{
+  const u = await getCurrentUser();
+  if(u && u.profile?.role==='influencer') location.href='influencer-dashboard.html';
+})();
+
+function switchTab(name, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('loginPanel').style.display = name==='login'?'block':'none';
+  document.getElementById('signupPanel').style.display = name==='signup'?'block':'none';
+}
+function switchTabByName(name){
+  const tabs=document.querySelectorAll('.tab');
+  tabs[name==='login'?0:1].click();
+}
+
+async function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw    = document.getElementById('loginPw').value;
+  const err   = document.getElementById('loginErr');
+  const btn   = document.getElementById('loginBtn');
+  err.style.display='none';
+
+  if(!email||!pw){err.style.display='block';err.textContent='이메일과 비밀번호를 입력해주세요.';return;}
+
+  btn.textContent='로그인 중...'; btn.disabled=true;
+  const {data, error} = await sb.auth.signInWithPassword({email, password:pw});
+
+  if(error){
+    err.style.display='block';
+    err.textContent = error.message.includes('Invalid') ? '이메일 또는 비밀번호가 올바르지 않습니다.' : error.message;
+    btn.textContent='인플루언서 로그인'; btn.disabled=false;
+    return;
+  }
+
+  const {data:profile} = await sb.from('profiles').select('role').eq('id',data.user.id).single();
+  if(profile?.role !== 'influencer'){
+    await sb.auth.signOut();
+    err.style.display='block';
+    err.textContent='인플루언서 계정이 아닙니다. 소비자라면 일반 로그인을 이용해주세요.';
+    btn.textContent='인플루언서 로그인'; btn.disabled=false;
+    return;
+  }
+  location.href='influencer-dashboard.html';
+}
+
+async function doSignup(){
+  const channel = document.getElementById('signupChannel').value.trim();
+  const email   = document.getElementById('signupEmail').value.trim();
+  const pw      = document.getElementById('signupPw').value;
+  const phone   = document.getElementById('signupPhone').value.trim();
+  const err = document.getElementById('signupErr');
+  const ok  = document.getElementById('signupOk');
+  const btn = document.getElementById('signupBtn');
+  err.style.display='none'; ok.style.display='none';
+
+  if(!channel||!email||!pw){err.style.display='block';err.textContent='활동명, 이메일, 비밀번호는 필수입니다.';return;}
+  if(pw.length<8){err.style.display='block';err.textContent='비밀번호는 8자 이상이어야 합니다.';return;}
+
+  btn.textContent='계정 생성 중...'; btn.disabled=true;
+  const {data, error} = await sb.auth.signUp({
+    email, password: pw,
+    options: { data: { name: channel, phone, role: 'influencer', channel_name: channel } }
+  });
+
+  if(error){
+    err.style.display='block';
+    err.textContent = error.message.includes('already') ? '이미 사용 중인 이메일입니다.' : error.message;
+    btn.textContent='파트너 계정 만들기'; btn.disabled=false;
+    return;
+  }
+
+  if(data.user){
+    await sb.from('profiles').update({channel_name: channel, phone}).eq('id', data.user.id);
+  }
+
+  ok.style.display='block';
+  ok.textContent='계정이 생성됐어요! 대시보드로 이동합니다.';
+  setTimeout(()=>location.href='influencer-dashboard.html', 1200);
+}
+</script>
+</body>
+</html>

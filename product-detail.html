@@ -332,7 +332,9 @@ input, select, textarea { font-size: 16px !important; }
           <span class="pt-k">최종 금액</span>
           <span class="pt-v" id="total-price">40,800원</span>
         </div>
-        <button class="btn-buy-main">지금 공구 참여하기 🛍️</button>
+        <button class="btn-buy-main" id="buyBtn" onclick="doBuy()">지금 공구 참여하기 🛍️</button>
+        <div id="buyErr" style="display:none;color:#FF3B3B;font-size:13px;margin-top:8px;padding:10px;background:rgba(255,59,59,0.08);border-radius:8px;text-align:center"></div>
+        <div id="buyOk" style="display:none;color:#22c55e;font-size:13px;margin-top:8px;padding:10px;background:rgba(34,197,94,0.08);border-radius:8px;text-align:center"></div>
         <button class="btn-wish" id="wish-btn" onclick="toggleWish()">♡ 찜하기</button>
         <div class="pd-delivery">
           <div class="pd-del-row"><span class="pd-del-k">발송일</span><span class="pd-del-v">공구 마감 후 2~3 영업일</span></div>
@@ -425,5 +427,77 @@ document.querySelectorAll('.pd-thumb').forEach(th=>th.addEventListener('click',f
 }
 
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+// URL 파라미터에서 gugu_id 가져오기 (없으면 데모 모드)
+const urlParams = new URLSearchParams(location.search);
+const GUGU_ID = urlParams.get('id'); // 예: product-detail.html?id=UUID
+
+async function doBuy(){
+  const btn = document.getElementById('buyBtn');
+  const err = document.getElementById('buyErr');
+  const ok  = document.getElementById('buyOk');
+  err.style.display='none'; ok.style.display='none';
+
+  // 로그인 확인
+  const u = await getCurrentUser();
+  if(!u){
+    err.style.display='block';
+    err.innerHTML='구매하려면 로그인이 필요해요. <a href="login.html" style="color:var(--r);font-weight:700">로그인하기 →</a>';
+    return;
+  }
+  if(u.profile?.role === 'influencer'){
+    err.style.display='block';
+    err.textContent='인플루언서 계정으로는 구매할 수 없어요.';
+    return;
+  }
+
+  // gugu_id 없으면 (데모) 안내
+  if(!GUGU_ID){
+    ok.style.display='block';
+    ok.textContent='[데모] 실제 상품 페이지에서는 주문이 Supabase에 저장됩니다.';
+    return;
+  }
+
+  // 수량 가져오기
+  const qtyEl = document.getElementById('qty-val') || document.querySelector('.qty-val');
+  const qty = qtyEl ? parseInt(qtyEl.textContent)||1 : 1;
+
+  // 가격 가져오기 (페이지에서 파싱)
+  const priceEl = document.getElementById('total-price');
+  const priceText = priceEl ? priceEl.textContent.replace(/[^0-9]/g,'') : '0';
+  const totalAmount = parseInt(priceText)||0;
+  const unitPrice = Math.round(totalAmount / qty);
+
+  btn.textContent='주문 처리 중...'; btn.disabled=true;
+
+  // Supabase에 주문 생성
+  const {data, error} = await sb.from('orders').insert({
+    gugu_id: GUGU_ID,
+    consumer_id: u.id,
+    quantity: qty,
+    unit_price: unitPrice,
+    total_amount: totalAmount,
+    status: 'paid'
+  });
+
+  if(error){
+    err.style.display='block';
+    err.textContent='주문 중 오류가 발생했습니다: '+error.message;
+    btn.textContent='지금 공구 참여하기 🛍️'; btn.disabled=false;
+    return;
+  }
+
+  // 참여자 수 증가
+  await sb.rpc('increment_participants', {p_gugu_id: GUGU_ID});
+
+  btn.textContent='주문 완료! ✓'; btn.style.background='var(--g)';
+  ok.style.display='block';
+  ok.textContent='🎉 공구 참여 완료! 인플루언서 대시보드에 바로 반영돼요.';
+  setTimeout(()=>location.href='order-complete.html', 1500);
+}
+</script>
 </body>
 </html>
