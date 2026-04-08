@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>이용약관 — GUGU.</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
@@ -18,42 +18,32 @@
   --accent2:#FF8A00;--green:#22c55e;
 }
 body{padding-top:56px;background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px;}
+nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;gap:12px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none}.logo em{color:var(--r);font-style:normal}
 .wrap{max-width:760px;margin:0 auto;padding:48px 28px 80px;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
-/* MOBILE RESPONSIVE — terms.html */
-@media(max-width:768px){
-  .wrap{grid-template-columns:1fr !important;padding:24px 16px 60px !important;gap:20px !important}
-  .toc{position:static !important;display:flex;flex-wrap:wrap;gap:4px}
-  .toc-title{display:none}
-  .toc-item{padding:6px 12px;font-size:11px;border:1px solid var(--b1);border-radius:20px}
-  .doc-title{font-size:32px !important}
-}
-  .doc-title { font-size:26px !important; }
-  .toc { padding:14px 16px !important; }
-  .info-table { font-size:12px !important; }
-  .info-table th,.info-table td { padding:8px 10px !important; }
-}
+/* TOC */
+.toc{position:sticky;top:80px}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
+.toc-item{display:block;padding:6px 10px;font-size:12px;color:var(--t2);text-decoration:none;border-radius:7px;transition:.15s;margin-bottom:2px}
+.toc-item:hover{background:var(--s1);color:var(--t)}
+/* 본문 */
+.doc-header{margin-bottom:40px}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:3px;color:var(--t);margin-bottom:8px}
+.doc-title em{color:var(--r);font-style:normal}
+.doc-meta{font-size:13px;color:var(--t2)}
+.doc-section{margin-bottom:36px}
+.doc-section h2{font-size:17px;font-weight:800;color:var(--t);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--b1);letter-spacing:-.3px}
+.doc-section p{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:10px}
+.doc-section p:last-child{margin-bottom:0}
+.doc-section ul{display:flex;flex-direction:column;gap:7px;padding-left:0;list-style:none}
+.doc-section ul li{font-size:14px;color:var(--t2);line-height:1.7;padding-left:14px;position:relative}
+.doc-section ul li::before{content:'·';position:absolute;left:0;color:var(--r)}
+.doc-section strong{color:var(--t)}
+.highlight-box{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px 18px;margin:14px 0}
+.highlight-box p{font-size:13px;color:var(--t2);line-height:1.75;margin:0}
 
-  
-  /* 하단 탭바 */
-  
-  body { padding-bottom:60px; }
-}
-
-@media (max-width: 768px) {
-  
-  body { padding-bottom: 64px; }
-}
-
-@media(max-width:768px){
-  body{padding-bottom:64px}
-  input,select,textarea{font-size:16px !important}
-}
-
-
-/* ═══ MOBILE BOTTOM NAV ═══ */
+/* ═══ MOBILE COMMON ═══ */
 .mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;width:100%;background:rgba(10,10,10,.97);border-top:1px solid var(--b1,#242428);z-index:9999;padding:0 8px;padding-bottom:env(safe-area-inset-bottom,0px)}
 .mob-bottom-nav .mbn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;text-decoration:none;color:var(--t2,#8a8a9a);transition:.15s}
 .mob-bottom-nav .mbn-item:hover,.mob-bottom-nav .mbn-item.active{color:var(--r,#FF3B3B)}
@@ -80,6 +70,13 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
   input,select,textarea{font-size:16px !important}
 }
 
+@media(max-width:768px){
+  .wrap{grid-template-columns:1fr !important;padding:24px 16px 60px !important;gap:16px !important}
+  .toc{position:static !important;display:flex;flex-wrap:wrap;gap:4px}
+  .toc-title{display:none}
+  .toc-item{padding:6px 12px;font-size:11px;border:1px solid var(--b1,#242428);border-radius:20px}
+  .doc-title{font-size:32px !important}
+}
 </style>
 </head>
 <body>
@@ -171,7 +168,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
     <div class="doc-section" id="s10">
       <h2>제10조 (분쟁 해결)</h2>
       <p>서비스 이용과 관련된 분쟁은 회사와 이용자 간의 협의로 해결함을 원칙으로 합니다. 협의가 이루어지지 않을 경우 민사소송법상의 관할 법원에 소를 제기할 수 있습니다.</p>
-      <div class="highlight-box"><p><strong>사업자 정보</strong><br>상호명: GUGU.<br>통신판매업 신고번호: 2026-서울-00000<br>이메일: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a2a4a1a1bea3a591b6a4b6a4ffbaa3">[email&#160;protected]</a></p></div>
+      <div class="highlight-box"><p><strong>사업자 정보</strong><br>상호명: GUGU.<br>통신판매업 신고번호: 2026-서울-00000<br>이메일: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c5f595c5c435e586c4b594b5902475e">[email&#160;protected]</a></p></div>
     </div>
   </div>
 </div>
@@ -194,4 +191,10 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
     <span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span>
     <span class="mbn-label">알림</span>
   </a>
-  <a class="mbn-item" href="mypage.h
+  <a class="mbn-item" href="mypage.html">
+    <span class="mbn-icon">👤</span>
+    <span class="mbn-label">마이</span>
+  </a>
+</nav>
+</body>
+</html>

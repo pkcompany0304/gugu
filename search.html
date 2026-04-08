@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>GUGU. — 검색결과</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
@@ -18,7 +18,7 @@
   --accent2:#FF8A00;--green:#22c55e;
 }
 body{padding-top:56px;background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px;}
+nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;gap:12px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:var(--text)}
 .logo span{color:var(--accent)}
@@ -92,36 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
 .es-btn{padding:11px 22px;border-radius:10px;background:var(--accent);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
 .es-btn-out{padding:11px 22px;border-radius:10px;background:none;border:1px solid var(--border);color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
 
-/* ══════════════════════════════════════
-   MOBILE RESPONSIVE — search.html
-══════════════════════════════════════ */
-
-@media (max-width: 768px) {
-  .wrap { padding-left:16px !important; padding-right:16px !important; }
-  .layout { grid-template-columns:1fr !important; }
-  .filter-col { display:none !important; }
-  .product-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
-  .sort-row { flex-wrap:wrap !important; gap:8px !important; }
-}
-
-  
-  /* 하단 탭바 */
-  
-  body { padding-bottom:60px; }
-}
-
-@media (max-width: 768px) {
-  
-  body { padding-bottom: 64px; }
-}
-
-@media(max-width:768px){
-  body{padding-bottom:64px}
-  input,select,textarea{font-size:16px !important}
-}
-
-
-/* ═══ MOBILE BOTTOM NAV ═══ */
+/* ═══ MOBILE COMMON ═══ */
 .mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;width:100%;background:rgba(10,10,10,.97);border-top:1px solid var(--b1,#242428);z-index:9999;padding:0 8px;padding-bottom:env(safe-area-inset-bottom,0px)}
 .mob-bottom-nav .mbn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;text-decoration:none;color:var(--t2,#8a8a9a);transition:.15s}
 .mob-bottom-nav .mbn-item:hover,.mob-bottom-nav .mbn-item.active{color:var(--r,#FF3B3B)}
@@ -148,6 +119,12 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
   input,select,textarea{font-size:16px !important}
 }
 
+@media(max-width:768px){
+  .wrap{padding-left:16px !important;padding-right:16px !important}
+  .result-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important}
+  .search-hero{padding:20px 16px !important}
+  .search-input-box{max-width:100% !important}
+}
 </style>
 </head>
 <body>
@@ -163,7 +140,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
     </div>
     <div class="nav-right">
       <button class="btn-login" onclick="location.href='login.html'">로그인</button>
-      <button class="btn-join" onclick="location.href='login.html'">회원가입</button><button class="mob-btn" onclick="openMenu()">☰</button>
+      <button class="btn-join" onclick="location.href='login.html'">회원가입</button>
     </div>
   </div>
 </nav>
