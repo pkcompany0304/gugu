@@ -17,7 +17,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1);padding:0 20px;height:54px}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom:1px solid var(--b1)}
 .nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:0}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);flex-shrink:0;text-decoration:none;margin-right:24px}
 .logo em{color:var(--r);font-style:normal}
@@ -487,5 +487,38 @@ document.querySelector('.search-wrap input').addEventListener('keypress',functio
     <span class="mbn-label">마이</span>
   </a>
 </nav>
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
 </body>
 </html>

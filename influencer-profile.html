@@ -2,24 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GUGU. — 지민뷰티 프로필</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
-  --b1:#242428;--b2:#2e2e34;
-  --r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;
-  --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
-  --max:1100px;
-  --text:#F2F2F5;--muted:#8a8a9a;--surface:#111114;
-  --surface2:#171719;--border:#242428;--accent:#FF3B3B;
-  --accent2:#FF8A00;--green:#22c55e;
-}
+:root{--bg:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--border:#2A2A2A;--accent:#FF3B3B;--accent2:#FF8A00;--text:#F5F5F5;--muted:#888}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px}
-nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,10,10,.97);border-bottom:1px solid var(--b1,#242428);padding:0 24px}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;gap:12px}
+nav:not(.mob-bottom-nav){background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;height:56px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
 .logo span{color:var(--accent)}
 .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
@@ -49,7 +40,7 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
 .btn-alarm:hover{border-color:var(--muted);color:var(--text)}
 .profile-tags{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
 .tag{padding:4px 12px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
-.profile-layout{display:grid;grid-template-columns:1fr 300px;gap:32px;padding-top:56px}
+.profile-layout{display:grid;grid-template-columns:1fr 300px;gap:32px;padding-top:28px}
 .profile-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px}
 .profile-tab{padding:10px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit;white-space:nowrap}
 .profile-tab.active{color:var(--text);border-bottom-color:var(--accent);font-weight:600}
@@ -80,39 +71,49 @@ nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(1
 .recent-info .name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
 .recent-info .price{font-size:12px;color:var(--accent);font-weight:600}
 
-/* ═══ MOBILE COMMON ═══ */
-.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;width:100%;background:rgba(10,10,10,.97);border-top:1px solid var(--b1,#242428);z-index:9999;padding:0 8px;padding-bottom:env(safe-area-inset-bottom,0px)}
-.mob-bottom-nav .mbn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;text-decoration:none;color:var(--t2,#8a8a9a);transition:.15s}
-.mob-bottom-nav .mbn-item:hover,.mob-bottom-nav .mbn-item.active{color:var(--r,#FF3B3B)}
-.mbn-icon{font-size:18px;position:relative}
-.mbn-label{font-size:10px;font-weight:600;white-space:nowrap}
-.mbn-badge{position:absolute;top:-3px;right:-5px;width:8px;height:8px;border-radius:50%;background:var(--r,#FF3B3B);border:1.5px solid var(--bg,#0A0A0A)}
-.mob-menu-btn{display:none;width:36px;height:36px;border-radius:8px;background:var(--s2,#171719);border:1px solid var(--b1,#242428);align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--t2,#8a8a9a);flex-shrink:0}
-.mob-drawer{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.75);align-items:flex-end}
-.mob-drawer.open{display:flex}
-.mob-drawer-inner{background:var(--s1,#111114);width:100%;border-radius:20px 20px 0 0;padding:20px 20px 40px;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
-.mob-drawer.open .mob-drawer-inner{transform:translateY(0)}
-.mob-drawer-handle{width:36px;height:4px;background:var(--b2,#2e2e34);border-radius:2px;margin:0 auto 20px}
-.mob-drawer-cats{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
-.mob-drawer-cats a{padding:12px 16px;border-radius:10px;font-size:15px;font-weight:600;color:var(--t,#F2F2F5);text-decoration:none;border:1px solid var(--b1,#242428);background:var(--s2,#171719);display:flex;align-items:center;gap:10px}
-.mob-drawer-btns{display:flex;gap:8px}
-.mob-drawer-btns button{flex:1;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
-.mob-search-bar{display:none;align-items:center;gap:8px;background:var(--s2,#171719);border:1px solid var(--b1,#242428);border-radius:10px;padding:10px 14px;margin:6px 16px 0}
-.mob-search-bar input{background:none;border:none;outline:none;color:var(--t,#F2F2F5);font-size:16px;font-family:inherit;width:100%}
-@media(max-width:768px){
-  .mob-menu-btn{display:flex !important}
-  .mob-search-bar{display:flex !important}
-  .mob-bottom-nav{display:flex !important}
-  body{padding-bottom:64px}
-  input,select,textarea{font-size:16px !important}
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE — influencer-profile.html
+══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .wrap { padding-left:16px !important; padding-right:16px !important; }
+  .profile-layout { grid-template-columns:1fr !important; }
+  .profile-sidebar { position:static !important; }
+  .stat-grid { grid-template-columns:repeat(3,1fr) !important; gap:8px !important; }
+  .pg-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
+  .profile-hero { padding:60px 20px 20px !important; }
 }
 
-@media(max-width:768px){
-  .wrap{padding-left:16px !important;padding-right:16px !important}
-  .profile-header{flex-direction:column !important;text-align:center !important;gap:14px !important}
-  .gugu-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important}
-  .stat-row{flex-wrap:wrap !important;justify-content:center !important}
+
+/* ══════ 공통 모바일 요소 ══════ */
+@media (max-width: 768px) {
+  /* 네비 공통 */
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+  /* 하단 탭바 */
+  .mob-bottom-nav { display:flex !important; }
+  body { padding-bottom:60px; }
 }
+
+/* 햄버거 드로어 메뉴 */
+.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
+.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75);  display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
+.mob-drawer.open { opacity:1; pointer-events:all; }
+.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
+.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
+.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
+.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
+.mob-drawer-btns { display:flex; gap:8px; }
+.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
+.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
+@media (max-width: 768px) {
+  .mob-menu-btn { display:flex !important; }
+  .mob-search-bar { display:flex !important; }
+}
+
 </style>
 </head>
 <body>
@@ -271,6 +272,38 @@ document.querySelectorAll('.profile-tab').forEach(t=>t.addEventListener('click',
     <span class="mbn-label">마이</span>
   </a>
 </nav>
-
+<style>
+.mob-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,10,.97);
+  
+  border-top: 1px solid var(--b1, #242428);
+  z-index: 300;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mob-bottom-nav .mbn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 10px 4px;
+  text-decoration: none; color: var(--t2, #8a8a9a);
+  transition: .15s;
+}
+.mob-bottom-nav .mbn-item:hover,
+.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
+.mbn-icon { font-size: 18px; position: relative; }
+.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+.mbn-badge {
+  position: absolute; top: -3px; right: -5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--r, #FF3B3B);
+  border: 1.5px solid var(--bg, #0A0A0A);
+}
+@media (max-width: 768px) {
+  .mob-bottom-nav { display: flex !important; }
+  body { padding-bottom: 64px; }
+}
+</style>
 </body>
 </html>
