@@ -4,8 +4,8 @@
 // Supabase Dashboard > Project Settings > API 에서 확인 가능
 // ============================================================
 
-const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const SUPABASE_URL = 'https://yattlqdsnrqeqzvcuvuu.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhdHRscWRzbnJxZXF6dmN1dnV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0Mzc4NDMsImV4cCI6MjA5MTAxMzg0M30.OXYzBYsMHg3ryW7DDr5xljXrgCkL92EIQS2LunAabag';
 
 // Supabase 클라이언트 초기화 (CDN 방식)
 const { createClient } = supabase;
