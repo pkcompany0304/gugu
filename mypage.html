@@ -6,7 +6,7 @@
 <title>GUGU. — 마이페이지</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -56,7 +56,7 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 .status-delivery{background:rgba(255,138,0,0.15);color:var(--o)}
 .status-done{background:rgba(40,167,69,0.15);color:#4caf50}
 .status-wait{background:rgba(255,59,59,0.12);color:var(--r)}
-.order-body{padding:16px;display:flex;align-items:center;gap:16px}
+.order-body{padding:16px;display:flex;align-items:center;gap:16px;overflow-x:hidden}
 .order-img{width:72px;height:72px;border-radius:8px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;border:1px solid var(--b1)}
 .order-info{flex:1}
 .order-inf{font-size:11px;color:var(--t2);margin-bottom:3px}
@@ -145,7 +145,11 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .wrap { padding:0 !important; }
   .nav-inner { padding-left:16px !important; padding-right:16px !important; }
   .nav-right .btn-login { display:none !important; }
@@ -179,6 +183,7 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

@@ -6,7 +6,7 @@
 <title>개인정보처리방침 — GUGU.</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -14,7 +14,7 @@
   --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
   --max:1100px;
 }
-body {background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding-top:54px}
+body{overflow-x:hidden;background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding-top:54px}
 nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom:1px solid var(--b1)}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:16px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);text-decoration:none}.logo em{color:var(--r);font-style:normal}
@@ -69,7 +69,11 @@ strong{color:var(--t)}
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .doc-wrap { padding:24px 16px 60px !important; }
   .doc-title { font-size:26px !important; }
   .toc { padding:14px 16px !important; }
@@ -85,6 +89,7 @@ strong{color:var(--t)}
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

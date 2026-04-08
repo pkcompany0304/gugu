@@ -6,7 +6,7 @@
 <title>GUGU. — 새 공구 열기</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -14,7 +14,7 @@
   --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
   --max:1100px;
 }
-body {background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding-top:54px}
+body{overflow-x:hidden;background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding-top:54px}
 nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 24px;position:fixed;top:0;z-index:100}
 .nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:16px;height:56px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px}
@@ -109,7 +109,11 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .wrap { padding:16px !important; }
   .gg-wrap { padding:16px 14px !important; }
   .form-layout { grid-template-columns:1fr !important; }
@@ -130,6 +134,7 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

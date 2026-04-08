@@ -6,7 +6,7 @@
 <title>레티날 0.1% 나이트 세럼 — GUGU.</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -14,7 +14,7 @@
   --t:#F2F2F5;--t2:#8a8a9a;--t3:#464650;
   --max:1100px;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}body{overflow-x:hidden}
 body {background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;padding-top:54px}
 .wrap{max-width:var(--max);margin:0 auto;padding:54px 28px 0}
 nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom:1px solid var(--b1)}
@@ -157,7 +157,11 @@ nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-botto
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .wrap { padding-left:16px !important; padding-right:16px !important; }
   .breadcrumb { display:none !important; }
   .nav-r > .btn-line { display:none !important; }
@@ -182,6 +186,7 @@ nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-botto
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

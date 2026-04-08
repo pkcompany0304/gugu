@@ -6,7 +6,7 @@
 <title>GUGU. — 인플루언서와 함께해요</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -138,7 +138,11 @@ footer{border-top:1px solid var(--b1);padding:24px 32px}
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .section { padding:40px 20px !important; }
   .hero-inner { grid-template-columns:1fr !important; gap:24px !important; }
   .hero-section { padding:48px 20px !important; }
@@ -159,6 +163,7 @@ footer{border-top:1px solid var(--b1);padding:24px 32px}
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

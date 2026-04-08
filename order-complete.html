@@ -6,7 +6,7 @@
 <title>GUGU. — 결제완료</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Bebas+Neue&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -65,7 +65,7 @@ nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 3
 .rec-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;overflow:hidden;cursor:pointer;transition:.2s}
 .rec-card:hover{border-color:#444}
 .rec-img{height:90px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:30px}
-.rec-body{padding:10px}
+.rec-body{padding:10px;overflow-x:hidden}
 .rec-name{font-size:12px;font-weight:600;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .rec-price{font-size:13px;font-weight:700;color:var(--r)}
 .rec-disc{font-size:10px;color:var(--t2)}
@@ -98,7 +98,11 @@ nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 3
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .wrap { padding-left:16px !important; padding-right:16px !important; }
   .complete-wrap { padding:24px 0 !important; }
   .order-card { padding:16px !important; }
@@ -116,6 +120,7 @@ nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 3
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>

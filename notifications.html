@@ -6,7 +6,7 @@
 <title>알림 — GUGU.</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0A0A0A;--s1:#111114;--s2:#171719;--s3:#1e1e22;
   --b1:#242428;--b2:#2e2e34;
@@ -51,7 +51,7 @@ nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-botto
 .ni-order{background:rgba(34,197,94,.12)}
 .ni-follow{background:rgba(99,102,241,.12)}
 .ni-system{background:rgba(100,100,120,.12)}
-.ni-body{flex:1;min-width:0}
+.ni-body{flex:1;min-width:0;overflow-x:hidden}
 .ni-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px}
 .ni-title{font-size:14px;font-weight:700;color:var(--t);line-height:1.4}
 .notif-item.unread .ni-title{color:var(--t)}
@@ -104,7 +104,11 @@ nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-botto
 
 
 
-@media (max-width: 768px) {
+
+
+
+
+@media (max-width:768px){
 .page-wrap { padding:16px 16px 80px !important; }
   .filter-tabs { flex-wrap:nowrap !important; overflow-x:auto !important; padding-bottom:4px; }
   .filter-tabs::-webkit-scrollbar { display:none; }
@@ -121,6 +125,7 @@ nav {position:fixed;top:0;z-index:200;background:rgba(10,10,10,.95);border-botto
 .mob-menu-btn { display:flex !important; }
   .mob-search-bar { display:flex !important; }
 .mob-bottom-nav { display: flex !important; }
+input, select, textarea { font-size: 16px !important; }
 }
 </style>
 </head>
