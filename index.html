@@ -17,7 +17,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95);border-bottom:1px solid var(--b1)}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:200;background:rgba(10,10,10,.95)border-bottom:1px solid var(--b1)}
 .nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;height:56px;padding:0 28px;gap:0}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--t);flex-shrink:0;text-decoration:none;margin-right:24px}
 .logo em{color:var(--r);font-style:normal}
@@ -169,79 +169,49 @@ footer{border-top:1px solid var(--b1);padding:24px 28px;margin-top:12px}
 .f-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}.f-links a{font-size:12px;color:var(--t3);text-decoration:none;transition:.15s}.f-links a:hover{color:var(--t2)}
 .f-copy{font-size:11px;color:var(--t3);text-align:right}.f-copy span{color:var(--t2)}
 
-
-/* ══════════════════════════════════════
-   MOBILE RESPONSIVE — index.html
-══════════════════════════════════════ */
-
 @media (max-width: 1024px) {
   .prod-grid { grid-template-columns: repeat(3,1fr) !important; }
   .cat-showcase { grid-template-columns: repeat(3,1fr) !important; }
   .new-grid { grid-template-columns: repeat(2,1fr) !important; }
   .following-feed { grid-template-columns: repeat(2,1fr) !important; }
 }
-@media (max-width: 768px) {
-  .wrap { padding-left:16px !important; padding-right:16px !important; }
-  .nav-cats { display:none !important; }
-  .search-wrap { display:none !important; }
-  .nav-r > .btn-line { display:none !important; }
-  .mob-menu-btn { display:none; display:flex !important; }
-  .mob-search-bar { display:flex !important; }
-  .hero { padding:20px 0 16px !important; }
-  .hero-grid { grid-template-columns:1fr !important; gap:20px !important; }
-  .hero-right { order:-1; }
-  .hero h1 { font-size:40px !important; line-height:1 !important; }
-  .hero-sub { font-size:14px !important; }
-  .hero-stats { gap:16px !important; }
-  .hero-cta { flex-direction:column !important; }
-  .btn-lg { width:100% !important; }
-  .follow-banner { flex-direction:column !important; gap:14px !important; }
-  .fb-right { width:100% !important; display:flex !important; }
-  .fb-right button { flex:1 !important; }
-  .flash-banner { flex-direction:column !important; gap:16px !important; }
-  .fbr { justify-content:center !important; }
-  .tu-n { font-size:36px !important; }
-  .flash-grid { grid-template-columns:1fr !important; gap:10px !important; }
-  .fc-timer { display:none !important; }
-  .new-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
-  .prod-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
-  .cat-showcase { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
-  .following-feed { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
-  .footer-inner { grid-template-columns:1fr !important; gap:12px !important; text-align:center !important; }
-  .f-links { justify-content:center !important; }
-  .f-copy { text-align:center !important; }
-  .sec { padding:16px 0 !important; }
-  .inf-strip { gap:12px !important; }
-  .ic-av { width:46px !important; height:46px !important; }
-}
 
-
-/* ══════ 공통 모바일 요소 ══════ */
-@media (max-width: 768px) {
-  /* 네비 공통 */
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
-  /* 하단 탭바 */
-  .mob-bottom-nav { display:flex !important; }
-  body { padding-bottom:60px; }
-}
-
-/* 햄버거 드로어 메뉴 */
-.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
-.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75);  display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
-.mob-drawer.open { opacity:1; pointer-events:all; }
-.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
-.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
-.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
-.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
-.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
-.mob-drawer-btns { display:flex; gap:8px; }
-.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
-.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
-@media (max-width: 768px) {
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
+@media(max-width:768px){
+  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px;height:50px}
+  .logo{font-size:22px}
+  .nav-cats,.search-box,.btn-line,.notif-btn{display:none}
+  .mob-btn{display:flex}
+  .mob-search{display:flex}
+  .mob-bottom-nav{display:flex}
+  body{padding-bottom:62px}
+  .wrap{padding:0 16px}
+  .hero{padding:16px 0 14px}
+  .hero-grid{grid-template-columns:1fr;gap:16px}
+  .hero-right{order:-1}
+  .hero h1{font-size:42px}
+  .hero-sub{font-size:13px}
+  .hero-stats{gap:16px}
+  .hs-n{font-size:18px}
+  .hero-cta{flex-direction:column;gap:8px}
+  .btn-lg{width:100%;text-align:center}
+  .hc-img{height:140px}
+  .follow-banner{flex-direction:column;align-items:flex-start;gap:12px;padding:16px}
+  .fb-btns{width:100%}
+  .fb-btns .btn-sm{flex:1;text-align:center}
+  .flash-banner{flex-direction:column;align-items:flex-start;gap:14px;padding:16px}
+  .timer-units{width:100%;justify-content:center}
+  .flash-grid{grid-template-columns:1fr}
+  .new-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .prod-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .pc-img{height:140px}
+  .cat-showcase{grid-template-columns:1fr 1fr;gap:8px}
+  .feed-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .fd-img{height:100px}
+  .sec{padding:14px 0}
+  .sec-title{font-size:15px}
+  .footer-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
+  .f-links{justify-content:center}
+  input,select,textarea{font-size:16px !important}
 }
 
 </style>
@@ -487,38 +457,6 @@ document.querySelector('.search-wrap input').addEventListener('keypress',functio
     <span class="mbn-label">마이</span>
   </a>
 </nav>
-<style>
-.mob-bottom-nav {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(10,10,10,.97);
-  
-  border-top: 1px solid var(--b1, #242428);
-  z-index: 300;
-  padding: 0 8px;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.mob-bottom-nav .mbn-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
-  padding: 10px 4px;
-  text-decoration: none; color: var(--t2, #8a8a9a);
-  transition: .15s;
-}
-.mob-bottom-nav .mbn-item:hover,
-.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
-.mbn-icon { font-size: 18px; position: relative; }
-.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
-.mbn-badge {
-  position: absolute; top: -3px; right: -5px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--r, #FF3B3B);
-  border: 1.5px solid var(--bg, #0A0A0A);
-}
-@media (max-width: 768px) {
-  .mob-bottom-nav { display: flex !important; }
-  body { padding-bottom: 64px; }
-}
-</style>
+
 </body>
 </html>

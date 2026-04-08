@@ -109,67 +109,25 @@ nav:not(.mob-bottom-nav){background:rgba(10,10,10,0.97);border-bottom:1px solid 
 .pc-left p{font-size:13px;color:var(--muted);margin-bottom:4px}
 .pc-left .pval{font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-1px}
 
-
-/* ══════════════════════════════════════
-   MOBILE RESPONSIVE — mypage.html
-══════════════════════════════════════ */
-
-@media (max-width: 768px) {
-  .wrap { padding:0 !important; }
-  .nav-inner { padding-left:16px !important; padding-right:16px !important; }
-  .nav-right .btn-login { display:none !important; }
-  .page-layout { grid-template-columns:1fr !important; }
-  .side-profile { padding:14px 16px 0 !important; }
-  .side-nav {
-    display:flex !important; flex-direction:row !important; overflow-x:auto !important;
-    border-right:none !important; padding:8px 16px !important; gap:5px !important;
-    border-bottom:1px solid var(--border) !important;
-  }
-  .side-nav::-webkit-scrollbar { display:none; }
-  .side-nav-item {
-    white-space:nowrap !important; border-radius:8px !important; border-bottom:none !important;
-    padding:7px 13px !important; font-size:12px !important; flex-shrink:0 !important;
-    border:1px solid var(--border) !important; display:flex !important;
-  }
-  .side-nav-item.active { border-color:var(--accent) !important; border-left-width:1px !important; }
-  .main-col { padding:16px !important; }
-  .summary-grid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
-  .wish-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px !important; }
-  .notify-setting { padding:12px 14px !important; }
-  .coupon-card { padding:14px 16px !important; }
-  .point-card { padding:16px !important; }
-}
-
-
-/* ══════ 공통 모바일 요소 ══════ */
-@media (max-width: 768px) {
-  /* 네비 공통 */
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
-  /* 하단 탭바 */
-  .mob-bottom-nav { display:flex !important; }
-  body { padding-bottom:60px; }
-}
 .following-inline-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 .two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-@media(max-width:768px){.following-inline-grid{grid-template-columns:repeat(2,1fr) !important;}.two-col-grid{grid-template-columns:1fr !important;}}
 
-/* 햄버거 드로어 메뉴 */
-.mob-menu-btn { display:none; width:36px; height:36px; border-radius:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--t2,#8a8a9a); flex-shrink:0; }
-.mob-drawer { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.75);  display:flex; align-items:flex-end; opacity:0; pointer-events:none; transition:opacity .25s; }
-.mob-drawer.open { opacity:1; pointer-events:all; }
-.mob-drawer-inner { background:var(--s1,#111114); width:100%; border-radius:20px 20px 0 0; padding:20px 20px 40px; transform:translateY(100%); transition:transform .25s cubic-bezier(.4,0,.2,1); }
-.mob-drawer.open .mob-drawer-inner { transform:translateY(0); }
-.mob-drawer-handle { width:36px; height:4px; background:var(--b2,#2e2e34); border-radius:2px; margin:0 auto 20px; }
-.mob-drawer-cats { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
-.mob-drawer-cats a { padding:12px 16px; border-radius:10px; font-size:15px; font-weight:600; color:var(--t,#F2F2F5); text-decoration:none; border:1px solid var(--b1,#242428); background:var(--s2,#171719); display:flex; align-items:center; gap:10px; }
-.mob-drawer-btns { display:flex; gap:8px; }
-.mob-drawer-btns button { flex:1; padding:12px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-.mob-search-bar { display:none; align-items:center; gap:8px; background:var(--s2,#171719); border:1px solid var(--b1,#242428); border-radius:10px; padding:10px 14px; margin:6px 16px 0; }
-.mob-search-bar input { background:none; border:none; outline:none; color:var(--t,#F2F2F5); font-size:14px; font-family:inherit; width:100%; }
-@media (max-width: 768px) {
-  .mob-menu-btn { display:flex !important; }
-  .mob-search-bar { display:flex !important; }
+@media(max-width:768px){
+  .wrap{padding:0 0 40px}
+  .page-layout{grid-template-columns:1fr}
+  .side-nav{display:flex;overflow-x:auto;gap:0;border-right:none;border-bottom:1px solid var(--border,#2A2A2A);padding:0}
+  .side-nav::-webkit-scrollbar{display:none}
+  .side-nav a{white-space:nowrap;padding:10px 16px;font-size:13px;border-left:none !important;border-bottom:2px solid transparent}
+  .side-nav a.active{border-bottom-color:var(--accent,#FF3B3B);border-left:none !important}
+  .main-content{padding:16px}
+  .summary-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .wish-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .following-inline-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .two-col-grid{grid-template-columns:1fr}
+  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
+  .mob-bottom-nav{display:flex}
+  body{padding-bottom:62px}
+  input,select,textarea{font-size:16px !important}
 }
 
 </style>
@@ -191,7 +149,7 @@ nav:not(.mob-bottom-nav){background:rgba(10,10,10,0.97);border-bottom:1px solid 
       <div class="side-profile">
         <div class="side-av">나</div>
         <div class="side-name">나혜진</div>
-        <div class="side-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="630d020b1a06090a0d23040e020a0f4d000c0e">[email&#160;protected]</a></div>
+        <div class="side-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="355b545d4c505f5c5b755258545c591b565a58">[email&#160;protected]</a></div>
         <div class="side-grade">⭐ GUGU 멤버</div>
       </div>
       <div class="side-nav">
@@ -467,28 +425,5 @@ document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',f
     <span class="mbn-label">마이</span>
   </a>
 </nav>
-<style>
-.mob-bottom-nav {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(10,10,10,.97);
-  
-  border-top: 1px solid var(--b1, #242428);
-  z-index: 300;
-  padding: 0 8px;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.mob-bottom-nav .mbn-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
-  padding: 10px 4px;
-  text-decoration: none; color: var(--t2, #8a8a9a);
-  transition: .15s;
-}
-.mob-bottom-nav .mbn-item:hover,
-.mob-bottom-nav .mbn-item.active { color: var(--r, #FF3B3B); }
-.mbn-icon { font-size: 18px; position: relative; }
-.mbn-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
-.mbn-badge {
-  position: absolute; top: -3px; right: -5px;
-  width: 8px; height: 8px; bord
+</body>
+</html>
