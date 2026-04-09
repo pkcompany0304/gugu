@@ -430,10 +430,131 @@ document.querySelectorAll('.pd-thumb').forEach(th=>th.addEventListener('click',f
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
+<script src="js/nav.js"></script>
 <script>
 // URL 파라미터에서 gugu_id 가져오기 (없으면 데모 모드)
 const urlParams = new URLSearchParams(location.search);
 const GUGU_ID = urlParams.get('id'); // 예: product-detail.html?id=UUID
+
+// ── 공구 데이터 로드 ──
+if (GUGU_ID) {
+  (async function loadGuguDetail() {
+    const { data: g, error } = await sb
+      .from('gugus')
+      .select('*, profiles(id, channel_name, name, role)')
+      .eq('id', GUGU_ID)
+      .single();
+
+    if (error || !g) return; // 데이터 없으면 데모 유지
+
+    const p     = g.profiles;
+    const iname = p?.channel_name || p?.name || '인플루언서';
+    const disc  = g.original_price > 0 ? Math.round((1 - g.sale_price / g.original_price) * 100) : 0;
+    const pct   = progressPct(g);
+
+    // 페이지 타이틀
+    document.title = `${g.title} — GUGU.`;
+
+    // 브레드크럼
+    const bcCur = document.querySelector('.bc-cur');
+    if (bcCur) bcCur.textContent = g.title;
+    const bcCat = document.querySelectorAll('.breadcrumb a')[1];
+    if (bcCat && g.category) { bcCat.textContent = g.category; bcCat.href = `category.html?cat=${encodeURIComponent(g.category)}`; }
+
+    // 이미지 영역
+    const imgMain = document.querySelector('.pd-img-main');
+    if (imgMain) imgMain.innerHTML = g.emoji || '🛍️';
+
+    // 인플루언서 정보
+    const avEl   = document.querySelector('.pd-av');
+    const nameEl = document.querySelector('.pd-inf-name');
+    const subEl  = document.querySelector('.pd-inf-sub');
+    if (avEl)   { avEl.textContent = iname[0]||'?'; avEl.style.background = '#e83e8c'; }
+    if (nameEl) nameEl.textContent = iname;
+    if (subEl)  subEl.textContent  = `${g.category||'인플루언서'} 공구`;
+
+    // 인플루언서 프로필 링크
+    if (p?.id) {
+      const infRow = document.querySelector('.pd-inf-row');
+      if (infRow) { infRow.style.cursor = 'pointer'; infRow.onclick = () => location.href = `influencer-profile.html?id=${p.id}`; }
+    }
+
+    // 제목 & 가격
+    const titleEl = document.querySelector('.pd-title');
+    if (titleEl) titleEl.textContent = g.title;
+    const origEl = document.querySelector('.pd-orig');
+    const saleEl = document.querySelector('.pd-sale');
+    const discEl = document.querySelector('.pd-disc');
+    if (origEl) origEl.textContent = formatKRW(g.original_price);
+    if (saleEl) saleEl.textContent = formatKRW(g.sale_price);
+    if (discEl) discEl.textContent = `-${disc}%`;
+
+    // 가격 전역 설정 (수량 계산용)
+    price = g.sale_price;
+    const totalEl = document.getElementById('total-price');
+    if (totalEl) totalEl.textContent = formatKRW(g.sale_price);
+
+    // 진행률
+    const progRow  = document.querySelector('.pd-prog-row');
+    const progFill = document.querySelector('.pd-prog-fill');
+    if (progRow)  progRow.innerHTML = `<span>${(g.current_participants||0).toLocaleString()}명 참여</span><span style="color:var(--r);font-weight:600">마감까지 ${100-pct}% 남음</span>`;
+    if (progFill) progFill.style.width = pct + '%';
+
+    // 타이머 — 종료일까지 카운트다운
+    if (g.end_date) startDetailCountdown(new Date(g.end_date));
+
+    // 같은 인플루언서 다른 공구
+    if (p?.id) loadRelated(p.id, g.id, iname);
+  })();
+}
+
+function startDetailCountdown(endDate) {
+  const ph = document.getElementById('ph');
+  const pm = document.getElementById('pm');
+  const ps = document.getElementById('ps');
+  if (!ph) return;
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const diff = endDate - new Date();
+    if (diff <= 0) { ph.textContent = pm.textContent = ps.textContent = '00'; return; }
+    ph.textContent = pad(Math.floor(diff / 3600000));
+    pm.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    ps.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+async function loadRelated(influencerId, currentId, iname) {
+  // 헤더 텍스트 & 링크 업데이트
+  const section = document.querySelector('.related-grid')?.closest('div[style]');
+  if (section) {
+    const h = section.querySelector('div');
+    const a = section.querySelector('a');
+    if (h) h.textContent = `${iname}의 다른 공구`;
+    if (a) a.href = `influencer-profile.html?id=${influencerId}`;
+  }
+
+  const { data: related } = await sb
+    .from('gugus')
+    .select('id, title, emoji, sale_price, original_price')
+    .eq('influencer_id', influencerId)
+    .eq('status', 'active')
+    .neq('id', currentId)
+    .limit(4);
+
+  const grid = document.querySelector('.related-grid');
+  if (!grid || !related || related.length === 0) return;
+  grid.innerHTML = related.map(g => {
+    const d = g.original_price > 0 ? Math.round((1 - g.sale_price / g.original_price) * 100) : 0;
+    return `<a class="rc" href="product-detail.html?id=${g.id}">
+      <div class="rc-img">${g.emoji||'🛍️'}</div>
+      <div class="rc-body">
+        <div class="rc-name">${g.title}</div>
+        <div class="rc-price">${formatKRW(g.sale_price)} <span class="rc-disc">-${d}%</span></div>
+      </div>
+    </a>`;
+  }).join('');
+}
 
 async function doBuy(){
   const btn = document.getElementById('buyBtn');
@@ -462,14 +583,12 @@ async function doBuy(){
   }
 
   // 수량 가져오기
-  const qtyEl = document.getElementById('qty-val') || document.querySelector('.qty-val');
-  const qty = qtyEl ? parseInt(qtyEl.textContent)||1 : 1;
+  const qtyVal = document.getElementById('qty');
+  const qty = qtyVal ? parseInt(qtyVal.textContent)||1 : 1;
 
-  // 가격 가져오기 (페이지에서 파싱)
-  const priceEl = document.getElementById('total-price');
-  const priceText = priceEl ? priceEl.textContent.replace(/[^0-9]/g,'') : '0';
-  const totalAmount = parseInt(priceText)||0;
-  const unitPrice = Math.round(totalAmount / qty);
+  // 가격 가져오기 (전역 price 변수 사용)
+  const unitPrice  = price || 0;
+  const totalAmount = unitPrice * qty;
 
   btn.textContent='주문 처리 중...'; btn.disabled=true;
 

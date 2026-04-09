@@ -380,12 +380,14 @@ async function initializeSearchPage() {
 
   const { data, error } = await sb
     .from('gugus')
-    .select('*, profiles!gugus_influencer_id_fkey(id, name, channel_name)')
-    .order('created_at', { ascending: false });
+    .select('*, profiles(id, channel_name, name)')
+    .eq('status', 'active')
+    .gte('end_date', new Date().toISOString())
+    .order('current_participants', { ascending: false });
 
   if (error) return;
 
-  searchAllGugus = (data || []).filter(isActiveGugu);
+  searchAllGugus = data || [];
   runSearch(query);
 }
 
@@ -401,10 +403,9 @@ function runSearch(query) {
     ? searchAllGugus.filter((gugu) => {
         const name = getDisplayName(gugu.profiles).toLowerCase();
         return [
-          gugu.product_name,
+          gugu.title,
           gugu.description,
           gugu.category,
-          gugu.brand,
           name
         ].some((value) => String(value || '').toLowerCase().includes(normalized));
       })
@@ -426,29 +427,32 @@ function runSearch(query) {
   }
 
   empty.style.display = 'none';
-  grid.innerHTML = results.map((gugu, index) => `
-    <a class="product-card" href="product-detail.html?id=${gugu.id}">
-      <div class="product-card-img">
-        ${gugu.image_url ? `<img src="${escapeHtml(gugu.image_url)}" alt="${escapeHtml(gugu.product_name)}" style="width:100%;height:100%;object-fit:cover">` : ['IMG','NEW','HOT','BAG','LIFE','CARE'][index % 6]}
-        <div class="badge ${progressPct(gugu) >= 80 ? 'badge-live' : 'badge-end'}">${progressPct(gugu) >= 80 ? '마감임박' : '진행중'}</div>
+  const COLORS = ['#e83e8c','#fd7e14','#28a745','#6f42c1','#17a2b8','#dc3545'];
+  grid.innerHTML = results.map((g, i) => {
+    const pct  = progressPct(g);
+    const disc = getDiscountRate(g);
+    const name = g.profiles?.channel_name || g.profiles?.name || '인플루언서';
+    return `<a class="product-card" href="product-detail.html?id=${g.id}" style="text-decoration:none;display:block">
+      <div class="product-card-img">${g.emoji||'🛍️'}
+        <div class="badge ${pct>=80?'badge-live':'badge-end'}">${pct>=80?'마감임박':'진행중'}</div>
       </div>
       <div class="product-card-body" style="padding:12px">
         <div class="pc-inf">
-          <div class="pc-av" style="background:#e83e8c">${escapeHtml(getAvatarLetter(gugu.profiles))}</div>
-          <span class="pc-inf-name">${escapeHtml(getDisplayName(gugu.profiles))}</span>
+          <div class="pc-av" style="background:${COLORS[i%COLORS.length]}">${name[0]||'?'}</div>
+          <span class="pc-inf-name">${name}</span>
         </div>
-        <div class="pc-name">${escapeHtml(gugu.product_name)}</div>
+        <div class="pc-name">${g.title}</div>
         <div class="pc-price-row">
-          <span class="pc-orig">${formatKRW(gugu.original_price)}</span>
-          <span class="pc-sale">${formatKRW(gugu.sale_price)}</span>
-          <span class="pc-disc">-${getDiscountRate(gugu)}%</span>
+          <span class="pc-orig">${formatKRW(g.original_price)}</span>
+          <span class="pc-sale">${formatKRW(g.sale_price)}</span>
+          <span class="pc-disc">-${disc}%</span>
         </div>
-        <div class="pc-bar"><div class="pc-fill" style="width:${progressPct(gugu)}%"></div></div>
-        <div class="pc-meta"><span>${Number(gugu.current_participants || 0).toLocaleString('ko-KR')}명</span><span>${escapeHtml(daysLeft(gugu.end_date))}</span></div>
+        <div class="pc-bar"><div class="pc-fill" style="width:${pct}%"></div></div>
+        <div class="pc-meta"><span>${(g.current_participants||0).toLocaleString()}명</span><span>${daysLeft(g.end_date)}</span></div>
       </div>
-    </a>`).join('');
+    </a>`;
+  }).join('');
 }
 </script>
-<script src="js/page-data.js"></script>
 </body>
 </html>

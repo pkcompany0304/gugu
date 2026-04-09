@@ -242,95 +242,126 @@ document.querySelectorAll('.sub-tab').forEach(t=>t.addEventListener('click',func
 <script src="js/supabase.js"></script>
 <script src="js/nav.js"></script>
 <script>
-let categoryAllGugus = [];
-let categoryCurrent = '전체';
+const CAT_META = {
+  '전체':   { icon:'🛍️', desc:'모든 카테고리의 공구' },
+  '뷰티':   { icon:'💄', desc:'스킨케어, 메이크업, 헤어케어 등' },
+  '패션':   { icon:'👗', desc:'의류, 잡화, 신발 등' },
+  '푸드':   { icon:'🍎', desc:'식품, 건강식품, 음료 등' },
+  '라이프': { icon:'🏠', desc:'홈, 리빙, 생활용품 등' },
+  '피트니스':{ icon:'💪', desc:'운동, 스포츠, 헬스 용품 등' },
+};
 
-window.addEventListener('load', () => {
-  initializeCategoryPage();
-});
+let _allGugus = [];
+let _curCat   = '전체';
 
-async function initializeCategoryPage() {
+(async function initCategory() {
+  // URL ?cat=뷰티 로 초기 카테고리 결정
   const params = new URLSearchParams(location.search);
-  categoryCurrent = params.get('category') || '뷰티';
+  _curCat = params.get('cat') || '전체';
 
-  const { data, error } = await sb
-    .from('gugus')
-    .select('*, profiles!gugus_influencer_id_fkey(id, name, channel_name)')
-    .order('created_at', { ascending: false });
-
-  if (error) return;
-
-  categoryAllGugus = (data || []).filter(isActiveGugu);
-  setupCategoryTabs();
-  renderCategoryPage();
-}
-
-function setupCategoryTabs() {
-  document.querySelectorAll('.sub-tab').forEach((tab) => {
-    tab.onclick = () => {
-      document.querySelectorAll('.sub-tab').forEach((item) => item.classList.remove('active'));
-      tab.classList.add('active');
-      categoryCurrent = tab.textContent.trim();
-      renderCategoryPage();
+  // 상단 nav-tab 활성화
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.trim() === _curCat || (_curCat === '전체' && t.textContent.trim() === '전체'));
+    t.onclick = function() {
+      _curCat = this.textContent.trim();
+      document.querySelectorAll('.nav-tab').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      renderCat();
     };
   });
 
-  const matchingTab = [...document.querySelectorAll('.sub-tab')].find((tab) => tab.textContent.trim() === categoryCurrent);
-  if (matchingTab) {
-    document.querySelectorAll('.sub-tab').forEach((item) => item.classList.remove('active'));
-    matchingTab.classList.add('active');
-  }
-}
-
-function renderCategoryPage() {
-  const filtered = categoryCurrent === '전체'
-    ? categoryAllGugus
-    : categoryAllGugus.filter((gugu) => gugu.category === categoryCurrent);
-
-  const titleEl = document.querySelector('.cat-title');
-  if (titleEl) titleEl.textContent = categoryCurrent;
-
-  const countEls = document.querySelectorAll('.result-count strong, .cat-count strong');
-  countEls.forEach((el) => {
-    el.textContent = filtered.length.toLocaleString('ko-KR');
+  // sub-tab 클릭
+  document.querySelectorAll('.sub-tab').forEach(t => {
+    t.onclick = function() {
+      _curCat = this.textContent.trim();
+      document.querySelectorAll('.sub-tab').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(x => x.classList.remove('active'));
+      renderCat();
+    };
   });
 
+  // 정렬 셀렉트
+  document.querySelector('.sort-select')?.addEventListener('change', function() {
+    renderCat(this.value);
+  });
+
+  // 데이터 로드
+  const { data } = await sb
+    .from('gugus')
+    .select('*, profiles(id, channel_name, name)')
+    .eq('status', 'active')
+    .gte('end_date', new Date().toISOString());
+
+  _allGugus = data || [];
+  renderCat();
+})();
+
+function renderCat(sort = '인기순') {
+  const filtered = _curCat === '전체'
+    ? [..._allGugus]
+    : _allGugus.filter(g => g.category === _curCat);
+
+  // 정렬
+  if (sort === '최신순')       filtered.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  else if (sort === '할인율 높은순') filtered.sort((a,b) => getDiscountRate(b) - getDiscountRate(a));
+  else if (sort === '가격 낮은순')  filtered.sort((a,b) => a.sale_price - b.sale_price);
+  else if (sort === '마감임박순')   filtered.sort((a,b) => new Date(a.end_date) - new Date(b.end_date));
+  else filtered.sort((a,b) => (b.current_participants||0) - (a.current_participants||0)); // 인기순
+
+  // 히어로 헤더 업데이트
+  const meta = CAT_META[_curCat] || { icon:'🛍️', desc:'' };
+  const catIcon  = document.querySelector('.cat-icon');
+  const catTitle = document.querySelector('.cat-title');
+  const catCount = document.querySelector('.cat-count');
+  if (catIcon)  catIcon.textContent  = meta.icon;
+  if (catTitle) catTitle.textContent = _curCat;
+  if (catCount) catCount.innerHTML   = `${meta.desc} 총 <strong>${filtered.length}</strong>개 공구`;
+
+  // 결과 개수
+  const resultCount = document.querySelector('.result-count');
+  if (resultCount) resultCount.innerHTML = `총 <strong>${filtered.length}개</strong> 공구`;
+
+  // 그리드 렌더
   const grid = document.querySelector('.product-grid');
   if (!grid) return;
 
   if (!filtered.length) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--t2);padding:48px 0">이 카테고리에는 현재 진행 중인 공구가 없어요.</div>';
+    document.querySelector('.load-more').style.display = 'none';
     return;
   }
 
-  grid.innerHTML = filtered.map((gugu, index) => {
-    const pct = progressPct(gugu);
-    const badgeClass = pct >= 80 ? 'badge-live' : pct >= 50 ? 'badge-hot' : 'badge-end';
-    const badgeText = pct >= 80 ? '마감임박' : pct >= 50 ? 'HOT' : '진행중';
-    return `
-      <a class="product-card" href="product-detail.html?id=${gugu.id}">
-        <div class="product-card-img">
-          ${gugu.image_url ? `<img src="${escapeHtml(gugu.image_url)}" alt="${escapeHtml(gugu.product_name)}" style="width:100%;height:100%;object-fit:cover">` : ['IMG','NEW','HOT','BAG','LIFE','CARE'][index % 6]}
-          <div class="badge ${badgeClass}">${badgeText}</div>
+  const COLORS = ['#e83e8c','#fd7e14','#28a745','#6f42c1','#17a2b8','#dc3545'];
+  grid.innerHTML = filtered.map((g, i) => {
+    const pct       = progressPct(g);
+    const disc      = getDiscountRate(g);
+    const name      = g.profiles?.channel_name || g.profiles?.name || '인플루언서';
+    const badgeCls  = pct >= 80 ? 'badge-live' : pct >= 50 ? 'badge-hot' : '';
+    const badgeTxt  = pct >= 80 ? '마감임박' : pct >= 50 ? 'HOT' : '';
+    return `<a class="product-card" href="product-detail.html?id=${g.id}" style="text-decoration:none;display:block">
+      <div class="product-card-img">${g.emoji||'🛍️'}${badgeCls ? `<div class="badge ${badgeCls}">${badgeTxt}</div>` : ''}</div>
+      <div class="product-card-body" style="padding:12px">
+        <div class="pc-inf">
+          <div class="pc-av" style="background:${COLORS[i%COLORS.length]}">${name[0]||'?'}</div>
+          <span class="pc-inf-name">${name}</span>
         </div>
-        <div class="product-card-body" style="padding:12px">
-          <div class="pc-inf">
-            <div class="pc-av" style="background:#e83e8c">${escapeHtml(getAvatarLetter(gugu.profiles))}</div>
-            <span class="pc-inf-name">${escapeHtml(getDisplayName(gugu.profiles))}</span>
-          </div>
-          <div class="pc-name">${escapeHtml(gugu.product_name)}</div>
-          <div class="pc-price-row">
-            <span class="pc-orig">${formatKRW(gugu.original_price)}</span>
-            <span class="pc-sale">${formatKRW(gugu.sale_price)}</span>
-            <span class="pc-disc">-${getDiscountRate(gugu)}%</span>
-          </div>
-          <div class="pc-bar"><div class="pc-fill" style="width:${pct}%"></div></div>
-          <div class="pc-meta"><span>${Number(gugu.current_participants || 0).toLocaleString('ko-KR')}명</span><span>${escapeHtml(daysLeft(gugu.end_date))}</span></div>
+        <div class="pc-name">${g.title}</div>
+        <div class="pc-price-row">
+          <span class="pc-orig">${formatKRW(g.original_price)}</span>
+          <span class="pc-sale">${formatKRW(g.sale_price)}</span>
+          <span class="pc-disc">-${disc}%</span>
         </div>
-      </a>`;
+        <div class="pc-bar"><div class="pc-fill" style="width:${pct}%"></div></div>
+        <div class="pc-meta"><span>${(g.current_participants||0).toLocaleString()}명</span><span>${daysLeft(g.end_date)}</span></div>
+      </div>
+    </a>`;
   }).join('');
+
+  // 더보기 버튼
+  const loadMore = document.querySelector('.load-more');
+  if (loadMore) loadMore.style.display = 'none'; // 모두 표시하므로 숨김
 }
 </script>
-<script src="js/page-data.js"></script>
 </body>
 </html>

@@ -133,8 +133,9 @@ input, select, textarea { font-size: 16px !important; }
   <div class="nav-inner">
     <div class="logo">GUGU<span>.</span></div>
     <div class="nav-right">
-      <button class="btn-login">로그인</button>
-      <button class="btn-join">회원가입</button>
+      <button id="navLoginBtn" class="btn-login" onclick="location.href='login.html'">로그인</button>
+      <button id="navSignupBtn" class="btn-join" onclick="location.href='signup.html'">회원가입</button>
+      <div id="navUserArea" style="display:none;align-items:center;gap:8px"></div>
     </div>
   </div>
 </nav>
@@ -230,10 +231,10 @@ input, select, textarea { font-size: 16px !important; }
       <div class="sidebar-card">
         <h4>공구 성과</h4>
         <div class="stat-grid">
-          <div class="stat-item"><div class="n">98%</div><div class="l">목표 달성률</div></div>
-          <div class="stat-item"><div class="n">4.9★</div><div class="l">평균 평점</div></div>
-          <div class="stat-item"><div class="n">42%</div><div class="l">재구매율</div></div>
-          <div class="stat-item"><div class="n">247회</div><div class="l">총 공구 수</div></div>
+          <div class="stat-item"><div class="n">-</div><div class="l">진행중 공구</div></div>
+          <div class="stat-item"><div class="n">-</div><div class="l">총 공구 수</div></div>
+          <div class="stat-item"><div class="n">-</div><div class="l">평균 달성률</div></div>
+          <div class="stat-item"><div class="n">-</div><div class="l">누적 참여자</div></div>
         </div>
       </div>
       <div class="sidebar-card">
@@ -371,18 +372,18 @@ function renderInfluencerProfile(profile, gugus) {
   renderInfluencerGugus(activeGugus, closedGugus);
 
   const statItems = document.querySelectorAll('.stat-item .n');
-  if (statItems[0]) statItems[0].textContent = `${avgProgress}%`;
+  if (statItems[0]) statItems[0].textContent = `${activeGugus.length}개`;
   if (statItems[1]) statItems[1].textContent = `${gugus.length}개`;
-  if (statItems[2]) statItems[2].textContent = `${activeGugus.length}개`;
+  if (statItems[2]) statItems[2].textContent = `${avgProgress}%`;
   if (statItems[3]) statItems[3].textContent = `${totalParticipants.toLocaleString('ko-KR')}명`;
 
   const recentList = document.querySelector('.recent-list');
   if (recentList) {
-    recentList.innerHTML = closedGugus.slice(0, 3).map((gugu, index) => `
+    recentList.innerHTML = closedGugus.slice(0, 3).map((gugu) => `
       <div class="recent-item">
-        <div class="recent-emoji">${gugu.image_url ? `<img src="${escapeHtml(gugu.image_url)}" alt="${escapeHtml(gugu.product_name)}" style="width:100%;height:100%;object-fit:cover;border-radius:6px">` : ['IMG','NEW','HOT'][index % 3]}</div>
+        <div class="recent-emoji">${gugu.emoji||'🛍️'}</div>
         <div class="recent-info">
-          <div class="name">${escapeHtml(gugu.product_name)}</div>
+          <div class="name">${escapeHtml(gugu.title)}</div>
           <div class="price">${formatKRW(gugu.sale_price)} · ${Number(gugu.current_participants || 0).toLocaleString('ko-KR')}명 참여</div>
         </div>
       </div>`).join('') || '<div style="color:var(--t2);font-size:12px">아직 종료된 공구가 없어요.</div>';
@@ -395,14 +396,14 @@ function renderInfluencerGugus(activeGugus, closedGugus) {
   if (!grid) return;
 
   const render = (list, done = false) => {
-    grid.innerHTML = list.map((gugu, index) => `
-      <a class="pc" href="product-detail.html?id=${gugu.id}">
+    grid.innerHTML = list.map((gugu) => `
+      <a class="pc" href="product-detail.html?id=${gugu.id}" style="text-decoration:none;display:block">
         <div class="pc-img">
-          ${gugu.image_url ? `<img src="${escapeHtml(gugu.image_url)}" alt="${escapeHtml(gugu.product_name)}" style="width:100%;height:100%;object-fit:cover">` : ['IMG','NEW','HOT','BAG'][index % 4]}
+          ${gugu.emoji||'🛍️'}
           <div class="pc-badge ${done ? 'done' : ''}">${done ? '종료' : '진행중'}</div>
         </div>
         <div class="pc-body" style="padding:12px">
-          <div class="pc-name">${escapeHtml(gugu.product_name)}</div>
+          <div class="pc-name">${escapeHtml(gugu.title)}</div>
           <div class="pc-price-row">
             <span class="pc-orig">${formatKRW(gugu.original_price)}</span>
             <span class="pc-sale">${formatKRW(gugu.sale_price)}</span>
@@ -429,6 +430,5 @@ function renderInfluencerGugus(activeGugus, closedGugus) {
   });
 }
 </script>
-<script src="js/page-data.js"></script>
 </body>
 </html>

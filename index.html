@@ -683,7 +683,7 @@ function renderHeroCard(g) {
   const name = p?.channel_name || p?.name || '인플루언서';
   const disc = g.original_price > 0 ? Math.round((1 - g.sale_price / g.original_price) * 100) : 0;
   const pct  = progressPct(g);
-  const days = daysLeft(g);
+  const dl   = daysLeft(g.end_date);
   heroCard.innerHTML = `
     <div class="hc-img">${g.emoji || '🛍️'}<div class="hc-badge">🔥 ${pct >= 80 ? '마감임박' : '진행중'}</div></div>
     <div class="hc-body">
@@ -697,8 +697,8 @@ function renderHeroCard(g) {
       </div>
       <div class="hc-title">${g.title}</div>
       <div class="price-row">
-        <span class="p-orig">${formatKRW(g.original_price)}원</span>
-        <span class="p-sale">${formatKRW(g.sale_price)}원</span>
+        <span class="p-orig">${formatKRW(g.original_price)}</span>
+        <span class="p-sale">${formatKRW(g.sale_price)}</span>
         <span class="p-disc">-${disc}%</span>
       </div>
       <div class="prog-lbl">
@@ -707,7 +707,7 @@ function renderHeroCard(g) {
       </div>
       <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
       <button class="btn-buy" onclick="location.href='product-detail.html?id=${g.id}'">지금 참여하기 →</button>
-      <div class="timer-row">종료까지 <span class="tc">${days}일</span> 남음</div>
+      <div class="timer-row">종료까지 <span class="tc">${dl}</span></div>
     </div>`;
 }
 
@@ -749,8 +749,8 @@ function renderFlash(gugus) {
         <div class="fc-inf">${name} · ${g.category||''}</div>
         <div class="fc-name">${g.title}</div>
         <div class="fc-pr">
-          <span class="fc-orig">${formatKRW(g.original_price)}원</span>
-          <span class="fc-sale">${formatKRW(g.sale_price)}원</span>
+          <span class="fc-orig">${formatKRW(g.original_price)}</span>
+          <span class="fc-sale">${formatKRW(g.sale_price)}</span>
           <span class="fc-disc">-${disc}%</span>
         </div>
         <div class="fc-bar"><div class="fc-fill" style="width:${pct}%"></div></div>
@@ -774,8 +774,8 @@ function renderNew(gugus) {
         <div class="nc-inf">${name} · ${g.category||''}</div>
         <div class="nc-name">${g.title}</div>
         <div class="nc-pr">
-          <span class="nc-orig">${formatKRW(g.original_price)}원</span>
-          <span class="nc-sale">${formatKRW(g.sale_price)}원</span>
+          <span class="nc-orig">${formatKRW(g.original_price)}</span>
+          <span class="nc-sale">${formatKRW(g.sale_price)}</span>
           <span class="nc-disc">-${disc}%</span>
         </div>
         <div class="nc-time"><span class="nc-dot"></span>${timeStr}</div>
@@ -813,8 +813,8 @@ function renderHotGrid(category) {
         </div>
         <div class="pc-name">${g.title}</div>
         <div class="pc-pr">
-          <span class="pc-orig">${formatKRW(g.original_price)}원</span>
-          <span class="pc-sale">${formatKRW(g.sale_price)}원</span>
+          <span class="pc-orig">${formatKRW(g.original_price)}</span>
+          <span class="pc-sale">${formatKRW(g.sale_price)}</span>
           <span class="pc-disc">-${disc}%</span>
         </div>
         <div class="pc-bar"><div class="pc-fill" style="width:${pct}%"></div></div>
