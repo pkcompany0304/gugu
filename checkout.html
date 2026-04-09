@@ -157,14 +157,14 @@ input, select, textarea { font-size: 16px !important; }
       <div class="section">
         <div class="section-title">배송지 정보</div>
         <div class="form-grid">
-          <div class="form-group"><label class="form-label">받으시는 분</label><input class="form-input" type="text" value="나혜진"></div>
-          <div class="form-group"><label class="form-label">휴대폰 번호</label><input class="form-input" type="tel" value="010-1234-5678"></div>
+          <div class="form-group"><label class="form-label">받으시는 분</label><input class="form-input" id="shipName" type="text" placeholder="이름을 입력해주세요"></div>
+          <div class="form-group"><label class="form-label">휴대폰 번호</label><input class="form-input" id="shipPhone" type="tel" placeholder="010-0000-0000"></div>
           <div class="form-group full" style="flex-direction:row;align-items:flex-end;gap:8px">
-            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><label class="form-label">주소</label><input class="form-input" type="text" value="서울특별시 강남구 테헤란로 152" placeholder="주소 검색"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><label class="form-label">주소</label><input class="form-input" id="shipAddr" type="text" placeholder="주소 검색"></div>
             <button class="addr-btn">주소 검색</button>
           </div>
-          <div class="form-group full"><label class="form-label">상세 주소</label><input class="form-input" type="text" placeholder="상세 주소 입력"></div>
-          <div class="form-group full"><label class="form-label">배송 요청사항</label><input class="form-input" type="text" placeholder="예: 문 앞에 놔주세요"></div>
+          <div class="form-group full"><label class="form-label">상세 주소</label><input class="form-input" id="shipAddrDetail" type="text" placeholder="상세 주소 입력"></div>
+          <div class="form-group full"><label class="form-label">배송 요청사항</label><input class="form-input" id="shipNote" type="text" placeholder="예: 문 앞에 놔주세요"></div>
         </div>
       </div>
       <div class="section">
@@ -227,6 +227,10 @@ input, select, textarea { font-size: 16px !important; }
     </div>
   </div>
 </div>
+<!-- Supabase + Nav (먼저 로드해야 sb 사용 가능) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/nav.js"></script>
 <!-- Toss Payments SDK -->
 <script src="https://js.tosspayments.com/v1/payment"></script>
 <script>
@@ -240,36 +244,45 @@ const _qty      = parseInt(_qs.get('qty') || '1');
 // 공구 정보 로드
 (async function loadCheckout() {
   if (!_guguId) return;
+
+  // 로그인 확인
+  const u = await getCurrentUser();
+  if (!u) { location.href = 'login.html?next=checkout.html?gugu_id=' + _guguId + '&qty=' + _qty; return; }
+
+  // 유저 정보 자동 채우기
+  if (u.profile?.name)  document.getElementById('shipName').value  = u.profile.name;
+  if (u.profile?.phone) document.getElementById('shipPhone').value = u.profile.phone;
+
   const { data: g } = await sb.from('gugus')
     .select('*, profiles(channel_name, name)')
     .eq('id', _guguId).single();
-  if (!g) return;
+  if (!g) { alert('상품 정보를 불러올 수 없어요.'); history.back(); return; }
 
-  const disc = Math.round((1 - g.sale_price / g.original_price) * 100);
   const total = g.sale_price * _qty;
+  const shipping = total >= 50000 ? 0 : 3000;
+  const finalAmt = total + shipping;
 
   // 상품 영역
   document.querySelector('.order-product .order-img').textContent = g.emoji || '🛍️';
   document.querySelector('.order-product .name').textContent = g.title;
   document.querySelector('.order-product .opt').textContent =
-    `${g.profiles?.channel_name || ''} 공구 · ${_qty}개`;
+    `${g.profiles?.channel_name || g.profiles?.name || ''} 공구 · ${_qty}개`;
   document.querySelector('.order-product .price').textContent =
-    `${g.sale_price.toLocaleString()}원 × ${_qty}`;
+    `${Number(g.sale_price).toLocaleString()}원 × ${_qty}`;
 
   // 금액
   document.querySelectorAll('.price-table .price-row')[0].querySelector('.v').textContent =
     `${(g.original_price * _qty).toLocaleString()}원`;
   document.querySelectorAll('.price-table .price-row')[1].querySelector('.v').textContent =
-    total >= 50000 ? '무료' : '3,000원';
+    shipping === 0 ? '무료' : '3,000원';
   document.querySelectorAll('.price-table .price-row')[2].querySelector('.v').textContent =
     `-${((g.original_price - g.sale_price) * _qty).toLocaleString()}원`;
-  const finalAmt = total + (total >= 50000 ? 0 : 3000);
   document.querySelector('.price-total .v').textContent = `${finalAmt.toLocaleString()}원`;
   document.querySelector('.btn-pay').textContent = `${finalAmt.toLocaleString()}원 결제하기`;
-  document.querySelector('.btn-pay').dataset.total = finalAmt;
-  document.querySelector('.btn-pay').dataset.guguId = _guguId;
-  document.querySelector('.btn-pay').dataset.qty = _qty;
-  document.querySelector('.btn-pay').dataset.title = g.title;
+  document.querySelector('.btn-pay').dataset.total   = finalAmt;
+  document.querySelector('.btn-pay').dataset.guguId  = _guguId;
+  document.querySelector('.btn-pay').dataset.qty     = _qty;
+  document.querySelector('.btn-pay').dataset.title   = g.title;
 })();
 
 async function doPay() {
@@ -285,12 +298,14 @@ async function doPay() {
     if (!cb.checked) return alert('필수 약관에 동의해주세요');
   }
 
-  const shipping = {
-    name:    document.querySelector('input[placeholder=""]') ?.value || document.querySelectorAll('.form-input')[0].value,
-    phone:   document.querySelectorAll('.form-input')[1].value,
-    address: document.querySelectorAll('.form-input')[2].value,
-    zipcode: '',
-  };
+  const shipName  = document.getElementById('shipName').value.trim();
+  const shipPhone = document.getElementById('shipPhone').value.trim();
+  const shipAddr  = document.getElementById('shipAddr').value.trim() + ' ' +
+                    document.getElementById('shipAddrDetail').value.trim();
+  if (!shipName || !shipPhone || !shipAddr.trim()) {
+    return alert('배송지 정보를 모두 입력해주세요.');
+  }
+  const shipping = { name: shipName, phone: shipPhone, address: shipAddr.trim(), zipcode: '' };
 
   btn.disabled = true; btn.textContent = '처리 중...';
 
@@ -386,9 +401,6 @@ async function doPay() {
 }
 
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
-<script src="js/nav.js"></script>
 <script>
 // 결제 실패 처리
 if (new URLSearchParams(location.search).get('fail') === '1') {
