@@ -1,14 +1,21 @@
 (function () {
   const page = location.pathname.split('/').pop();
 
-  window.addEventListener('load', () => {
-    if (!window.sb) return;
+  window.addEventListener('load', async () => {
+    if (!window.sb) {
+      document.documentElement.classList.remove('sb-loading');
+      return;
+    }
 
-    if (page === 'index.html' || page === '') initIndexPage();
-    if (page === 'category.html') initCategoryPage();
-    if (page === 'search.html') initSearchPage();
-    if (page === 'product-detail.html') initProductDetailPage();
-    if (page === 'influencer-profile.html') initInfluencerProfilePage();
+    try {
+      if (page === 'index.html' || page === '') await initIndexPage();
+      if (page === 'category.html') await initCategoryPage();
+      if (page === 'search.html') await initSearchPage();
+      if (page === 'product-detail.html') await initProductDetailPage();
+      if (page === 'influencer-profile.html') await initInfluencerProfilePage();
+    } finally {
+      document.documentElement.classList.remove('sb-loading');
+    }
   });
 
   function q(selector) {
