@@ -1,6 +1,7 @@
 """
-GET  /api/admin/orders  — 전체 주문 목록 (admin)
-PUT  /api/admin/orders  — 주문 상태 변경 / 송장번호 입력
+GET  /api/admin/orders         — 전체 주문 목록 (admin)
+GET  /api/admin/orders?stats=1 — 대시보드 통계 (dashboard.py 통합)
+PUT  /api/admin/orders         — 주문 상태 변경 / 송장번호 입력
 """
 from http.server import BaseHTTPRequestHandler
 import json, datetime
@@ -18,6 +19,30 @@ class handler(BaseHTTPRequestHandler):
 
         from urllib.parse import urlparse, parse_qs
         qs = parse_qs(urlparse(self.path).query)
+
+        # 대시보드 통계 모드 (?stats=1)
+        if qs.get("stats", [None])[0] == "1":
+            db = get_db()
+            today = datetime.date.today().isoformat()
+            month_start = datetime.date.today().replace(day=1).isoformat()
+            all_orders   = db.table("orders").select("status, total_amount, created_at").execute().data or []
+            paid_orders  = [o for o in all_orders if o["status"] not in ("pending","cancelled","refunded")]
+            today_orders = [o for o in paid_orders if o["created_at"][:10] == today]
+            month_orders = [o for o in paid_orders if o["created_at"][:10] >= month_start]
+            pending_apps = db.table("influencer_applications").select("id", count="exact").eq("status","pending").execute()
+            pending_ship = db.table("orders").select("id", count="exact").eq("status","paid").execute()
+            stats = {
+                "total_revenue":    sum(int(o["total_amount"]) for o in paid_orders),
+                "today_revenue":    sum(int(o["total_amount"]) for o in today_orders),
+                "month_revenue":    sum(int(o["total_amount"]) for o in month_orders),
+                "total_orders":     len(paid_orders),
+                "today_orders":     len(today_orders),
+                "pending_orders":   len([o for o in all_orders if o["status"] == "pending"]),
+                "pending_shipment": pending_ship.count or 0,
+                "pending_applications": pending_apps.count or 0,
+            }
+            return self._send(*ok(stats))
+
         status = qs.get("status", [None])[0]
         page   = int(qs.get("page", [1])[0])
         limit  = 50

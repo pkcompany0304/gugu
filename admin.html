@@ -254,7 +254,7 @@ function showTab(name) {
 
 // ── 대시보드 ─────────────────────────────────────────────
 async function loadDashboard() {
-  const resp = await api('GET', '/api/admin/dashboard');
+  const resp = await api('GET', '/api/admin/orders?stats=1');
   if (!resp.ok) return;
   const d = resp.data;
   document.getElementById('kpiToday').textContent     = `${(d.today_revenue||0).toLocaleString()}원`;
