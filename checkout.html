@@ -203,17 +203,29 @@ input, select, textarea { font-size: 16px !important; }
       </div>
       <div class="section">
         <div class="section-title">결제 수단</div>
-        <div class="pay-methods">
-          <button class="pay-method active" onclick="selectPay(this)"><div class="pm-icon">💳</div><div class="pm-name">신용카드</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🟡</div><div class="pm-name">카카오페이</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🟢</div><div class="pm-name">네이버페이</div></button>
-          <button class="pay-method" onclick="selectPay(this)"><div class="pm-icon">🏦</div><div class="pm-name">계좌이체</div></button>
+        <div class="pay-methods" style="grid-template-columns:1fr 1fr;gap:10px">
+          <button class="pay-method active" id="pmCard" onclick="selectPayMethod('card')">
+            <div class="pm-icon">💳</div>
+            <div class="pm-name" style="font-size:13px;font-weight:700">카드 결제</div>
+            <div style="font-size:11px;color:var(--t2);margin-top:2px">신용·체크카드</div>
+          </button>
+          <button class="pay-method" id="pmBank" onclick="selectPayMethod('bank_transfer')">
+            <div class="pm-icon">🏦</div>
+            <div class="pm-name" style="font-size:13px;font-weight:700">무통장 입금</div>
+            <div style="font-size:11px;color:var(--t2);margin-top:2px">계좌이체</div>
+          </button>
         </div>
-        <div class="card-inputs">
-          <div class="form-grid">
-            <div class="form-group full"><label class="form-label">카드 번호</label><input class="form-input" type="text" placeholder="0000 - 0000 - 0000 - 0000"></div>
-            <div class="form-group"><label class="form-label">유효기간</label><input class="form-input" type="text" placeholder="MM / YY"></div>
-            <div class="form-group"><label class="form-label">CVC</label><input class="form-input" type="text" placeholder="000"></div>
+
+        <!-- 무통장 입금자명 -->
+        <div id="bankExtra" style="display:none;margin-top:14px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:14px">
+          <div style="font-size:12px;color:var(--bl);font-weight:700;margin-bottom:10px">💡 무통장 입금 안내</div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">
+            주문 완료 후 표시되는 계좌로 <strong style="color:var(--t)">24시간 이내</strong> 입금해주세요.<br>
+            입금 확인 후 인플루언서가 배송을 진행합니다.
+          </div>
+          <div class="form-group">
+            <label class="form-label">입금자명 <span style="color:var(--r)">*</span></label>
+            <input class="form-input" id="bankDepositor" type="text" placeholder="통장에 표시될 입금자 이름">
           </div>
         </div>
       </div>
@@ -269,6 +281,14 @@ input, select, textarea { font-size: 16px !important; }
 <script src="https://js.tosspayments.com/v1/payment"></script>
 <script>
 function toggleAll(el){document.querySelectorAll('.agree-cb').forEach(c=>c.checked=el.checked)}
+
+let currentPayMethod = 'card';
+function selectPayMethod(method){
+  currentPayMethod = method;
+  document.getElementById('pmCard').classList.toggle('active', method==='card');
+  document.getElementById('pmBank').classList.toggle('active', method==='bank_transfer');
+  document.getElementById('bankExtra').style.display = method==='bank_transfer' ? 'block' : 'none';
+}
 
 // URL 파라미터
 const _qs       = new URLSearchParams(location.search);
@@ -343,15 +363,22 @@ async function doPay() {
 
   btn.disabled = true; btn.textContent = '처리 중...';
 
-  // 1. 서버에 주문 초안 생성
+  // 무통장 입금자명 확인
+  if(currentPayMethod === 'bank_transfer'){
+    const depositor = document.getElementById('bankDepositor')?.value.trim();
+    if(!depositor){ btn.disabled=false; btn.textContent=`${parseInt(btn.dataset.total).toLocaleString()}원 결제하기`; return alert('입금자명을 입력해주세요.'); }
+  }
+
   const token = (await sb.auth.getSession()).data.session?.access_token || '';
   const checkoutResp = await fetch('/api/payments/checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
     body: JSON.stringify({
-      gugu_id:  btn.dataset.guguId,
-      quantity: parseInt(btn.dataset.qty),
+      gugu_id:        btn.dataset.guguId,
+      quantity:       parseInt(btn.dataset.qty),
       shipping,
+      payment_method: currentPayMethod,
+      bank_depositor: document.getElementById('bankDepositor')?.value.trim() || '',
     }),
   });
   const checkoutData = await checkoutResp.json();
@@ -360,9 +387,48 @@ async function doPay() {
     return alert(checkoutData.error || '주문 생성 실패');
   }
 
-  const { order_id, amount, order_name, customer_name, customer_email, toss_client_key } = checkoutData.data;
+  const d = checkoutData.data;
 
-  // 2. Toss Payments 결제 요청
+  // ── 무통장 입금 ──
+  if(currentPayMethod === 'bank_transfer'){
+    // 계좌 정보 화면으로 교체
+    document.querySelector('.wrap').innerHTML = `
+      <div style="max-width:480px;margin:60px auto;text-align:center">
+        <div style="font-size:48px;margin-bottom:16px">🏦</div>
+        <div style="font-size:22px;font-weight:800;margin-bottom:8px">입금 정보를 확인해주세요</div>
+        <div style="font-size:14px;color:var(--t2);margin-bottom:32px">24시간 이내 입금하지 않으면 주문이 자동 취소됩니다</div>
+        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:24px;text-align:left;margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1)">
+            <span style="color:var(--t2)">은행</span><strong>${d.bank}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1)">
+            <span style="color:var(--t2)">계좌번호</span>
+            <strong style="font-size:16px;letter-spacing:1px">${d.account}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1)">
+            <span style="color:var(--t2)">예금주</span><strong>${d.holder}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1)">
+            <span style="color:var(--t2)">입금자명</span><strong style="color:var(--r)">${d.depositor}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b1)">
+            <span style="color:var(--t2)">입금금액</span><strong style="font-size:18px;color:var(--r)">${Number(d.amount).toLocaleString()}원</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0">
+            <span style="color:var(--t2)">입금기한</span><strong style="color:var(--o)">${d.deadline} 까지</strong>
+          </div>
+        </div>
+        <div style="background:rgba(255,138,0,.08);border:1px solid rgba(255,138,0,.2);border-radius:10px;padding:14px;font-size:13px;color:var(--o);margin-bottom:24px;text-align:left;line-height:1.7">
+          ⚠️ 입금자명을 <strong>${d.depositor}</strong>으로 정확히 입력해주세요.<br>
+          입금 확인 후 인플루언서가 배송을 시작합니다.
+        </div>
+        <button onclick="location.href='mypage.html'" style="width:100%;padding:14px;border-radius:10px;border:none;background:var(--r);color:#fff;font-size:15px;font-weight:700;cursor:pointer">주문 내역 확인하기</button>
+      </div>`;
+    return;
+  }
+
+  // ── 카드 결제 (Toss) ──
+  const { order_id, amount, order_name, customer_name, customer_email, toss_client_key } = d;
   const tossPayments = TossPayments(toss_client_key);
   try {
     await tossPayments.requestPayment('카드', {

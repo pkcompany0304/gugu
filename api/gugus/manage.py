@@ -31,6 +31,10 @@ class handler(BaseHTTPRequestHandler):
         if sale >= original:
             return self._send(*err("공구가는 원가보다 낮아야 합니다"))
 
+        gugu_type = body.get("gugu_type", "period")
+        if gugu_type not in ("period", "quantity", "funding"):
+            gugu_type = "period"
+
         db = get_db()
         gugu = db.table("gugus").insert({
             "id":                  str(uuid.uuid4()),
@@ -45,6 +49,7 @@ class handler(BaseHTTPRequestHandler):
             "min_participants":    int(body.get("min_participants", 0)),
             "current_participants": 0,
             "status":              "active",
+            "gugu_type":           gugu_type,
             "start_date":          datetime.datetime.utcnow().isoformat(),
             "end_date":            body["end_date"],
         }).execute()
@@ -71,7 +76,7 @@ class handler(BaseHTTPRequestHandler):
             body.pop("original_price", None)
             body.pop("sale_price", None)
 
-        allowed = {"title","description","category","emoji","target_participants","end_date","status"}
+        allowed = {"title","description","category","emoji","target_participants","end_date","status","gugu_type"}
         updates = {k: v for k, v in body.items() if k in allowed}
         if not updates:
             return self._send(*err("수정할 필드 없음"))

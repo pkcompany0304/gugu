@@ -467,6 +467,39 @@ document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',f
 
 async function doSignOut(){ await sb.auth.signOut(); location.href='login.html'; }
 
+let _mypageToken = '';
+async function loadTracking(orderId, trackingNum){
+  const el = document.getElementById('trackDetail_'+orderId);
+  if(!el) return;
+  if(el.style.display==='block'){ el.style.display='none'; return; }
+  el.style.display='block';
+  el.innerHTML='<div style="font-size:12px;color:var(--t2);padding:8px">배송 조회 중...</div>';
+
+  if(!_mypageToken){ const {data:{session}}=await sb.auth.getSession(); _mypageToken=session?.access_token||''; }
+  const res = await fetch('/api/orders/track?order_id='+orderId, {
+    headers:{'Authorization':'Bearer '+_mypageToken}
+  });
+  const json = await res.json().catch(()=>({}));
+  const d = json.data||{};
+
+  if(!d.has_tracking || !d.details?.length){
+    el.innerHTML=`<div style="font-size:12px;color:var(--t2);padding:8px">${d.message||'아직 배송 정보가 없어요'}</div>`;
+    return;
+  }
+
+  const rows = [...d.details].reverse().map(r=>`
+    <div style="display:flex;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+      <div style="font-size:11px;color:var(--t2);white-space:nowrap;min-width:110px">${r.time||''}</div>
+      <div style="font-size:12px;font-weight:600;min-width:70px">${r.kind||''}</div>
+      <div style="font-size:12px;color:var(--t2)">${r.where||''}</div>
+    </div>`).join('');
+
+  el.innerHTML=`<div style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px;font-size:12px">
+    <div style="font-weight:700;margin-bottom:8px;color:var(--g)">📦 ${d.carrier||''} 실시간 배송 현황</div>
+    ${rows}
+  </div>`;
+}
+
 function renderTrackingBar(status){
   const cur = statusToStep[status] ?? 0;
   return `<div class="tracking-bar">
@@ -494,6 +527,24 @@ function renderOrders(orders){
     const sc = statusClass[o.status]||'status-wait';
     const productName = o.gugus?.title || '공구 상품';
     const influencerName = o.gugus?.profiles?.channel_name || o.gugus?.profiles?.name || '인플루언서';
+
+    // 무통장 입금 대기 안내
+    const bankInfo = o.payment_method==='bank_transfer' && o.status==='pending' ? `
+      <div style="margin:0 16px 12px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:8px;padding:12px;font-size:12px;color:var(--bl);line-height:1.7">
+        🏦 <strong>무통장 입금 대기 중</strong><br>
+        입금자명 <strong>${o.bank_depositor||''}</strong>으로 입금해주세요. 확인 후 배송이 시작됩니다.
+      </div>` : '';
+
+    // 송장번호 표시
+    const trackingInfo = o.tracking_number ? `
+      <div style="margin:0 16px 12px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:12px;color:var(--g)">
+          🚚 <strong>${o.shipping_carrier||''}</strong> ${o.tracking_number}
+        </div>
+        <button onclick="loadTracking('${o.id}','${o.tracking_number}')" style="padding:4px 10px;border-radius:6px;border:1px solid rgba(34,197,94,.3);background:none;color:var(--g);font-size:11px;font-weight:700;cursor:pointer">배송 조회</button>
+      </div>
+      <div id="trackDetail_${o.id}" style="margin:0 16px 12px;display:none"></div>` : '';
+
     return `
     <div class="order-card">
       <div class="order-head">
@@ -504,7 +555,7 @@ function renderOrders(orders){
         <span class="order-status ${sc}">${sl}</span>
       </div>
       <div class="order-body">
-        <div class="order-img">🛍️</div>
+        <div class="order-img">${o.gugus?.emoji||'🛍️'}</div>
         <div class="order-info">
           <div class="order-inf">${influencerName} 공구</div>
           <div class="order-name">${productName}</div>
@@ -514,6 +565,8 @@ function renderOrders(orders){
           </div>
         </div>
       </div>
+      ${bankInfo}
+      ${trackingInfo}
       ${renderTrackingBar(o.status)}
     </div>`;
   }).join('');

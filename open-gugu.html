@@ -64,6 +64,9 @@ nav {background:rgba(10,10,10,0.97);border-bottom:1px solid var(--b1);padding:0 
 .period-opt{padding:10px;border-radius:8px;border:1px solid var(--b1);background:none;color:var(--t2);font-size:13px;cursor:pointer;font-family:inherit;text-align:center;transition:.2s}
 .period-opt:hover{border-color:var(--t2);color:var(--t)}
 .period-opt.active{border-color:var(--r);color:var(--r);background:rgba(255,59,59,0.08);font-weight:600}
+.gugu-type-btn{padding:16px 10px;border-radius:10px;border:1px solid var(--b1);background:var(--s1);color:var(--t);cursor:pointer;font-family:inherit;text-align:center;transition:.2s;width:100%}
+.gugu-type-btn:hover{border-color:var(--t2)}
+.gugu-type-btn.active{border-color:var(--r);background:rgba(255,59,59,0.08)}
 .preview-card{background:var(--s2);border:1px solid var(--b1);border-radius:12px;overflow:hidden}
 .preview-img{height:160px;background:linear-gradient(135deg,#1a0505,#2a1010);display:flex;align-items:center;justify-content:center;font-size:56px}
 .preview-
@@ -303,22 +306,88 @@ input, select, textarea { font-size: 16px !important; }
       </div>
 
       <div class="section">
-        <div class="section-title"><span class="num">6</span>공구 기간</div>
-        <div class="period-grid">
-          <button class="period-opt" onclick="setPeriod(this)">3일</button>
-          <button class="period-opt active" onclick="setPeriod(this)">5일</button>
-          <button class="period-opt" onclick="setPeriod(this)">7일</button>
-          <button class="period-opt" onclick="setPeriod(this)">직접 입력</button>
+        <div class="section-title"><span class="num">6</span>공구 방식 선택 <span class="req">*</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+          <button class="gugu-type-btn active" onclick="setGuguType('period',this)" id="typeBtn_period">
+            <div style="font-size:24px;margin-bottom:8px">📅</div>
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">기간형</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5">지정 날짜까지 참여 받고 마감.<br>가장 일반적인 방식</div>
+          </button>
+          <button class="gugu-type-btn" onclick="setGuguType('quantity',this)" id="typeBtn_quantity">
+            <div style="font-size:24px;margin-bottom:8px">🎯</div>
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">수량형</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5">목표 수량 달성 시 자동 마감.<br>"선착순 100명"</div>
+          </button>
+          <button class="gugu-type-btn" onclick="setGuguType('funding',this)" id="typeBtn_funding">
+            <div style="font-size:24px;margin-bottom:8px">🚀</div>
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">펀딩형</div>
+            <div style="font-size:11px;color:var(--t2);line-height:1.5">목표 미달 시 전액 환불.<br>리스크 없는 도전</div>
+          </button>
         </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">시작일 <span class="req">*</span></label>
-            <input class="form-input" type="date" value="2026-04-10">
+
+        <!-- 기간형 옵션 -->
+        <div id="opts_period">
+          <div class="period-grid">
+            <button class="period-opt" onclick="setPeriod(this)">3일</button>
+            <button class="period-opt active" onclick="setPeriod(this)">5일</button>
+            <button class="period-opt" onclick="setPeriod(this)">7일</button>
+            <button class="period-opt" onclick="setPeriod(this)">14일</button>
           </div>
-          <div class="form-group">
-            <label class="form-label">목표 참여자 수</label>
-            <input class="form-input" type="number" placeholder="5000" id="target" oninput="updatePreview()">
-            <div class="form-hint">미달 시에도 공구는 진행돼요</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">시작일 <span class="req">*</span></label>
+              <input class="form-input" type="date" id="startDate">
+            </div>
+            <div class="form-group">
+              <label class="form-label">목표 참여자 수</label>
+              <input class="form-input" type="number" placeholder="100" id="target" oninput="updatePreview()">
+              <div class="form-hint">미달 시에도 공구는 진행돼요</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 수량형 옵션 -->
+        <div id="opts_quantity" style="display:none">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">시작일 <span class="req">*</span></label>
+              <input class="form-input" type="date" id="startDateQ">
+            </div>
+            <div class="form-group">
+              <label class="form-label">마감 수량 <span class="req">*</span></label>
+              <input class="form-input" type="number" placeholder="100" id="targetQ" oninput="updatePreview()">
+              <div class="form-hint">이 수량 달성 시 자동 마감</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 펀딩형 옵션 -->
+        <div id="opts_funding" style="display:none">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">시작일 <span class="req">*</span></label>
+              <input class="form-input" type="date" id="startDateF">
+            </div>
+            <div class="form-group">
+              <label class="form-label">마감일 <span class="req">*</span></label>
+              <input class="form-input" type="date" id="endDateF">
+            </div>
+            <div class="form-group">
+              <label class="form-label">목표 참여자 수 <span class="req">*</span></label>
+              <input class="form-input" type="number" placeholder="50" id="targetF" oninput="updatePreview()">
+              <div class="form-hint">미달 시 자동 전액 환불 처리</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">최소 달성률</label>
+              <select class="form-input" id="minFundPct">
+                <option value="50">50% 이상</option>
+                <option value="70">70% 이상</option>
+                <option value="100" selected>100% (전량 달성)</option>
+              </select>
+            </div>
+          </div>
+          <div style="background:rgba(255,138,0,.08);border:1px solid rgba(255,138,0,.2);border-radius:8px;padding:12px;font-size:12px;color:var(--o);margin-top:8px">
+            ⚠️ 펀딩형은 목표 미달 시 참여자 전원에게 자동 환불이 진행됩니다.
           </div>
         </div>
       </div>
@@ -397,6 +466,16 @@ function calcPrice(){
     d.style.display='inline';d.textContent='-'+disc+'%';
   } else { calc.style.display='none' }
 }
+let currentGuguType = 'period';
+function setGuguType(type, el){
+  currentGuguType = type;
+  document.querySelectorAll('.gugu-type-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  ['period','quantity','funding'].forEach(t=>{
+    const el = document.getElementById('opts_'+t);
+    if(el) el.style.display = t===type ? 'block' : 'none';
+  });
+}
 function setPeriod(el){document.querySelectorAll('.period-opt').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
 
 async function submitGugu(){
@@ -426,6 +505,34 @@ async function submitGugu(){
 
   btn.textContent='등록 중...'; btn.disabled=true;
 
+  // 공구 타입별 날짜/목표 파싱
+  let finalStartDate, finalEndDate, finalTarget;
+
+  if(currentGuguType === 'period'){
+    finalStartDate = document.getElementById('startDate')?.value || startDate;
+    const activePeriod = document.querySelector('.period-opt.active')?.textContent;
+    const periodDays = activePeriod==='3일'?3:activePeriod==='7일'?7:activePeriod==='14일'?14:5;
+    const ed = new Date(finalStartDate);
+    ed.setDate(ed.getDate()+periodDays);
+    finalEndDate = ed.toISOString().split('T')[0];
+    finalTarget = target||100;
+  } else if(currentGuguType === 'quantity'){
+    finalStartDate = document.getElementById('startDateQ')?.value;
+    finalTarget = Number(document.getElementById('targetQ')?.value)||100;
+    const ed = new Date(finalStartDate);
+    ed.setDate(ed.getDate()+30); // 수량형은 30일 max
+    finalEndDate = ed.toISOString().split('T')[0];
+  } else { // funding
+    finalStartDate = document.getElementById('startDateF')?.value;
+    finalEndDate   = document.getElementById('endDateF')?.value;
+    finalTarget    = Number(document.getElementById('targetF')?.value)||50;
+  }
+
+  if(!finalStartDate){
+    errEl.style.display='block'; errEl.textContent='시작일을 선택해주세요.';
+    btn.textContent='공구 등록하기'; btn.disabled=false; return;
+  }
+
   const {data:{session}} = await sb.auth.getSession();
   const token = session?.access_token || '';
 
@@ -433,14 +540,15 @@ async function submitGugu(){
     method: 'POST',
     headers: {'Content-Type':'application/json', 'Authorization':'Bearer '+token},
     body: JSON.stringify({
-      title: productName,
-      description: desc,
-      category: category==='카테고리 선택' ? '기타' : category,
-      original_price: origPrice,
-      sale_price: salePrice,
-      target_participants: target||100,
-      start_date: startDate,
-      end_date: endDate.toISOString().split('T')[0],
+      title:              productName,
+      description:        desc,
+      category:           category==='카테고리 선택' ? '기타' : category,
+      original_price:     origPrice,
+      sale_price:         salePrice,
+      target_participants:finalTarget,
+      start_date:         finalStartDate,
+      end_date:           finalEndDate,
+      gugu_type:          currentGuguType,
     })
   });
 
@@ -453,7 +561,6 @@ async function submitGugu(){
     return;
   }
 
-  // 성공 → 대시보드로
   alert('공구가 성공적으로 등록되었습니다! 🎉');
   location.href='influencer-dashboard.html';
 }

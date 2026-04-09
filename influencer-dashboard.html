@@ -389,9 +389,14 @@ function renderOrders(orders){
     const isShippable = ['paid','preparing'].includes(o.status);
     const carrierOpts = CARRIERS.map(c=>`<option${o.shipping_carrier===c?' selected':''}>${c}</option>`).join('');
 
+    // 무통장 입금 대기 → 입금확인 버튼
+    const isPendingBank = o.status==='pending' && o.payment_method==='bank_transfer';
+
     let trackingCell = '';
     if(hasTracking){
       trackingCell = `<div class="track-done">✓ ${o.shipping_carrier||''}<br>${o.tracking_number}</div>`;
+    } else if(isPendingBank){
+      trackingCell = `<div style="font-size:11px;color:var(--bl)">입금자: ${o.bank_depositor||'—'}</div>`;
     } else if(isShippable){
       trackingCell = `<div class="track-row">
         <select class="track-select" id="car_${o.id}"><option value="">택배사</option>${carrierOpts}</select>
@@ -414,6 +419,7 @@ function renderOrders(orders){
       <td><strong>${fmt(o.total_amount)}원</strong></td>
       <td>
         <span class="badge ${sc}">${sl}</span>
+        ${isPendingBank ? `<br><button class="track-btn" style="margin-top:5px;background:var(--bl)" onclick="confirmDeposit('${o.id}')">입금확인</button>` : ''}
         ${isShippable ? `<br><select class="track-select" id="sts_${o.id}" style="margin-top:4px;font-size:11px" onchange="changeStatus('${o.id}',this.value)">
           <option value="">상태변경</option>
           <option value="preparing">상품준비중</option>
@@ -466,6 +472,28 @@ async function saveTracking(orderId){
     alert('오류: '+(j.error||'저장 실패'));
     if(btn){ btn.textContent='저장'; btn.disabled=false; }
   }
+}
+
+async function confirmDeposit(orderId){
+  if(!confirm('입금을 확인하셨나요? 확인 시 주문 상태가 "결제완료"로 변경됩니다.')) return;
+  const res = await fetch('/api/orders/list', {
+    method: 'PUT',
+    headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+    body: JSON.stringify({order_id: orderId, status:'paid'})
+  });
+  if(res.ok){
+    const idx = allOrders.findIndex(o=>o.id===orderId);
+    if(idx>-1) allOrders[idx].status='paid';
+    filterOrders(currentOrderFilter, null);
+    // 소비자 알림
+    await fetch('/api/orders/list', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({order_id: orderId, status:'preparing'})
+    });
+    if(idx>-1) allOrders[idx].status='preparing';
+    filterOrders(currentOrderFilter, null);
+  } else alert('처리 실패');
 }
 
 async function changeStatus(orderId, newStatus){
