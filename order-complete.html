@@ -255,5 +255,56 @@ input, select, textarea { font-size: 16px !important; }
 }
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/nav.js"></script>
+<script>
+// Toss 결제 완료 → 서버 검증 → 주문 확정
+(async function confirmPayment() {
+  const qs = new URLSearchParams(location.search);
+  const paymentKey = qs.get('paymentKey');
+  const orderId    = qs.get('orderId');
+  const amount     = qs.get('amount');
+
+  if (!paymentKey || !orderId || !amount) return; // 직접 접근 무시
+
+  // 로딩 표시
+  const iconEl = document.querySelector('.complete-icon');
+  const titleEl = document.querySelector('.complete-title');
+  const subEl   = document.querySelector('.complete-sub');
+  if (iconEl) iconEl.textContent = '⏳';
+  if (titleEl) titleEl.textContent = '결제 확인 중...';
+  if (subEl)  subEl.textContent  = '잠시만 기다려주세요';
+
+  const token = (await sb.auth.getSession()).data.session?.access_token || '';
+  const resp = await fetch('/api/payments/confirm', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ paymentKey, orderId, amount: parseInt(amount) }),
+  });
+  const data = await resp.json();
+
+  if (data.ok) {
+    if (iconEl) iconEl.textContent = '🎉';
+    if (titleEl) titleEl.textContent = '결제가 완료됐어요!';
+    if (subEl)  subEl.textContent  = '주문이 성공적으로 접수됐습니다';
+
+    // 주문번호 표시
+    const orderNumEl = document.querySelector('.order-number');
+    if (orderNumEl) orderNumEl.textContent = orderId;
+
+    // 금액 표시
+    document.querySelectorAll('.info-row').forEach(row => {
+      if (row.textContent.includes('결제 금액')) {
+        row.querySelector('.iv').textContent = `${parseInt(amount).toLocaleString()}원`;
+      }
+    });
+  } else {
+    if (iconEl) iconEl.textContent = '❌';
+    if (titleEl) titleEl.textContent = '결제 확인 실패';
+    if (subEl)  subEl.textContent  = data.error || '고객센터에 문의해주세요';
+  }
+})();
+</script>
 </body>
 </html>
