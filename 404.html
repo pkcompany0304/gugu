@@ -1,59 +1,32 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 페이지를 찾을 수 없어요</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 페이지를 찾을 수 없어요</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:70px}}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
-
-.err-wrap{min-height:calc(100vh - 52px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
-.err-icon{font-size:72px;margin-bottom:20px;opacity:.6}
-.err-code{font-family:"Bebas Neue",sans-serif;font-size:80px;letter-spacing:4px;color:var(--r);line-height:1;margin-bottom:10px}
-.err-title{font-size:20px;font-weight:800;margin-bottom:8px}
-.err-sub{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:28px}
-.err-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px}
-.err-btn{padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;border:none}
-.err-btn.primary{background:var(--r);color:#fff}
-.err-btn.secondary{background:var(--s1);border:1px solid var(--b1);color:var(--t2)}
-
-</style>
-</head>
-<body>
-
-<div class="nav">
-  <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;flex:1">GUGU<em style="color:var(--r);font-style:normal">.</em></div>
-</div>
-<div class="err-wrap">
-  <div class="err-icon">🔍</div>
-  <div class="err-code">404</div>
-  <div class="err-title">페이지를 찾을 수 없어요</div>
-  <div class="err-sub">요청하신 페이지가 존재하지 않거나<br>이동됐을 수 있어요</div>
-  <div class="err-btns">
-    <button class="err-btn primary" onclick="location.href='index.html'">🏠 홈으로 돌아가기</button>
-    <button class="err-btn secondary" onclick="history.back()">← 이전 페이지</button>
-  </div>
-</div>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0px)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="index.html"><span style="font-size:20px;line-height:1">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="category.html"><span style="font-size:20px;line-height:1">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="search.html"><span style="font-size:20px;line-height:1">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="notifications.html"><span style="font-size:20px;line-height:1">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="mypage.html"><span style="font-size:20px;line-height:1">👤</span>마이</a>
-</nav>
-</body>
-</html>
+*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--red:#EF4444;--red-light:#FEF2F2;--t1:#111;--t2:#6B7280;--t3:#9CA3AF}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+nav:not(.mob-bottom-nav){background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.box{text-align:center;max-width:480px}
+.num{font-family:'Plus Jakarta Sans',sans-serif;font-size:120px;font-weight:900;letter-spacing:-4px;line-height:1;color:var(--red);margin-bottom:8px;opacity:.8}
+.title{font-size:22px;font-weight:700;margin-bottom:10px}
+.sub{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:32px}
+.btn-row{display:flex;gap:10px;justify-content:center;margin-bottom:40px}
+.btn-p{padding:14px 28px;border-radius:14px;border:none;background:var(--red);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-s{padding:14px 28px;border-radius:14px;border:1px solid var(--border);background:var(--white);color:var(--t1);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.quick-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.quick-link{padding:8px 16px;border-radius:99px;border:1px solid var(--border);background:var(--white);color:var(--t2);font-size:13px;cursor:pointer;font-family:inherit;transition:.2s}.quick-link:hover{border-color:var(--border2);color:var(--t1)}
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+@media(max-width:768px){.num{font-size:80px}.btn-row{flex-direction:column;gap:8px}.btn-p,.btn-s{width:100%}.mob-bottom-nav{display:flex}body{padding-bottom:62px}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}input,select,textarea{font-size:16px!important}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a></div></nav>
+<div class="main"><div class="box">
+  <div class="num">404</div>
+  <div class="title">페이지를 찾을 수 없어요</div>
+  <div class="sub">요청하신 페이지가 삭제됐거나 주소가 변경됐어요.<br>공구가 마감됐을 수도 있어요.</div>
+  <div class="btn-row"><button class="btn-p" onclick="location.href='index.html'">홈으로 돌아가기</button><button class="btn-s" onclick="history.back()">이전 페이지</button></div>
+  <div class="quick-links"><button class="quick-link" onclick="location.href='index.html'">🔥 진행중인 공구</button><button class="quick-link" onclick="location.href='category.html'">💄 뷰티 공구</button><button class="quick-link" onclick="location.href='search.html'">🔍 검색하기</button><button class="quick-link" onclick="location.href='help.html'">❓ 고객센터</button></div>
+</div></div>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon">🔔</span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

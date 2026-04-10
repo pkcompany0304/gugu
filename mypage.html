@@ -1,175 +1,68 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 마이페이지</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:66px}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 마이페이지</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:28px}
+.side-profile{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px;text-align:center}
+.side-av{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;margin:0 auto 12px}
+.side-name{font-size:16px;font-weight:700;margin-bottom:3px}.side-email{font-size:12px;color:var(--t2);margin-bottom:14px}
+.side-grade{display:inline-flex;align-items:center;gap:5px;background:#FFF7ED;border:1px solid rgba(249,115,22,.2);border-radius:99px;padding:4px 12px;font-size:11px;color:var(--orange);font-weight:600}
+.side-nav{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.sni{padding:13px 18px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;color:var(--t2);transition:.15s}
+.sni:last-child{border-bottom:none}.sni:hover{background:var(--bg);color:var(--t1)}.sni.active{color:var(--t1);background:var(--bg);border-left:3px solid var(--red);font-weight:600}
+.main-title{font-size:20px;font-weight:800;margin-bottom:20px}
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.sum-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px}
+.sum-card .l{font-size:11px;color:var(--t2);margin-bottom:6px}.sum-card .n{font-size:22px;font-weight:800}.sum-card .n.r{color:var(--red)}.sum-card .n.o{color:var(--orange)}
+.order-filter{display:flex;gap:6px;margin-bottom:16px}
+.of{padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t2);font-family:inherit;transition:.2s}.of:hover{color:var(--t1)}.of.on{background:var(--red);border-color:var(--red);color:#fff}
+.order-list{display:flex;flex-direction:column;gap:12px}
+.order-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.oc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.oc-num{font-size:12px;color:var(--t2)}.oc-date{font-size:12px;color:var(--t2)}
+.oc-status{font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px}
+.st-delivery{background:#FFF7ED;color:var(--orange)}.st-done{background:var(--green-light);color:var(--green)}.st-wait{background:var(--blue-light);color:var(--blue)}
+.oc-body{display:flex;align-items:center;gap:14px;padding:16px}
+.oc-img{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.oc-info{flex:1}.oc-name{font-size:14px;font-weight:600;margin-bottom:3px}.oc-opt{font-size:12px;color:var(--t2)}.oc-price{font-size:14px;font-weight:700;color:var(--red)}
+.oc-actions{display:flex;gap:6px;flex-shrink:0}
+.oc-btn{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t1);font-family:inherit}.oc-btn:hover{background:var(--bg)}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid var(--b1)}
-.nav-title{font-size:18px;font-weight:900;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;flex:1}
-.nav-title em{color:var(--r);font-style:normal}
-.nav-icon{font-size:20px;cursor:pointer}
-
-/* 프로필 헤더 */
-.profile-header{padding:20px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--b1)}
-.ph-av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--r),var(--o));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0}
-.ph-info{flex:1}
-.ph-name{font-size:17px;font-weight:800;margin-bottom:2px}
-.ph-email{font-size:12px;color:var(--t2);margin-bottom:4px}
-.ph-grade{display:inline-flex;align-items:center;gap:4px;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.2);color:#FFB800;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
-.ph-edit{padding:8px 14px;border-radius:20px;background:var(--s2);border:1px solid var(--b1);color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
-
-/* 통계 카드 */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--b1)}
-.stat-item{padding:14px 0;text-align:center;border-right:1px solid var(--b1);cursor:pointer}
-.stat-item:last-child{border-right:none}
-.stat-n{font-size:18px;font-weight:800;color:var(--t);margin-bottom:2px}
-.stat-l{font-size:10px;color:var(--t2)}
-
-/* 메뉴 */
-.menu-section{padding:8px 0}
-.menu-group-title{padding:12px 16px 6px;font-size:11px;font-weight:700;color:var(--t3);letter-spacing:1px;text-transform:uppercase}
-.menu-item{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;transition:.1s;border-bottom:1px solid rgba(36,36,40,.5);active:background:var(--s2)}
-.menu-item:last-child{border-bottom:none}
-.mi-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.mi-text{flex:1}
-.mi-title{font-size:14px;font-weight:600;color:var(--t);margin-bottom:1px}
-.mi-sub{font-size:11px;color:var(--t2)}
-.mi-badge{font-size:11px;font-weight:700;color:var(--r);background:rgba(255,59,59,.1);padding:2px 8px;border-radius:4px}
-.mi-arrow{color:var(--t3);font-size:16px}
-
-/* 최근 주문 섹션 */
-.order-section{padding:0 16px 16px}
-.order-title{font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.order-more{font-size:12px;color:var(--t3);font-weight:400}
-.order-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px;margin-bottom:8px}
-.oc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.oc-img{width:48px;height:48px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.oc-info{flex:1}
-.oc-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.oc-meta{font-size:11px;color:var(--t2)}
-.oc-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px}
-.status-ship{background:rgba(99,102,241,.1);color:#6366f1}
-.status-done{background:rgba(34,197,94,.1);color:var(--g)}
-.oc-btns{display:flex;gap:6px}
-.oc-btn{flex:1;padding:8px;border-radius:8px;background:var(--s2);border:1px solid var(--b1);color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center}
-.oc-btn.primary{background:rgba(255,59,59,.1);border-color:rgba(255,59,59,.2);color:var(--r)}
-
-/* 포인트 카드 */
-.point-card{margin:0 16px 16px;background:linear-gradient(135deg,rgba(255,59,59,.08),rgba(255,138,0,.05));border:1px solid rgba(255,59,59,.15);border-radius:14px;padding:16px;display:flex;align-items:center;justify-content:space-between}
-.pc-left p{font-size:11px;color:var(--t2);margin-bottom:4px}
-.pc-left strong{font-size:26px;font-weight:900;letter-spacing:-.5px;color:var(--r)}
-.pc-right{text-align:right}
-.pc-right p{font-size:11px;color:var(--t3)}
-.pc-right strong{font-size:14px;font-weight:700}
-
-/* 하단 탭바 */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:var(--t3);text-decoration:none;font-size:10px;font-weight:600}
-.bn-item.on{color:var(--r)}
-.bn-icon{font-size:20px;line-height:1}
-</style>
-</head>
-<body>
-<div class="nav">
-  <div class="nav-title">GUGU<em>.</em></div>
-  <div class="nav-icon" onclick="location.href='notifications.html'" style="margin-right:4px">🔔</div>
-  <div class="nav-icon">⚙️</div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}.wrap{padding:20px 16px}input,select,textarea{font-size:16px!important}}
+@media(max-width:768px){.layout{grid-template-columns:1fr}.sum-grid{grid-template-columns:1fr 1fr}.oc-actions{flex-direction:column}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a><div class="nav-right"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button></div></div></nav>
+<div class="wrap"><div class="layout">
+<div>
+<div class="side-profile"><div class="side-av">나</div><div class="side-name">나혜진</div><div class="side-email">hyejin@example.com</div><div class="side-grade">🏅 GUGU 골드</div></div>
+<div class="side-nav"><div class="sni active">📦 주문내역</div><div class="sni">♡ 찜한 공구</div><div class="sni">⭐ 리뷰 관리</div><div class="sni">🎫 쿠폰함</div><div class="sni">📍 배송지 관리</div><div class="sni">⚙️ 프로필 설정</div></div>
 </div>
-
-<!-- 프로필 -->
-<div class="profile-header">
-  <div class="ph-av">나</div>
-  <div class="ph-info">
-    <div class="ph-name">나혜진</div>
-    <div class="ph-email">nahyejin@gmail.com</div>
-    <div class="ph-grade">⭐ GUGU 멤버</div>
-  </div>
-  <button class="ph-edit">편집</button>
+<div>
+<div class="main-title">주문내역</div>
+<div class="sum-grid">
+<div class="sum-card"><div class="l">총 주문</div><div class="n">24건</div></div>
+<div class="sum-card"><div class="l">이번 달 절약</div><div class="n r">128,400원</div></div>
+<div class="sum-card"><div class="l">적립 포인트</div><div class="n o">4,280P</div></div>
+<div class="sum-card"><div class="l">찜한 공구</div><div class="n">12개</div></div>
 </div>
-
-<!-- 통계 -->
-<div class="stats-row">
-  <div class="stat-item" onclick=""><div class="stat-n">14</div><div class="stat-l">전체 주문</div></div>
-  <div class="stat-item" onclick=""><div class="stat-n">2</div><div class="stat-l">배송중</div></div>
-  <div class="stat-item" onclick=""><div class="stat-n" style="color:var(--r)">7</div><div class="stat-l">찜한 공구</div></div>
-  <div class="stat-item" onclick=""><div class="stat-n">23</div><div class="stat-l">팔로잉</div></div>
+<div class="order-filter"><button class="of on">전체</button><button class="of">배송중</button><button class="of">배송완료</button><button class="of">취소/반품</button></div>
+<div class="order-list">
+<div class="order-card"><div class="oc-head"><span class="oc-num">GG-2026040301</span><span class="oc-date">2026.04.03</span><span class="oc-status st-delivery">배송중</span></div><div class="oc-body"><div class="oc-img">🧴</div><div class="oc-info"><div class="oc-name">닥터자르트 시카페어 크림 50ml</div><div class="oc-opt">지민뷰티 공구 · 1개</div><div class="oc-price">31,900원</div></div><div class="oc-actions"><button class="oc-btn">배송 추적</button><button class="oc-btn">문의하기</button></div></div></div>
+<div class="order-card"><div class="oc-head"><span class="oc-num">GG-2026032801</span><span class="oc-date">2026.03.28</span><span class="oc-status st-done">배송완료</span></div><div class="oc-body"><div class="oc-img">💄</div><div class="oc-info"><div class="oc-name">롬앤 쥬시래스팅틴트 전색상</div><div class="oc-opt">지민뷰티 공구 · 2개</div><div class="oc-price">22,400원</div></div><div class="oc-actions"><button class="oc-btn">리뷰 쓰기</button><button class="oc-btn">재구매</button></div></div></div>
+<div class="order-card"><div class="oc-head"><span class="oc-num">GG-2026032201</span><span class="oc-date">2026.03.22</span><span class="oc-status st-wait">공구진행중</span></div><div class="oc-body"><div class="oc-img">🏋️</div><div class="oc-info"><div class="oc-name">마이프로틴 웨이프로틴 2.5kg</div><div class="oc-opt">효리핏 공구 · 1개</div><div class="oc-price">38,900원</div></div><div class="oc-actions"><button class="oc-btn">취소하기</button></div></div></div>
 </div>
-
-<!-- 포인트 -->
-<div class="point-card" style="margin-top:16px">
-  <div class="pc-left"><p>보유 포인트</p><strong>2,300<span style="font-size:14px;font-weight:500">P</span></strong></div>
-  <div class="pc-right"><p>이달 적립 예정</p><strong style="color:var(--t)">+500P</strong></div>
-</div>
-
-<!-- 최근 주문 -->
-<div class="order-section">
-  <div class="order-title">최근 주문 <span class="order-more">전체보기 →</span></div>
-  <div class="order-card">
-    <div class="oc-top">
-      <div class="oc-img">🧴</div>
-      <div class="oc-info">
-        <div class="oc-name">닥터자르트 시카페어 크림 50ml</div>
-        <div class="oc-meta">지민뷰티 공구 · 31,900원 × 1</div>
-      </div>
-      <div class="oc-status status-ship">배송중</div>
-    </div>
-    <div class="oc-btns">
-      <div class="oc-btn" onclick="location.href='order-complete.html'">배송 조회</div>
-      <div class="oc-btn">문의하기</div>
-    </div>
-  </div>
-  <div class="order-card">
-    <div class="oc-top">
-      <div class="oc-img">💄</div>
-      <div class="oc-info">
-        <div class="oc-name">롬앤 쥬시래스팅틴트 #09</div>
-        <div class="oc-meta">지민뷰티 공구 · 11,200원 × 2</div>
-      </div>
-      <div class="oc-status status-done">배송완료</div>
-    </div>
-    <div class="oc-btns">
-      <div class="oc-btn primary">리뷰 작성 +100P</div>
-      <div class="oc-btn">재구매</div>
-    </div>
-  </div>
-</div>
-
-<!-- 메뉴 -->
-<div class="menu-section">
-  <div class="menu-group-title">쇼핑</div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(255,59,59,.1)">📦</div><div class="mi-text"><div class="mi-title">주문 내역</div><div class="mi-sub">14건의 주문</div></div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(255,59,59,.08)">🤍</div><div class="mi-text"><div class="mi-title">찜한 공구</div><div class="mi-sub">7개 저장됨</div></div><div class="mi-badge">2개 마감임박</div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(99,102,241,.1)">👥</div><div class="mi-text"><div class="mi-title">팔로잉</div><div class="mi-sub">23명</div></div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(255,184,0,.1)">✏️</div><div class="mi-text"><div class="mi-title">내 리뷰</div><div class="mi-sub">작성 가능 3건</div></div><div class="mi-badge">+300P</div><div class="mi-arrow">›</div></div>
-</div>
-
-<div class="menu-section">
-  <div class="menu-group-title">혜택</div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(255,138,0,.1)">🎫</div><div class="mi-text"><div class="mi-title">쿠폰·포인트</div><div class="mi-sub">쿠폰 2장 · 포인트 2,300P</div></div><div class="mi-arrow">›</div></div>
-</div>
-
-<div class="menu-section">
-  <div class="menu-group-title">계정</div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(100,100,100,.1)">⚙️</div><div class="mi-text"><div class="mi-title">프로필 설정</div></div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick=""><div class="mi-icon" style="background:rgba(100,100,100,.1)">🔔</div><div class="mi-text"><div class="mi-title">알림 설정</div></div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick="location.href='influencer-apply.html'"><div class="mi-icon" style="background:rgba(255,59,59,.1)">✨</div><div class="mi-text"><div class="mi-title">인플루언서 신청</div><div class="mi-sub">파트너로 공구 시작하기</div></div><div class="mi-arrow">›</div></div>
-  <div class="menu-item" onclick="location.href='help.html'"><div class="mi-icon" style="background:rgba(100,100,100,.1)">💬</div><div class="mi-text"><div class="mi-title">고객센터</div></div><div class="mi-arrow">›</div></div>
-</div>
-
-<nav class="bottom-nav">
-  <a class="bn-item" href="index.html"><span class="bn-icon">🏠</span>홈</a>
-  <a class="bn-item" href="category.html"><span class="bn-icon">🔍</span>탐색</a>
-  <a class="bn-item" href="search.html"><span class="bn-icon">⌕</span>검색</a>
-  <a class="bn-item" href="notifications.html"><span class="bn-icon">🔔</span>알림</a>
-  <a class="bn-item on" href="mypage.html"><span class="bn-icon">👤</span>마이</a>
-</nav>
-</body>
-</html>
+</div></div></div>
+<script>
+document.querySelectorAll('.sni').forEach(i=>i.addEventListener('click',function(){document.querySelectorAll('.sni').forEach(x=>x.classList.remove('active'));this.classList.add('active')}))
+document.querySelectorAll('.of').forEach(i=>i.addEventListener('click',function(){document.querySelectorAll('.of').forEach(x=>x.classList.remove('on'));this.classList.add('on')}))
+</script>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

@@ -7,178 +7,116 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#F8F8F7;--white:#FFFFFF;--card:#FFFFFF;
-  --border:#E8E8E8;--border2:#D8D8D8;
-  --red:#EF4444;--red-light:#FEF2F2;--red-mid:#FCA5A5;
-  --orange:#F97316;--green:#10B981;--green-light:#ECFDF5;
-  --blue:#6366F1;--blue-light:#EEF2FF;
-  --t1:#111;--t2:#6B7280;--t3:#9CA3AF;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:0 4px 12px rgba(0,0,0,.07);
-  --shadow-lg:0 8px 30px rgba(0,0,0,.08);
-  --r:16px;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6;padding-top:60px;-webkit-font-smoothing:antialiased}
-a{text-decoration:none;color:inherit}
+:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--red-mid:#FCA5A5;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.07);--shadow-lg:0 8px 30px rgba(0,0,0,.08);--r:16px}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6;padding-top:60px;-webkit-font-smoothing:antialiased}a{text-decoration:none;color:inherit}
 
 /* NAV */
 nav:not(.mob-bottom-nav){position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
 .nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:24px}
-.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;flex-shrink:0}.logo em{color:var(--red);font-style:normal}
-.nav-links{display:flex;gap:4px;margin:0 auto}
-.nav-link{padding:7px 14px;border-radius:10px;font-size:13px;font-weight:600;color:var(--t2);background:none;border:none;cursor:pointer;font-family:inherit;transition:.15s}
-.nav-link:hover{color:var(--t1);background:rgba(0,0,0,.04)}.nav-link.on{color:var(--t1);background:rgba(0,0,0,.05)}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;flex-shrink:0;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-links{display:flex;gap:4px;margin:0 auto}.nav-link{padding:7px 14px;border-radius:10px;font-size:13px;font-weight:600;color:var(--t2);background:none;border:none;cursor:pointer;font-family:inherit;transition:.15s}.nav-link:hover{color:var(--t1);background:rgba(0,0,0,.04)}.nav-link.on{color:var(--t1);background:rgba(0,0,0,.05)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-search{width:200px;padding:8px 14px 8px 36px;border-radius:10px;border:1px solid var(--border);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239CA3AF' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.442.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") 12px center no-repeat;color:var(--t1);font-size:13px;font-family:inherit;outline:none;transition:.2s}
-.nav-search:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.08);width:240px}
-.nav-search::placeholder{color:var(--t3)}
-.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
-.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-outline:hover{background:var(--bg)}
-.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:#DC2626}
-.nav-bell{width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;position:relative;flex-shrink:0}
-.nav-bell-dot{position:absolute;top:7px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--red);border:2px solid var(--white)}
+.nav-search{width:200px;padding:8px 14px 8px 36px;border-radius:10px;border:1px solid var(--border);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239CA3AF' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.442.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") 12px center no-repeat;color:var(--t1);font-size:13px;font-family:inherit;outline:none;transition:.2s}.nav-search:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.08);width:240px}.nav-search::placeholder{color:var(--t3)}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:#DC2626}
+.nav-bell{width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;position:relative;flex-shrink:0}.nav-bell-dot{position:absolute;top:7px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--red);border:2px solid var(--white)}
 
-/* HERO */
-.hero{max-width:1120px;margin:0 auto;padding:32px 24px 0}
-.hero-inner{display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:99px;padding:5px 14px 5px 10px;font-size:12px;font-weight:600;color:var(--red);margin-bottom:20px}
-.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.hero h1{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;font-size:44px;font-weight:800;line-height:1.15;letter-spacing:-1.5px;margin-bottom:14px}
-.hero h1 em{color:var(--red);font-style:normal}
-.hero-sub{font-size:16px;color:var(--t2);line-height:1.7;margin-bottom:28px}
-.hero-stats{display:flex;gap:32px;margin-bottom:28px}
-.hs-n{font-size:24px;font-weight:800;letter-spacing:-.5px}.hs-l{font-size:12px;color:var(--t3);margin-top:2px}
-.hero-btns{display:flex;gap:10px}
-.btn-lg{padding:14px 28px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;border:none;transition:.2s}
-.btn-lg-red{background:var(--red);color:#fff;box-shadow:0 4px 14px rgba(239,68,68,.25)}.btn-lg-red:hover{background:#DC2626;transform:translateY(-1px)}
-.btn-lg-ghost{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-lg-ghost:hover{background:var(--bg)}
-.hero-card{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
-.hc-img{height:180px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2,#FFF7ED);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative}
-.hc-badge{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;display:flex;align-items:center;gap:4px}
-.hc-badge .pulse{width:5px;height:5px;border-radius:50%;background:#fff;animation:blink 1s infinite}
-.hc-viewers{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px}
-.hc-body{padding:18px}
-.hc-inf{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.hc-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.hc-inf-name{font-size:13px;font-weight:700}.hc-inf-sub{font-size:11px;color:var(--t3)}
-.hc-verified{font-size:10px;font-weight:700;color:var(--green);background:var(--green-light);padding:2px 7px;border-radius:5px;margin-left:auto}
-.hc-title{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.4}
-.hc-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
-.hc-disc{font-size:20px;font-weight:800;color:var(--red)}.hc-price{font-size:20px;font-weight:800}.hc-orig{font-size:13px;color:var(--t3);text-decoration:line-through}
-.hc-prog-top{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:5px}.hc-prog-top strong{color:var(--red)}
-.hc-bar{height:5px;background:var(--bg);border-radius:99px;overflow:hidden}.hc-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--orange))}
-.hc-buy{width:100%;padding:12px;border-radius:12px;border:none;background:var(--red);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:12px;transition:.15s}.hc-buy:hover{background:#DC2626}
-.hc-timer{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:8px;font-size:12px;color:var(--t2)}
-.tc{font-family:'DM Mono',monospace;background:var(--bg);border-radius:5px;padding:2px 6px;font-weight:500;color:var(--t1);font-size:13px}
-
-/* SECTIONS */
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-.sec{padding:40px 0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.sec{padding:36px 0}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.sec-title{font-size:20px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.sec-title{font-size:20px;font-weight:800;letter-spacing:-.3px}.sec-sub{font-size:13px;color:var(--t2);margin-top:3px}
 .sec-more{font-size:13px;color:var(--t3);font-weight:500}.sec-more:hover{color:var(--t2)}
 .divider{height:1px;background:var(--border)}
 
+/* HERO — 인플루언서 피처 (상품 아님) */
+.hero{padding:36px 0 0}
+.hero-grid{display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:99px;padding:5px 14px 5px 10px;font-size:12px;font-weight:600;color:var(--red);margin-bottom:20px}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;font-size:44px;font-weight:800;line-height:1.15;letter-spacing:-1.5px;margin-bottom:14px}.hero h1 em{color:var(--red);font-style:normal}
+.hero-sub{font-size:16px;color:var(--t2);line-height:1.7;margin-bottom:28px}
+.hero-stats{display:flex;gap:32px}.hs-n{font-size:24px;font-weight:800;letter-spacing:-.5px}.hs-l{font-size:12px;color:var(--t3);margin-top:2px}
+
+/* Hero: 핫한 인플루언서 카드 */
+.hero-inf{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.hi-banner{height:120px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2,#FFF7ED);position:relative;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 20px}
+.hi-banner-emoji{font-size:40px;opacity:.5}
+.hi-live-tag{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;display:flex;align-items:center;gap:4px}
+.hi-live-tag .pulse{width:5px;height:5px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+.hi-body{padding:20px}
+.hi-profile{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.hi-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;margin-top:-38px;border:3px solid var(--white);position:relative}
+.hi-name{font-size:18px;font-weight:800;display:flex;align-items:center;gap:5px}
+.hi-verified{width:18px;height:18px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff}
+.hi-handle{font-size:12px;color:var(--t2)}
+.hi-stats{display:flex;gap:20px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.hi-stat .n{font-size:17px;font-weight:800}.hi-stat .l{font-size:10px;color:var(--t3);margin-top:1px}
+.hi-gugus{display:flex;flex-direction:column;gap:10px}
+.hi-gugu{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:12px;cursor:pointer;transition:.15s}
+.hi-gugu:hover{background:var(--border)}
+.hi-gugu-img{width:44px;height:44px;border-radius:10px;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.hi-gugu-name{font-size:12px;font-weight:600;margin-bottom:2px}.hi-gugu-price{font-size:13px;font-weight:800;color:var(--red)}
+.hi-gugu-timer{margin-left:auto;font-family:'DM Mono',monospace;font-size:11px;color:var(--red);background:var(--red-light);padding:3px 8px;border-radius:6px;flex-shrink:0}
+
 /* STORIES */
-.stories-sec{padding:32px 0 0}
-.stories{display:flex;gap:20px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.stories::-webkit-scrollbar{display:none}
+.stories{display:flex;gap:18px;overflow-x:auto;padding:28px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.stories::-webkit-scrollbar{display:none}
 .story{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;flex-shrink:0}
-.story-ring{width:72px;height:72px;border-radius:50%;padding:3px;background:var(--border);transition:.2s}.story-ring.live{background:linear-gradient(135deg,var(--red),var(--orange))}
-.story:hover .story-ring{transform:scale(1.06)}
+.story-ring{width:72px;height:72px;border-radius:50%;padding:3px;background:var(--border);transition:.2s}.story-ring.live{background:linear-gradient(135deg,var(--red),var(--orange))}.story:hover .story-ring{transform:scale(1.06)}
 .story-av{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;border:3px solid var(--white)}
 .story-name{font-size:11px;font-weight:600;color:var(--t2);max-width:72px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.story-live-tag{font-size:9px;font-weight:700;color:var(--red);background:var(--red-light);padding:1px 6px;border-radius:4px;margin-top:-2px}
-.story-count{font-size:10px;color:var(--t3)}
+.story-tag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;margin-top:-2px}.story-tag.live{color:var(--red);background:var(--red-light)}.story-tag.count{color:var(--t3)}
 
-/* FOLLOWING FEED */
-.follow-feed{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.ff-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s;display:block}
-.ff-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
-.ff-top{display:flex;align-items:center;gap:8px;padding:12px 14px 0}
-.ff-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;position:relative}
-.ff-new{position:absolute;bottom:-1px;right:-3px;background:var(--red);color:#fff;font-size:7px;font-weight:700;padding:1px 3px;border-radius:3px;border:1.5px solid var(--white)}
-.ff-name{font-size:12px;font-weight:700}.ff-time{font-size:10px;color:var(--t3)}
-.ff-img{height:130px;background:linear-gradient(135deg,#FFF1F2,#F3F4F6);display:flex;align-items:center;justify-content:center;font-size:42px;margin-top:10px}
-.ff-body{padding:12px 14px}
-.ff-title{font-size:13px;font-weight:700;line-height:1.35;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
-.ff-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:8px}
-.ff-sale{font-size:15px;font-weight:800}.ff-disc{font-size:11px;font-weight:700;color:var(--red)}
-.ff-bar{height:3px;background:var(--bg);border-radius:99px;overflow:hidden}.ff-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--orange))}
+/* FEED — 인플루언서 그룹, 카드형 아이템 (이미지 크게) */
+.feed-list{display:flex;flex-direction:column;gap:20px}
+.inf-group{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:.2s}.inf-group:hover{box-shadow:var(--shadow-md)}
+.ig-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.ig-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.ig-info{flex:1}.ig-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:5px}
+.ig-verified{width:15px;height:15px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff}
+.ig-meta{font-size:11px;color:var(--t2);margin-top:1px}
+.ig-live{display:inline-flex;align-items:center;gap:4px;color:var(--red);font-weight:600;font-size:11px}.ig-live .dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
+.ig-follow{padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;flex-shrink:0;border:1px solid var(--border);background:var(--white);color:var(--t1)}.ig-follow:hover{border-color:var(--red);color:var(--red)}.ig-follow.following{background:var(--bg);color:var(--t3)}
 
-/* FLASH */
-.flash-banner{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:16px;box-shadow:var(--shadow)}
-.flash-tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;margin-bottom:6px}
-.flash-title{font-size:18px;font-weight:800;letter-spacing:-.3px}.flash-sub{font-size:12px;color:var(--t2)}
-.timer-group{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.timer-unit{text-align:center}
-.timer-n{font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:var(--t1);line-height:1;background:var(--bg);border-radius:10px;padding:6px 10px;min-width:48px}
-.timer-l{font-size:10px;color:var(--t3);margin-top:4px}.timer-colon{font-size:24px;color:var(--t3);font-weight:300;margin-top:-10px}
-.flash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.flash-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.flash-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:14px 14px 0 0}
-.flash-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.fc-img{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
-.fc-info{flex:1;min-width:0}
-.fc-inf{font-size:11px;color:var(--t3);margin-bottom:2px}.fc-name{font-size:13px;font-weight:700;margin-bottom:5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fc-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
-.fc-orig{font-size:11px;color:var(--t3);text-decoration:line-through}.fc-sale{font-size:15px;font-weight:800;color:var(--red)}.fc-disc{font-size:10px;font-weight:700;color:var(--red)}
-.fc-bar{height:3px;background:var(--bg);border-radius:99px;margin-bottom:3px;overflow:hidden}.fc-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:99px}
-.fc-meta{font-size:11px;color:var(--t2)}
+/* 카드형 공구 아이템 — 이미지 상단 */
+.ig-cards{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ig-cards.single{grid-template-columns:1fr}
+.ig-card{border-right:1px solid var(--border);cursor:pointer;transition:.15s;display:block}.ig-card:nth-child(2n){border-right:none}.ig-card:hover{background:rgba(0,0,0,.015)}
+.ic-img{height:160px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.ic-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;color:#fff}
+.ic-timer{position:absolute;bottom:10px;right:10px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--red);background:rgba(255,255,255,.92);border:1px solid var(--red-mid);padding:4px 10px;border-radius:8px}
+.ic-body{padding:14px 18px 18px}
+.ic-name{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ic-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
+.ic-disc{font-size:16px;font-weight:800;color:var(--red)}.ic-price{font-size:16px;font-weight:800}.ic-orig{font-size:12px;color:var(--t3);text-decoration:line-through}
+.ic-bar{height:4px;background:var(--bg);border-radius:99px;margin-bottom:5px;overflow:hidden}.ic-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:99px}
+.ic-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--t3)}.ic-meta .hot{color:var(--red);font-weight:600}
 
-/* NEW */
-.new-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.new-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px;cursor:pointer;transition:.2s}
-.new-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.nc-img{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#EEF2FF,#F3F4F6);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;position:relative}
-.nc-new{position:absolute;top:-4px;right:-4px;background:var(--blue);color:#fff;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px}
-.nc-info{flex:1;min-width:0}.nc-inf{font-size:11px;color:var(--t3);margin-bottom:2px}
-.nc-name{font-size:13px;font-weight:700;margin-bottom:5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nc-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:4px}
-.nc-orig{font-size:11px;color:var(--t3);text-decoration:line-through}.nc-sale{font-size:14px;font-weight:800}.nc-disc{font-size:10px;font-weight:700;color:var(--red)}
-.nc-time{font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:4px}
-.nc-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+/* LOGIN PROMPT */
+.login-prompt{background:linear-gradient(135deg,#FFF1F2,#FEE2E2);border:1px solid rgba(239,68,68,.15);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.lp-text{font-size:14px;font-weight:600}.lp-text em{color:var(--red);font-style:normal}.lp-sub{font-size:12px;color:var(--t2);margin-top:2px}
+.lp-btns{display:flex;gap:8px;flex-shrink:0}
 
-/* HOT */
-.cat-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.cat-tabs::-webkit-scrollbar{display:none}
-.ct{padding:7px 16px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t2);font-family:inherit;transition:.2s;white-space:nowrap;flex-shrink:0}
-.ct:hover{border-color:var(--border2);color:var(--t1)}.ct.on{background:var(--red);border-color:var(--red);color:#fff}
-.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.prod-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s}
-.prod-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
-.pc-img{height:170px;background:linear-gradient(135deg,#FFF1F2,#F3F4F6);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
-.pc-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;color:#fff}
-.bdg-r{background:var(--red)}.bdg-o{background:var(--orange)}.bdg-b{background:var(--blue)}
-.pc-body{padding:14px}
-.pc-inf{display:flex;align-items:center;gap:5px;margin-bottom:6px}
-.pc-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0}
-.pc-inf-name{font-size:11px;color:var(--t3)}
-.pc-name{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
-.pc-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:8px;flex-wrap:wrap}
-.pc-orig{font-size:11px;color:var(--t3);text-decoration:line-through}.pc-sale{font-size:16px;font-weight:800}.pc-disc{font-size:11px;font-weight:700;color:var(--red)}
-.pc-bar{height:3px;background:var(--bg);border-radius:99px;margin-bottom:5px;overflow:hidden}.pc-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:99px}
-.pc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--t3)}
+/* DISCOVER — 카테고리 탭 + 큰 이미지 카드 */
+.cat-tabs{display:flex;gap:6px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.cat-tabs::-webkit-scrollbar{display:none}
+.ct{padding:7px 16px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t2);font-family:inherit;transition:.2s;white-space:nowrap;flex-shrink:0}.ct:hover{border-color:var(--border2);color:var(--t1)}.ct.on{background:var(--red);border-color:var(--red);color:#fff}
 
-/* CATEGORIES */
-.cat-show{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.cs{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 14px;text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.cs::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
-.cs1::before{background:var(--red)}.cs2::before{background:var(--orange)}.cs3::before{background:var(--green)}.cs4::before{background:var(--blue)}.cs5::before{background:#A855F7}
-.cs:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.cs-emoji{font-size:28px;margin-bottom:8px}.cs-name{font-size:13px;font-weight:700;margin-bottom:3px}.cs-cnt{font-size:11px;color:var(--t3)}
-.cs-hot{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:8px;display:inline-block}
-.cs1 .cs-hot{background:var(--red-light);color:var(--red)}.cs2 .cs-hot{background:#FFF7ED;color:var(--orange)}.cs3 .cs-hot{background:var(--green-light);color:var(--green)}.cs4 .cs-hot{background:var(--blue-light);color:var(--blue)}.cs5 .cs-hot{background:#F5F3FF;color:#A855F7}
-
-/* CTA */
-.cta{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:32px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;top:-60%;right:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(239,68,68,.06),transparent 70%);pointer-events:none}
-.cta-text h3{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}.cta-text h3 em{color:var(--red);font-style:normal}
-.cta-text p{font-size:14px;color:var(--t2);line-height:1.6}
-.cta-stats{display:flex;gap:28px}
-.cta-stat .n{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--red)}.cta-stat .l{font-size:11px;color:var(--t3);margin-top:2px}
-.cta-btn{padding:14px 32px;border-radius:14px;border:none;background:var(--red);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;box-shadow:0 4px 14px rgba(239,68,68,.2);transition:.2s}.cta-btn:hover{background:#DC2626;transform:translateY(-1px)}
+.inf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.inf-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s;display:block}.inf-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.inf-banner{height:130px;position:relative;display:flex;align-items:center;justify-content:center;gap:8px}
+.inf-banner.b1{background:linear-gradient(135deg,#FFF7ED,#FED7AA,#FFEDD5)}.inf-banner.b2{background:linear-gradient(135deg,#FEF2F2,#FECACA,#FEE2E2)}.inf-banner.b3{background:linear-gradient(135deg,#F0FDF4,#DCFCE7,#D1FAE5)}.inf-banner.b4{background:linear-gradient(135deg,#EEF2FF,#E0E7FF,#C7D2FE)}.inf-banner.b5{background:linear-gradient(135deg,#FFF1F2,#FCE7F3,#FBD5E8)}.inf-banner.b6{background:linear-gradient(135deg,#ECFDF5,#CFFAFE,#A7F3D0)}
+.inf-banner-emoji{font-size:32px;opacity:.4}
+.inf-gugu-badge{position:absolute;top:10px;right:10px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px}
+.inf-gugu-badge.live{background:rgba(255,255,255,.9);color:var(--red);border:1px solid var(--red-mid)}
+.inf-gugu-badge.soon{background:rgba(255,255,255,.9);color:var(--orange);border:1px solid rgba(249,115,22,.3)}
+.inf-gugu-badge.sold{background:rgba(255,255,255,.9);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.inf-av-wrap{position:absolute;bottom:-26px;left:16px}
+.inf-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#fff;border:3px solid var(--white)}
+.inf-body{padding:36px 16px 16px}
+.inf-name{font-size:15px;font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:5px}
+.inf-v{width:16px;height:16px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff}
+.inf-handle{font-size:11px;color:var(--t3);margin-bottom:12px}
+.inf-stats-row{display:flex;gap:14px;margin-bottom:14px}
+.inf-stat .n{font-size:15px;font-weight:800}.inf-stat .l{font-size:10px;color:var(--t3)}
+.inf-follow-btn{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--white);color:var(--t1);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}.inf-follow-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 24px;margin-top:16px;background:var(--white)}
@@ -193,186 +131,171 @@ footer{border-top:1px solid var(--border);padding:32px 24px;margin-top:16px;back
 .mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
 .mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
 
-/* RESPONSIVE */
 @media(max-width:768px){
-  body{padding-top:52px;padding-bottom:62px}
-  .mob-bottom-nav{display:flex}
-  nav:not(.mob-bottom-nav) .nav-inner{height:52px;padding:0 16px}
-  .nav-links,.nav-search,.btn-outline,.nav-bell{display:none}
+  body{padding-top:52px;padding-bottom:62px}.mob-bottom-nav{display:flex}
+  nav:not(.mob-bottom-nav) .nav-inner{height:52px;padding:0 16px}.nav-links,.nav-search,.btn-outline,.nav-bell{display:none}
   .wrap{padding:0 16px}
-  .hero{padding:20px 16px 0}
-  .hero-inner{grid-template-columns:1fr;gap:20px}
-  .hero-card{order:-1}
-  .hero h1{font-size:32px}
-  .hero-sub{font-size:14px;margin-bottom:20px}
-  .hero-stats{gap:16px}.hs-n{font-size:18px}
-  .hero-btns{flex-direction:column}.btn-lg{width:100%;text-align:center}
-  .hc-img{height:150px}
-  .stories{gap:14px}.story-ring{width:62px;height:62px}
-  .sec{padding:28px 0}.sec-title{font-size:17px}
-  .follow-feed{grid-template-columns:1fr 1fr;gap:10px}
-  .ff-img{height:110px;font-size:34px}
-  .flash-banner{flex-direction:column;align-items:flex-start;gap:14px;padding:16px}
-  .timer-group{width:100%;justify-content:center}
-  .timer-n{font-size:24px;padding:4px 8px;min-width:40px}
-  .flash-grid{grid-template-columns:1fr}
-  .new-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .prod-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .pc-img{height:140px;font-size:38px}
-  .cat-show{grid-template-columns:1fr 1fr;gap:8px}
-  .cta{flex-direction:column;padding:28px 20px;text-align:center;gap:20px}
-  .cta-stats{justify-content:center}.cta-btn{width:100%}
-  .ft-inner{flex-direction:column;text-align:center;gap:10px}
-  .ft-links{justify-content:center}
-  input,select,textarea{font-size:16px !important}
+  .hero{padding:20px 0 0}.hero-grid{grid-template-columns:1fr;gap:20px}.hero-inf{order:-1}
+  .hero h1{font-size:32px}.hero-sub{font-size:14px;margin-bottom:16px}.hero-stats{gap:16px}.hs-n{font-size:18px}
+  .hi-banner{height:90px}
+  .stories{gap:14px;padding:20px 0 6px}.story-ring{width:62px;height:62px}
+  .sec{padding:24px 0}
+  .ig-cards{grid-template-columns:1fr}.ig-card{border-right:none!important}
+  .ic-img{height:140px}
+  .login-prompt{flex-direction:column;text-align:center;gap:12px}
+  .inf-grid{grid-template-columns:1fr 1fr;gap:10px}.inf-banner{height:100px}
+  .ft-inner{flex-direction:column;text-align:center;gap:10px}.ft-links{justify-content:center}
+  input,select,textarea{font-size:16px!important}
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">GUGU<em>.</em></a>
-    <div class="nav-links">
-      <button class="nav-link on">홈</button>
-      <button class="nav-link" onclick="location.href='category.html'">탐색</button>
-      <button class="nav-link" onclick="location.href='influencer-landing.html'">인플루언서</button>
-      <button class="nav-link" onclick="location.href='help.html'">고객센터</button>
-    </div>
-    <div class="nav-right">
-      <input class="nav-search" type="text" placeholder="인플루언서, 상품 검색">
-      <div class="nav-bell" onclick="location.href='notifications.html'">🔔<div class="nav-bell-dot"></div></div>
-      <button class="btn btn-outline" onclick="location.href='login.html'">로그인</button>
-      <button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button>
-    </div>
+<nav><div class="nav-inner">
+  <a class="logo" href="index.html">GUGU<em>.</em></a>
+  <div class="nav-links"><button class="nav-link on">홈</button><button class="nav-link" onclick="location.href='category.html'">탐색</button><button class="nav-link" onclick="location.href='help.html'">고객센터</button></div>
+  <div class="nav-right">
+    <input class="nav-search" type="text" placeholder="인플루언서, 상품 검색" onclick="location.href='search.html'">
+    <div class="nav-bell" onclick="location.href='notifications.html'">🔔<div class="nav-bell-dot"></div></div>
+    <button class="btn btn-outline" onclick="location.href='login.html'">로그인</button>
+    <button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button>
   </div>
-</nav>
-
-<div class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge"><span class="dot"></span>지금 31개 공구 라이브 중</div>
-      <h1>내가 믿는<br>인플루언서의<br><em>특가 공구</em></h1>
-      <p class="hero-sub">팔로우하는 인플루언서의 공동구매를 한 곳에서.<br>공구 오픈 즉시 알림 · 최대 72% 할인</p>
-      <div class="hero-stats">
-        <div><div class="hs-n">1,240+</div><div class="hs-l">파트너 인플루언서</div></div>
-        <div><div class="hs-n">48,000+</div><div class="hs-l">진행된 공구</div></div>
-        <div><div class="hs-n">최대 72%</div><div class="hs-l">할인율</div></div>
-      </div>
-      <div class="hero-btns">
-        <button class="btn-lg btn-lg-red" onclick="location.href='category.html'">공구 둘러보기</button>
-        <button class="btn-lg btn-lg-ghost" onclick="location.href='influencer-landing.html'">인플루언서 신청</button>
-      </div>
-    </div>
-    <div class="hero-card">
-      <div class="hc-img">🧴<div class="hc-badge"><span class="pulse"></span> 마감임박</div><div class="hc-viewers">👥 4,812명</div></div>
-      <div class="hc-body">
-        <div class="hc-inf"><div class="hc-av" style="background:#E83E8C">지</div><div><div class="hc-inf-name">지민뷰티</div><div class="hc-inf-sub">팔로워 89.2만 · 뷰티</div></div><div class="hc-verified">✓ 인증</div></div>
-        <div class="hc-title">레티날 0.1% 나이트 세럼 30ml 단독 특가</div>
-        <div class="hc-price-row"><span class="hc-disc">-40%</span><span class="hc-price">40,800원</span><span class="hc-orig">68,000원</span></div>
-        <div class="hc-prog-top"><span>4,812명 참여</span><strong>18% 남음</strong></div>
-        <div class="hc-bar"><div class="hc-bar-fill" style="width:82%"></div></div>
-        <button class="hc-buy" onclick="location.href='product-detail.html'">지금 참여하기 →</button>
-        <div class="hc-timer">종료까지 <span class="tc" id="th">02</span>:<span class="tc" id="tm">14</span>:<span class="tc" id="ts">38</span></div>
-      </div>
-    </div>
-  </div>
-</div>
+</div></nav>
 
 <div class="wrap">
-  <div class="stories-sec">
-    <div class="sec-head"><div class="sec-title">지금 공구 중인 인플루언서</div><a class="sec-more" href="category.html">전체보기 →</a></div>
-    <div class="stories">
-      <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#E83E8C,#FF6B9D)">지민</div></div><div class="story-live-tag">LIVE</div><div class="story-name">지민뷰티</div><div class="story-count">89.2만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#6F42C1,#9370DB)">효리</div></div><div class="story-live-tag">LIVE</div><div class="story-name">효리핏</div><div class="story-count">61.4만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#20C997,#40E0B0)">채링</div></div><div class="story-live-tag">LIVE</div><div class="story-name">채링이</div><div class="story-count">42.3만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#FD7E14,#FFA040)">나리</div></div><div class="story-name">나리스타일</div><div class="story-count">55.8만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#DC3545,#FF6B6B)">머슬</div></div><div class="story-name">머슬박사</div><div class="story-count">33.1만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#28A745,#50D070)">건강</div></div><div class="story-name">건강언니</div><div class="story-count">22.4만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#17A2B8,#48D1CC)">하루</div></div><div class="story-name">하루뷰티</div><div class="story-count">44.1만</div></a>
-      <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#6610F2,#9B59B6)">수빈</div></div><div class="story-name">수빈스킨</div><div class="story-count">18.7만</div></a>
+
+<!-- HERO -->
+<div class="hero"><div class="hero-grid">
+  <div>
+    <div class="hero-badge"><span class="dot"></span>지금 31개 공구 라이브 중</div>
+    <h1>내가 믿는<br>인플루언서의<br><em>특가 공구</em></h1>
+    <p class="hero-sub">팔로우하는 인플루언서의 공동구매를 한 곳에서.<br>공구 오픈 즉시 알림 · 최대 72% 할인</p>
+    <div class="hero-stats">
+      <div><div class="hs-n">1,240+</div><div class="hs-l">파트너 인플루언서</div></div>
+      <div><div class="hs-n">48,000+</div><div class="hs-l">진행된 공구</div></div>
+      <div><div class="hs-n">최대 72%</div><div class="hs-l">할인율</div></div>
     </div>
   </div>
-
-  <div class="divider" style="margin:24px 0"></div>
-
-  <!-- FOLLOWING FEED -->
-  <div class="sec" style="padding-top:24px">
-    <div class="sec-head"><div class="sec-title">👀 팔로잉 새 공구</div><a class="sec-more" href="mypage.html">팔로잉 관리 →</a></div>
-    <div class="follow-feed">
-      <a class="ff-card" href="product-detail.html"><div class="ff-top"><div class="ff-av" style="background:#E83E8C">지<div class="ff-new">N</div></div><div><div class="ff-name">지민뷰티</div><div class="ff-time">방금</div></div></div><div class="ff-img">🧴</div><div class="ff-body"><div class="ff-title">레티날 0.1% 나이트 세럼 팔로워 전용 특가</div><div class="ff-price-row"><span class="ff-sale">40,800원</span><span class="ff-disc">-40%</span></div><div class="ff-bar"><div class="ff-bar-fill" style="width:15%"></div></div></div></a>
-      <a class="ff-card" href="product-detail.html"><div class="ff-top"><div class="ff-av" style="background:#FD7E14">효</div><div><div class="ff-name">효리핏</div><div class="ff-time">2시간 전</div></div></div><div class="ff-img">🏋️</div><div class="ff-body"><div class="ff-title">마이프로틴 웨이 2.5kg + 셰이커</div><div class="ff-price-row"><span class="ff-sale">52,000원</span><span class="ff-disc">-42%</span></div><div class="ff-bar"><div class="ff-bar-fill" style="width:92%"></div></div></div></a>
-      <a class="ff-card" href="product-detail.html"><div class="ff-top"><div class="ff-av" style="background:#28A745">채</div><div><div class="ff-name">채링이</div><div class="ff-time">4시간 전</div></div></div><div class="ff-img">💊</div><div class="ff-body"><div class="ff-title">나이아신아마이드 토너패드 100매</div><div class="ff-price-row"><span class="ff-sale">22,800원</span><span class="ff-disc">-40%</span></div><div class="ff-bar"><div class="ff-bar-fill" style="width:78%"></div></div></div></a>
-      <a class="ff-card" href="product-detail.html"><div class="ff-top"><div class="ff-av" style="background:#6F42C1">나</div><div><div class="ff-name">나리스타일</div><div class="ff-time">어제</div></div></div><div class="ff-img">👗</div><div class="ff-body"><div class="ff-title">배럴핏 와이드 데님 3컬러</div><div class="ff-price-row"><span class="ff-sale">53,400원</span><span class="ff-disc">-40%</span></div><div class="ff-bar"><div class="ff-bar-fill" style="width:38%"></div></div></div></a>
+  <!-- 핫 인플루언서 카드 (상품이 아닌 사람) -->
+  <div class="hero-inf">
+    <div class="hi-banner">
+      <span class="hi-banner-emoji">🧴</span><span class="hi-banner-emoji">💄</span><span class="hi-banner-emoji">✨</span>
+      <div class="hi-live-tag"><span class="pulse"></span> 공구 2개 진행중</div>
+    </div>
+    <div class="hi-body">
+      <div class="hi-profile">
+        <div class="hi-av" style="background:linear-gradient(135deg,#E83E8C,#FF6B9D)">지</div>
+        <div><div class="hi-name">지민뷰티 <span class="hi-verified">✓</span></div><div class="hi-handle">@jiminbeauty · 팔로워 89.2만 · 뷰티</div></div>
+      </div>
+      <div class="hi-stats">
+        <div class="hi-stat"><div class="n">247</div><div class="l">진행한 공구</div></div>
+        <div class="hi-stat"><div class="n">4.9★</div><div class="l">평균 평점</div></div>
+        <div class="hi-stat"><div class="n">12.4만</div><div class="l">누적 구매자</div></div>
+      </div>
+      <div class="hi-gugus">
+        <a class="hi-gugu" href="product-detail.html"><div class="hi-gugu-img">🧴</div><div><div class="hi-gugu-name">레티날 0.1% 나이트 세럼 30ml</div><div class="hi-gugu-price">-40% 40,800원</div></div><div class="hi-gugu-timer" data-seconds="8078">02:14:38</div></a>
+        <a class="hi-gugu" href="product-detail.html"><div class="hi-gugu-img">💄</div><div><div class="hi-gugu-name">롬앤 쥬시래스팅틴트 전색상</div><div class="hi-gugu-price">-38% 11,200원</div></div><div class="hi-gugu-timer" data-seconds="86400">1일 남음</div></a>
+      </div>
     </div>
   </div>
+</div></div>
 
-  <!-- FLASH -->
-  <div class="flash-banner">
-    <div><div class="flash-tag">⚡ TODAY ONLY</div><div class="flash-title">오늘 자정까지 이 가격</div><div class="flash-sub">마감되면 다시는 이 가격에 못 살 수도 있어요</div></div>
-    <div class="timer-group">
-      <div class="timer-unit"><div class="timer-n" id="fh">08</div><div class="timer-l">시간</div></div>
-      <div class="timer-colon">:</div>
-      <div class="timer-unit"><div class="timer-n" id="fm">43</div><div class="timer-l">분</div></div>
-      <div class="timer-colon">:</div>
-      <div class="timer-unit"><div class="timer-n" id="fs">21</div><div class="timer-l">초</div></div>
+<!-- STORIES -->
+<div class="stories">
+  <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#E83E8C,#FF6B9D)">지민</div></div><div class="story-tag live">LIVE · 2개</div><div class="story-name">지민뷰티</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#6F42C1,#9370DB)">효리</div></div><div class="story-tag live">LIVE · 1개</div><div class="story-name">효리핏</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring live"><div class="story-av" style="background:linear-gradient(135deg,#20C997,#40E0B0)">채링</div></div><div class="story-tag live">LIVE · 1개</div><div class="story-name">채링이</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#FD7E14,#FFA040)">나리</div></div><div class="story-tag count">55.8만</div><div class="story-name">나리스타일</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#DC3545,#FF6B6B)">머슬</div></div><div class="story-tag count">33.1만</div><div class="story-name">머슬박사</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#28A745,#50D070)">건강</div></div><div class="story-tag count">22.4만</div><div class="story-name">건강언니</div></a>
+  <a class="story" href="influencer-profile.html"><div class="story-ring"><div class="story-av" style="background:linear-gradient(135deg,#17A2B8,#48D1CC)">하루</div></div><div class="story-tag count">44.1만</div><div class="story-name">하루뷰티</div></a>
+</div>
+
+<div class="divider"></div>
+
+<!-- SEC 1: 팔로잉 피드 — 카드형 (이미지 크게) -->
+<div class="sec">
+  <div class="login-prompt"><div><div class="lp-text">팔로잉 인플루언서의 <em>새 공구</em>를 놓치고 있어요</div><div class="lp-sub">로그인하면 내가 팔로우하는 인플루언서 공구를 가장 먼저 알려드려요</div></div><div class="lp-btns"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">무료 가입 →</button></div></div>
+
+  <div class="sec-head"><div><div class="sec-title">👀 팔로잉 피드</div><div class="sec-sub">내가 팔로우한 인플루언서들의 공구</div></div><a class="sec-more" href="mypage.html">팔로잉 관리 →</a></div>
+
+  <div class="feed-list">
+    <!-- 효리핏 -->
+    <div class="inf-group">
+      <div class="ig-header"><div class="ig-av" style="background:linear-gradient(135deg,#6F42C1,#9370DB)">효</div><div class="ig-info"><div class="ig-name">효리핏 <span class="ig-verified">✓</span></div><div class="ig-meta"><span class="ig-live"><span class="dot"></span> 공구 1개 진행중</span> · 61.4만 팔로워</div></div><button class="ig-follow following">팔로잉</button></div>
+      <div class="ig-cards single">
+        <a class="ig-card" href="product-detail.html">
+          <div class="ic-img" style="background:linear-gradient(135deg,#EEF2FF,#E0E7FF)">🏋️<div class="ic-badge bdg-r">마감임박</div><div class="ic-timer" data-seconds="20538">05:42:18</div></div>
+          <div class="ic-body"><div class="ic-name">마이프로틴 임팩트 웨이 프로틴 2.5kg + 셰이커</div><div class="ic-price-row"><span class="ic-disc">-42%</span><span class="ic-price">52,000원</span><span class="ic-orig">89,000원</span></div><div class="ic-bar"><div class="ic-bar-fill" style="width:91%"></div></div><div class="ic-meta"><span class="hot">🔥 2,870명 참여 · 91% 달성</span><span>6시간 남음</span></div></div>
+        </a>
+      </div>
     </div>
-  </div>
-  <div class="flash-grid" style="margin-bottom:8px">
-    <a class="flash-card" href="product-detail.html"><div class="fc-img">🧴</div><div class="fc-info"><div class="fc-inf">채링이 · 42만</div><div class="fc-name">나이아신아마이드 10% 토너패드 100매</div><div class="fc-price-row"><span class="fc-orig">38,000원</span><span class="fc-sale">22,800원</span><span class="fc-disc">-40%</span></div><div class="fc-bar"><div class="fc-bar-fill" style="width:78%"></div></div><div class="fc-meta">2,341명 · 22% 남음</div></div></a>
-    <a class="flash-card" href="product-detail.html"><div class="fc-img">💊</div><div class="fc-info"><div class="fc-inf">건강언니 · 22만</div><div class="fc-name">저분자 콜라겐 펩타이드 스틱 30포</div><div class="fc-price-row"><span class="fc-orig">65,000원</span><span class="fc-sale">39,000원</span><span class="fc-disc">-40%</span></div><div class="fc-bar"><div class="fc-bar-fill" style="width:61%"></div></div><div class="fc-meta">891명 · 39% 남음</div></div></a>
-    <a class="flash-card" href="product-detail.html"><div class="fc-img">💪</div><div class="fc-info"><div class="fc-inf">머슬박사 · 33만</div><div class="fc-name">제로슈거 웨이프로틴 초코맛 2kg</div><div class="fc-price-row"><span class="fc-orig">89,000원</span><span class="fc-sale">53,400원</span><span class="fc-disc">-40%</span></div><div class="fc-bar"><div class="fc-bar-fill" style="width:91%"></div></div><div class="fc-meta">5,102명 · 9% 남음</div></div></a>
-  </div>
 
-  <div class="divider" style="margin:24px 0"></div>
-
-  <!-- NEW -->
-  <div class="sec" style="padding-top:24px">
-    <div class="sec-head"><div class="sec-title">🆕 방금 오픈한 공구</div><a class="sec-more" href="category.html">전체보기 →</a></div>
-    <div class="new-grid">
-      <a class="new-card" href="product-detail.html"><div class="nc-img">🧴<div class="nc-new">NEW</div></div><div class="nc-info"><div class="nc-inf">지민뷰티 · 뷰티</div><div class="nc-name">레티날 0.1% 나이트 세럼 30ml</div><div class="nc-price-row"><span class="nc-orig">68,000원</span><span class="nc-sale">40,800원</span><span class="nc-disc">-40%</span></div><div class="nc-time"><span class="nc-dot"></span>방금 오픈</div></div></a>
-      <a class="new-card" href="product-detail.html"><div class="nc-img">👗<div class="nc-new">NEW</div></div><div class="nc-info"><div class="nc-inf">나리스타일 · 패션</div><div class="nc-name">배럴핏 와이드 데님 3컬러</div><div class="nc-price-row"><span class="nc-orig">89,000원</span><span class="nc-sale">53,400원</span><span class="nc-disc">-40%</span></div><div class="nc-time"><span class="nc-dot"></span>12분 전</div></div></a>
-      <a class="new-card" href="product-detail.html"><div class="nc-img">🏠<div class="nc-new">NEW</div></div><div class="nc-info"><div class="nc-inf">홈인테리어수 · 라이프</div><div class="nc-name">아로마 소이 캔들 5종 기프트셋</div><div class="nc-price-row"><span class="nc-orig">78,000원</span><span class="nc-sale">46,800원</span><span class="nc-disc">-40%</span></div><div class="nc-time"><span class="nc-dot"></span>34분 전</div></div></a>
-    </div>
-  </div>
-
-  <!-- HOT -->
-  <div class="sec">
-    <div class="sec-head"><div class="sec-title">🔥 지금 핫한 공구</div><a class="sec-more" href="category.html">전체보기 →</a></div>
-    <div class="cat-tabs">
-      <button class="ct on" onclick="setCat(this)">전체</button><button class="ct" onclick="setCat(this)">뷰티</button><button class="ct" onclick="setCat(this)">패션</button><button class="ct" onclick="setCat(this)">푸드</button><button class="ct" onclick="setCat(this)">라이프</button><button class="ct" onclick="setCat(this)">피트니스</button>
-    </div>
-    <div class="prod-grid">
-      <a class="prod-card" href="product-detail.html"><div class="pc-img" style="background:linear-gradient(135deg,#FFF1F2,#FEE2E2)">💄<div class="pc-badge bdg-r">마감임박</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#E83E8C">지</div><span class="pc-inf-name">지민뷰티</span></div><div class="pc-name">엑소좀 앰플 + 크림 세트 단독</div><div class="pc-price-row"><span class="pc-orig">125,000원</span><span class="pc-sale">75,000원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-bar-fill" style="width:89%"></div></div><div class="pc-meta"><span>3,291명</span><span>11% 남음</span></div></div></a>
-      <a class="prod-card" href="product-detail.html"><div class="pc-img" style="background:linear-gradient(135deg,#EEF2FF,#E8E8FF)">👗<div class="pc-badge bdg-b">NEW</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#6F42C1">나</div><span class="pc-inf-name">나리스타일</span></div><div class="pc-name">배럴핏 와이드 데님 3컬러</div><div class="pc-price-row"><span class="pc-orig">89,000원</span><span class="pc-sale">53,400원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-bar-fill" style="width:38%"></div></div><div class="pc-meta"><span>1,204명</span><span>62% 남음</span></div></div></a>
-      <a class="prod-card" href="product-detail.html"><div class="pc-img" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5)">🥗<div class="pc-badge bdg-o">BEST</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#28A745">건</div><span class="pc-inf-name">건강언니</span></div><div class="pc-name">저혈당 식이섬유 혈당케어 세트</div><div class="pc-price-row"><span class="pc-orig">78,000원</span><span class="pc-sale">46,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-bar-fill" style="width:67%"></div></div><div class="pc-meta"><span>2,108명</span><span>33% 남음</span></div></div></a>
-      <a class="prod-card" href="product-detail.html"><div class="pc-img" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA)">🏋️<div class="pc-badge bdg-r">마감임박</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#FD7E14">머</div><span class="pc-inf-name">머슬박사</span></div><div class="pc-name">제로슈거 웨이프로틴 2kg</div><div class="pc-price-row"><span class="pc-orig">89,000원</span><span class="pc-sale">53,400원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-bar-fill" style="width:92%"></div></div><div class="pc-meta"><span>5,430명</span><span>8% 남음</span></div></div></a>
-    </div>
-  </div>
-
-  <!-- CATEGORIES -->
-  <div class="sec">
-    <div class="sec-head"><div class="sec-title">카테고리별 베스트</div><a class="sec-more" href="category.html">전체 →</a></div>
-    <div class="cat-show">
-      <a class="cs cs1" href="category.html"><div class="cs-emoji">💄</div><div class="cs-name">뷰티</div><div class="cs-cnt">312개 진행 중</div><div class="cs-hot">레티날 HOT</div></a>
-      <a class="cs cs2" href="category.html"><div class="cs-emoji">👗</div><div class="cs-name">패션</div><div class="cs-cnt">187개 진행 중</div><div class="cs-hot">배럴핏 500%↑</div></a>
-      <a class="cs cs3" href="category.html"><div class="cs-emoji">🍎</div><div class="cs-name">푸드&건강</div><div class="cs-cnt">241개 진행 중</div><div class="cs-hot">혈당케어 급부상</div></a>
-      <a class="cs cs4" href="category.html"><div class="cs-emoji">🏠</div><div class="cs-name">라이프</div><div class="cs-cnt">156개 진행 중</div><div class="cs-hot">홈웰니스 트렌드</div></a>
-      <a class="cs cs5" href="category.html"><div class="cs-emoji">💪</div><div class="cs-name">피트니스</div><div class="cs-cnt">98개 진행 중</div><div class="cs-hot">남성뷰티 230%↑</div></a>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="sec">
-    <div class="cta">
-      <div class="cta-text"><h3>인플루언서라면<br><em>3분 만에 공구를 열어보세요</em></h3><p>수수료 5% · 첫 3개월 0% · 7일 자동 정산<br>위약금 없이 1건만 테스트 가능</p></div>
-      <div class="cta-stats"><div class="cta-stat"><div class="n">1,247</div><div class="l">활동 인플루언서</div></div><div class="cta-stat"><div class="n">89만</div><div class="l">누적 구매자</div></div></div>
-      <button class="cta-btn" onclick="location.href='influencer-apply.html'">파트너 신청하기 →</button>
+    <!-- 채링이 -->
+    <div class="inf-group">
+      <div class="ig-header"><div class="ig-av" style="background:linear-gradient(135deg,#20C997,#40E0B0)">채</div><div class="ig-info"><div class="ig-name">채링이</div><div class="ig-meta"><span class="ig-live"><span class="dot"></span> 공구 1개 진행중</span> · 42.3만 팔로워</div></div><button class="ig-follow">+ 팔로우</button></div>
+      <div class="ig-cards single">
+        <a class="ig-card" href="product-detail.html">
+          <div class="ic-img" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5)">💊<div class="ic-badge bdg-b">NEW</div></div>
+          <div class="ic-body"><div class="ic-name">나이아신아마이드 10% 토너패드 100매</div><div class="ic-price-row"><span class="ic-disc">-40%</span><span class="ic-price">22,800원</span><span class="ic-orig">38,000원</span></div><div class="ic-bar"><div class="ic-bar-fill" style="width:62%"></div></div><div class="ic-meta"><span>1,580명 참여 · 62% 달성</span><span>3일 남음</span></div></div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
 
-<footer><div class="ft-inner"><div class="ft-logo">GUGU<em>.</em></div><div class="ft-links"><a href="terms.html">이용약관</a><a href="privacy.html">개인정보처리방침</a><a href="influencer-apply.html">인플루언서 신청</a><a href="help.html">고객센터</a></div><div class="ft-copy">© 2026 GUGU. All rights reserved.</div></div></footer>
+<div class="divider"></div>
+
+<!-- SEC 2: 인플루언서 발견 — 카테고리 탭 + 큰 카드 -->
+<div class="sec">
+  <div class="sec-head"><div><div class="sec-title">✨ 인플루언서 발견</div><div class="sec-sub">팔로우하면 새 공구 소식을 바로 받아요</div></div><a class="sec-more" href="category.html">전체보기 →</a></div>
+
+  <div class="cat-tabs">
+    <button class="ct on" onclick="setCat(this)">전체</button>
+    <button class="ct" onclick="setCat(this)">뷰티</button>
+    <button class="ct" onclick="setCat(this)">패션</button>
+    <button class="ct" onclick="setCat(this)">푸드&건강</button>
+    <button class="ct" onclick="setCat(this)">피트니스</button>
+    <button class="ct" onclick="setCat(this)">라이프</button>
+  </div>
+
+  <div class="inf-grid">
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b1"><span class="inf-banner-emoji">👗</span><span class="inf-banner-emoji">👜</span><span class="inf-banner-emoji">👠</span><div class="inf-gugu-badge soon">📢 내일 오픈</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#FD7E14,#FFA040)">나리</div></div>
+      <div class="inf-body"><div class="inf-name">나리스타일</div><div class="inf-handle">@naristyle · 패션</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">18.7만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">35</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.7★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b2"><span class="inf-banner-emoji">💪</span><span class="inf-banner-emoji">🏋️</span><span class="inf-banner-emoji">🥤</span><div class="inf-gugu-badge live">🔴 공구 진행중</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#DC3545,#FF6B6B)">머슬</div></div>
+      <div class="inf-body"><div class="inf-name">머슬박사</div><div class="inf-handle">@muscledoc · 피트니스</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">25.3만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">41</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.8★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b3"><span class="inf-banner-emoji">💊</span><span class="inf-banner-emoji">🥗</span><span class="inf-banner-emoji">🍵</span><div class="inf-gugu-badge sold">✅ 전부 매진</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#28A745,#50D070)">건강</div></div>
+      <div class="inf-body"><div class="inf-name">건강언니</div><div class="inf-handle">@healthsis · 건강</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">22.4만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">28</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.9★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b4"><span class="inf-banner-emoji">🧴</span><span class="inf-banner-emoji">💆</span><span class="inf-banner-emoji">🌸</span><div class="inf-gugu-badge live">🔴 공구 진행중</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#17A2B8,#48D1CC)">하루</div></div>
+      <div class="inf-body"><div class="inf-name">하루뷰티</div><div class="inf-handle">@harubeauty · 뷰티</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">44.1만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">78</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.8★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b5"><span class="inf-banner-emoji">🍎</span><span class="inf-banner-emoji">🥑</span><span class="inf-banner-emoji">🫐</span><div class="inf-gugu-badge soon">📢 곧 오픈</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#E83E8C,#FF69B4)">민준</div></div>
+      <div class="inf-body"><div class="inf-name">민준푸드</div><div class="inf-handle">@minjunfood · 푸드</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">29.7만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">52</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.7★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+    <a class="inf-card" href="influencer-profile.html">
+      <div class="inf-banner b6"><span class="inf-banner-emoji">🏠</span><span class="inf-banner-emoji">🕯️</span><span class="inf-banner-emoji">🪴</span><div class="inf-gugu-badge live">🔴 공구 진행중</div></div>
+      <div class="inf-av-wrap"><div class="inf-av" style="background:linear-gradient(135deg,#6610F2,#9B59B6)">수빈</div></div>
+      <div class="inf-body"><div class="inf-name">수빈스킨</div><div class="inf-handle">@subinskin · 라이프</div><div class="inf-stats-row"><div class="inf-stat"><div class="n">18.7만</div><div class="l">팔로워</div></div><div class="inf-stat"><div class="n">23</div><div class="l">공구</div></div><div class="inf-stat"><div class="n">4.6★</div><div class="l">평점</div></div></div><button class="inf-follow-btn">+ 팔로우</button></div>
+    </a>
+  </div>
+</div>
+
+</div>
+
+<footer><div class="ft-inner"><div class="ft-logo">GUGU<em>.</em></div><div class="ft-links"><a href="terms.html">이용약관</a><a href="privacy.html">개인정보처리방침</a><a href="help.html">고객센터</a></div><div class="ft-copy">© 2026 GUGU. All rights reserved.</div></div></footer>
 
 <nav class="mob-bottom-nav">
   <a class="mbn-item on" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a>
@@ -384,9 +307,15 @@ footer{border-top:1px solid var(--border);padding:32px 24px;margin-top:16px;back
 
 <script>
 const pad=n=>String(n).padStart(2,'0');
-let t=2*3600+14*60+38,dl=8*3600+43*60+21;
-setInterval(()=>{t--;if(t<0)t=86400;document.getElementById('th').textContent=pad(Math.floor(t/3600));document.getElementById('tm').textContent=pad(Math.floor((t%3600)/60));document.getElementById('ts').textContent=pad(t%60)},1000);
-setInterval(()=>{dl--;if(dl<0)dl=86400;document.getElementById('fh').textContent=pad(Math.floor(dl/3600));document.getElementById('fm').textContent=pad(Math.floor((dl%3600)/60));document.getElementById('fs').textContent=pad(dl%60)},1000);
+// Hero & feed timers
+document.querySelectorAll('.hi-gugu-timer, .ic-timer').forEach(el=>{
+  let t=parseInt(el.dataset.seconds);
+  if(!t||t>86400)return;
+  setInterval(()=>{if(t<=0)return;t--;el.textContent=pad(Math.floor(t/3600))+':'+pad(Math.floor((t%3600)/60))+':'+pad(t%60)},1000);
+});
+// Follow toggle
+document.querySelectorAll('.ig-follow').forEach(b=>{b.addEventListener('click',function(e){e.stopPropagation();if(this.classList.contains('following')){this.classList.remove('following');this.textContent='+ 팔로우'}else{this.classList.add('following');this.textContent='팔로잉'}})});
+// Category tabs
 function setCat(b){document.querySelectorAll('.ct').forEach(c=>c.classList.remove('on'));b.classList.add('on')}
 </script>
 </body>

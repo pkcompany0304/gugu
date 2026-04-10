@@ -2,194 +2,100 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 뷰티 카테고리</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUGU. — 카테고리</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--b2:#2e2e34;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:66px}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
-.nav-back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
-.nav-title{font-size:17px;font-weight:800;flex:1;letter-spacing:-.3px}
-.nav-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px}
-
-/* 카테고리 헤더 */
-.cat-hero{background:var(--s1);border-bottom:1px solid var(--b1);padding:16px}
-.cat-hero-inner{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.ch-icon{font-size:36px}
-.ch-title{font-size:22px;font-weight:800;letter-spacing:-.5px}
-.ch-count{font-size:12px;color:var(--t2);margin-top:2px}
-
-/* 서브 탭 */
-.sub-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-.sub-tabs::-webkit-scrollbar{display:none}
-.sub-tab{flex-shrink:0;padding:6px 13px;border-radius:18px;font-size:12px;font-weight:600;border:1px solid var(--b1);background:none;color:var(--t2);font-family:inherit;cursor:pointer;white-space:nowrap;transition:.15s}
-.sub-tab.active{background:var(--r);border-color:var(--r);color:#fff}
-
-/* 정렬/필터 바 */
-.sort-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--b1)}
-.sort-count{font-size:13px;color:var(--t2);flex:1}
-.sort-count strong{color:var(--t);font-weight:700}
-.sort-select{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--t);font-family:inherit;cursor:pointer;outline:none}
-.filter-btn{display:flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--t2);cursor:pointer}
-
-/* 상품 그리드 */
-.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px}
-.pcard{background:var(--s1);border:1px solid var(--b1);border-radius:14px;overflow:hidden;cursor:pointer}
-.pc-img{height:160px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
-.pc-badge{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;color:#fff}
-.badge-live{background:var(--r)}.badge-hot{background:var(--o)}.badge-new{background:#6366f1}
-.pc-body{padding:11px}
-.pc-inf{display:flex;align-items:center;gap:5px;margin-bottom:4px}
-.pc-av{width:16px;height:16px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff}
-.pc-inf-name{font-size:10px;color:var(--t2)}
-.pc-name{font-size:12px;font-weight:700;line-height:1.35;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
-.pc-price{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:6px}
-.pc-orig{font-size:10px;color:var(--t3);text-decoration:line-through}
-.pc-sale{font-size:15px;font-weight:800}
-.pc-disc{font-size:10px;font-weight:700;color:var(--r)}
-.pc-bar{height:2px;background:var(--b2);border-radius:1px;margin-bottom:4px}
-.pc-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--o));border-radius:1px}
-.pc-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--t3)}
-
-/* 하단 탭바 */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:var(--t3);text-decoration:none;font-size:10px;font-weight:600}
-.bn-item.on{color:var(--r)}
-.bn-icon{font-size:20px;line-height:1}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--blue:#6366F1;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px}
+a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-tabs{display:flex;gap:4px;margin:0 auto}
+.nav-tab{padding:7px 14px;border-radius:10px;font-size:13px;font-weight:600;color:var(--t2);background:none;border:none;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap}
+.nav-tab:hover{color:var(--t1);background:rgba(0,0,0,.04)}.nav-tab.on{color:var(--t1);background:rgba(0,0,0,.05)}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nav-search{width:200px;padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--t1);font-size:13px;font-family:inherit;outline:none}
+.nav-search::placeholder{color:var(--t3)}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.cat-hero{background:var(--white);border-bottom:1px solid var(--border);padding:28px 24px}
+.cat-hero-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.cat-icon{font-size:40px}.cat-title{font-size:28px;font-weight:800;letter-spacing:-1px}
+.cat-count{font-size:13px;color:var(--t2);margin-top:3px}
+.sub-tabs-wrap{max-width:1120px;margin:0 auto;display:flex;gap:8px;padding:16px 24px;overflow-x:auto;border-bottom:1px solid var(--border)}
+.sub-tabs-wrap::-webkit-scrollbar{display:none}
+.sub-tab{padding:7px 16px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--t2);font-family:inherit;white-space:nowrap;transition:.2s}
+.sub-tab:hover{border-color:var(--border2);color:var(--t1)}.sub-tab.on{background:var(--red);border-color:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:24px}
+.sort-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.result-count{font-size:13px;color:var(--t2)}
+.sort-select{padding:8px 14px;background:var(--white);border:1px solid var(--border);border-radius:10px;color:var(--t1);font-size:13px;font-family:inherit;outline:none}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.product-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.25s}
+.product-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.pc-img{height:180px;background:linear-gradient(135deg,#FFF1F2,#F3F4F6);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.badge{position:absolute;top:8px;left:8px;color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px}
+.badge-live{background:var(--red)}.badge-hot{background:var(--orange)}.badge-end{background:var(--t3)}
+.pc-body{padding:14px}
+.pc-inf{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+.pc-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0}
+.pc-inf-name{font-size:11px;color:var(--t3)}
+.pc-name{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+.pc-price-row{display:flex;align-items:baseline;gap:5px;margin-bottom:8px;flex-wrap:wrap}
+.pc-orig{font-size:11px;color:var(--t3);text-decoration:line-through}.pc-sale{font-size:16px;font-weight:800}.pc-disc{font-size:11px;font-weight:700;color:var(--red)}
+.pc-bar{height:3px;background:var(--bg);border-radius:99px;margin-bottom:5px;overflow:hidden}.pc-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--orange))}
+.pc-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--t3)}
+.load-more{display:flex;justify-content:center;margin-top:32px}
+.btn-load{padding:12px 40px;border-radius:14px;border:1px solid var(--border);background:var(--white);color:var(--t1);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}.btn-load:hover{background:var(--bg)}
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}
+.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){
+  body{padding-bottom:62px}.mob-bottom-nav{display:flex}
+  .wrap{padding:20px 16px}.nav-tabs{display:none}.nav-search{width:100%}
+  nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}
+  .product-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .pc-img{height:140px}
+  input,select,textarea{font-size:16px!important}
+}
 </style>
 </head>
 <body>
-<div class="nav">
-  <div class="nav-back" onclick="history.back()">←</div>
-  <div class="nav-title">뷰티</div>
-  <div class="nav-icon" onclick="location.href='search.html'">⌕</div>
+<nav><div class="nav-inner">
+  <a class="logo" href="index.html">GUGU<em>.</em></a>
+  <div class="nav-tabs"><button class="nav-tab on">전체</button><button class="nav-tab">뷰티</button><button class="nav-tab">패션</button><button class="nav-tab">푸드</button><button class="nav-tab">라이프</button><button class="nav-tab">피트니스</button></div>
+  <div class="nav-right"><input class="nav-search" type="text" placeholder="⌕ 검색"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button></div>
+</div></nav>
+<div class="cat-hero"><div class="cat-hero-inner"><div class="cat-icon">💄</div><div><div class="cat-title">뷰티</div><div class="cat-count">스킨케어, 메이크업, 헤어케어 등 총 <strong>247개</strong> 공구</div></div></div></div>
+<div class="sub-tabs-wrap"><button class="sub-tab on">전체</button><button class="sub-tab">스킨케어</button><button class="sub-tab">메이크업</button><button class="sub-tab">선케어</button><button class="sub-tab">헤어케어</button><button class="sub-tab">바디케어</button><button class="sub-tab">향수</button><button class="sub-tab">클렌징</button></div>
+<div class="wrap">
+  <div class="sort-row"><div class="result-count">총 <strong>247개</strong> 공구</div><select class="sort-select"><option>인기순</option><option>최신순</option><option>할인율 높은순</option><option>가격 낮은순</option><option>마감임박순</option></select></div>
+  <div class="product-grid">
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">🧴<div class="badge badge-live">마감임박</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#E83E8C">지</div><span class="pc-inf-name">지민뷰티</span></div><div class="pc-name">닥터자르트 시카페어 크림 50ml</div><div class="pc-price-row"><span class="pc-orig">52,000원</span><span class="pc-sale">31,900원</span><span class="pc-disc">-38%</span></div><div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div><div class="pc-meta"><span>4,812명</span><span>2일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">💄<div class="badge badge-hot">HOT</div></div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#E83E8C">지</div><span class="pc-inf-name">지민뷰티</span></div><div class="pc-name">롬앤 쥬시래스팅틴트 전색상</div><div class="pc-price-row"><span class="pc-orig">18,000원</span><span class="pc-sale">11,200원</span><span class="pc-disc">-38%</span></div><div class="pc-bar"><div class="pc-fill" style="width:89%"></div></div><div class="pc-meta"><span>3,291명</span><span>1일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">🌿</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#20C997">채</div><span class="pc-inf-name">채링이</span></div><div class="pc-name">이니스프리 그린티 씨드 세럼</div><div class="pc-price-row"><span class="pc-orig">38,000원</span><span class="pc-sale">22,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:55%"></div></div><div class="pc-meta"><span>2,108명</span><span>5일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">✨</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#6F42C1">하</div><span class="pc-inf-name">하루뷰티</span></div><div class="pc-name">설화수 윤조에센스 기획세트</div><div class="pc-price-row"><span class="pc-orig">95,000원</span><span class="pc-sale">62,000원</span><span class="pc-disc">-35%</span></div><div class="pc-bar"><div class="pc-fill" style="width:42%"></div></div><div class="pc-meta"><span>1,847명</span><span>6일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">💆</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#FD7E14">이</div><span class="pc-inf-name">이루미</span></div><div class="pc-name">아벤느 클렌징 워터 200ml</div><div class="pc-price-row"><span class="pc-orig">28,000원</span><span class="pc-sale">16,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:67%"></div></div><div class="pc-meta"><span>2,341명</span><span>3일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">🌸</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#E83E8C">나</div><span class="pc-inf-name">나리뷰티</span></div><div class="pc-name">라네즈 립 슬리핑 마스크 20g</div><div class="pc-price-row"><span class="pc-orig">22,000원</span><span class="pc-sale">13,200원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:38%"></div></div><div class="pc-meta"><span>891명</span><span>7일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">🔆</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#28A745">수</div><span class="pc-inf-name">수빈스킨</span></div><div class="pc-name">스킨푸드 블랙슈가 마스크 100ml</div><div class="pc-price-row"><span class="pc-orig">15,000원</span><span class="pc-sale">9,000원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:81%"></div></div><div class="pc-meta"><span>3,102명</span><span>2일 남음</span></div></div></div>
+    <div class="product-card" onclick="location.href='product-detail.html'"><div class="pc-img">🧖</div><div class="pc-body"><div class="pc-inf"><div class="pc-av" style="background:#DC3545">민</div><span class="pc-inf-name">민지뷰티</span></div><div class="pc-name">투쿨포스쿨 아트클래스 바이로댕 섀딩</div><div class="pc-price-row"><span class="pc-orig">18,000원</span><span class="pc-sale">10,800원</span><span class="pc-disc">-40%</span></div><div class="pc-bar"><div class="pc-fill" style="width:52%"></div></div><div class="pc-meta"><span>1,482명</span><span>4일 남음</span></div></div></div>
+  </div>
+  <div class="load-more"><button class="btn-load">더 보기 (239개 남음)</button></div>
 </div>
-
-<div class="cat-hero">
-  <div class="cat-hero-inner">
-    <div class="ch-icon">💄</div>
-    <div>
-      <div class="ch-title">뷰티</div>
-      <div class="ch-count">스킨케어, 메이크업, 헤어케어 등 총 <strong style="color:var(--t)">247개</strong> 공구</div>
-    </div>
-  </div>
-  <div class="sub-tabs">
-    <button class="sub-tab active" onclick="setSub(this)">전체</button>
-    <button class="sub-tab" onclick="setSub(this)">스킨케어</button>
-    <button class="sub-tab" onclick="setSub(this)">메이크업</button>
-    <button class="sub-tab" onclick="setSub(this)">선케어</button>
-    <button class="sub-tab" onclick="setSub(this)">헤어케어</button>
-    <button class="sub-tab" onclick="setSub(this)">바디케어</button>
-    <button class="sub-tab" onclick="setSub(this)">향수</button>
-    <button class="sub-tab" onclick="setSub(this)">클렌징</button>
-  </div>
-</div>
-
-<div class="sort-bar">
-  <div class="sort-count">총 <strong>247개</strong> 공구</div>
-  <select class="sort-select" onchange="">
-    <option>인기순</option><option>최신순</option><option>할인율순</option><option>마감임박순</option>
-  </select>
-  <div class="filter-btn">⚙️ 필터</div>
-</div>
-
-<div class="product-grid">
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#140505,#1e0808)">🧴<div class="pc-badge badge-live">마감임박</div></div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div>
-      <div class="pc-name">닥터자르트 시카페어 크림 50ml</div>
-      <div class="pc-price"><span class="pc-orig">52,000원</span><span class="pc-sale">31,900원</span><span class="pc-disc">-38%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div>
-      <div class="pc-meta"><span>4,812명</span><span>2일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#140505,#1e0808)">💄<div class="pc-badge badge-hot">HOT</div></div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">지</div><span class="pc-inf-name">지민뷰티</span></div>
-      <div class="pc-name">롬앤 쥬시래스팅틴트 전색상</div>
-      <div class="pc-price"><span class="pc-orig">18,000원</span><span class="pc-sale">11,200원</span><span class="pc-disc">-38%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:89%"></div></div>
-      <div class="pc-meta"><span>3,291명</span><span>1일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#050a05,#0a1a0a)">🌿</div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#20c997">채</div><span class="pc-inf-name">채링이</span></div>
-      <div class="pc-name">이니스프리 그린티 씨드 세럼</div>
-      <div class="pc-price"><span class="pc-orig">38,000원</span><span class="pc-sale">22,800원</span><span class="pc-disc">-40%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:55%"></div></div>
-      <div class="pc-meta"><span>2,108명</span><span>5일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#0a0512,#130a1e)">✨<div class="pc-badge badge-new">NEW</div></div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#6f42c1">하</div><span class="pc-inf-name">하루뷰티</span></div>
-      <div class="pc-name">설화수 윤조에센스 기획세트</div>
-      <div class="pc-price"><span class="pc-orig">95,000원</span><span class="pc-sale">62,000원</span><span class="pc-disc">-35%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:42%"></div></div>
-      <div class="pc-meta"><span>1,847명</span><span>6일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#0a0a05,#141405)">💆</div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#fd7e14">이</div><span class="pc-inf-name">이루미</span></div>
-      <div class="pc-name">아벤느 클렌징 워터 200ml</div>
-      <div class="pc-price"><span class="pc-orig">28,000원</span><span class="pc-sale">16,800원</span><span class="pc-disc">-40%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:67%"></div></div>
-      <div class="pc-meta"><span>2,341명</span><span>3일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#140505,#200a0a)">🌸</div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#e83e8c">나</div><span class="pc-inf-name">나리뷰티</span></div>
-      <div class="pc-name">라네즈 립 슬리핑 마스크 20g</div>
-      <div class="pc-price"><span class="pc-orig">22,000원</span><span class="pc-sale">13,200원</span><span class="pc-disc">-40%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:38%"></div></div>
-      <div class="pc-meta"><span>891명</span><span>7일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#050a14,#0a1420)">🔆</div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#28a745">수</div><span class="pc-inf-name">수빈스킨</span></div>
-      <div class="pc-name">스킨푸드 블랙슈가 마스크 100ml</div>
-      <div class="pc-price"><span class="pc-orig">15,000원</span><span class="pc-sale">9,000원</span><span class="pc-disc">-40%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:81%"></div></div>
-      <div class="pc-meta"><span>3,102명</span><span>2일 남음</span></div>
-    </div>
-  </div>
-  <div class="pcard" onclick="location.href='product-detail.html'">
-    <div class="pc-img" style="background:linear-gradient(135deg,#0a0514,#100a1c)">🧖</div>
-    <div class="pc-body">
-      <div class="pc-inf"><div class="pc-av" style="background:#dc3545">민</div><span class="pc-inf-name">민지뷰티</span></div>
-      <div class="pc-name">투쿨포스쿨 아트클래스 바이로댕</div>
-      <div class="pc-price"><span class="pc-orig">18,000원</span><span class="pc-sale">10,800원</span><span class="pc-disc">-40%</span></div>
-      <div class="pc-bar"><div class="pc-fill" style="width:52%"></div></div>
-      <div class="pc-meta"><span>1,482명</span><span>4일 남음</span></div>
-    </div>
-  </div>
-</div>
-
-<nav class="bottom-nav">
-  <a class="bn-item" href="index.html"><span class="bn-icon">🏠</span>홈</a>
-  <a class="bn-item on" href="category.html"><span class="bn-icon">🔍</span>탐색</a>
-  <a class="bn-item" href="search.html"><span class="bn-icon">⌕</span>검색</a>
-  <a class="bn-item" href="notifications.html"><span class="bn-icon">🔔</span>알림</a>
-  <a class="bn-item" href="mypage.html"><span class="bn-icon">👤</span>마이</a>
-</nav>
 <script>
-function setSub(b){document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+document.querySelectorAll('.nav-tab').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('on'));this.classList.add('on')}));
+document.querySelectorAll('.sub-tab').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('on'));this.classList.add('on')}));
 </script>
+<nav class="mob-bottom-nav">
+  <a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a>
+  <a class="mbn-item on" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a>
+  <a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a>
+  <a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a>
+  <a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a>
+</nav>
 </body>
 </html>

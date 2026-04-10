@@ -1,108 +1,65 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 인플루언서 신청</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden;min-height:100vh}
-body{padding-top:52px;padding-bottom:70px}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
-.nb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
-.nt{font-size:17px;font-weight:800;flex:1}
-.bna{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>인플루언서 신청 — GUGU.</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
+.wrap{max-width:680px;margin:0 auto;padding:48px 24px 80px}
+.page-header{text-align:center;margin-bottom:40px}
+.ph-badge{display:inline-flex;align-items:center;gap:7px;background:var(--red-light);border:1px solid rgba(239,68,68,.2);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--red);margin-bottom:20px}
+.ph-title{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px}.ph-title em{color:var(--red);font-style:normal}
+.ph-desc{font-size:15px;color:var(--t2);line-height:1.75;max-width:480px;margin:0 auto 24px}
+.perks{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.perk{padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid}
+.pk1{background:var(--green-light);border-color:rgba(16,185,129,.2);color:var(--green)}.pk2{background:#FFF7ED;border-color:rgba(249,115,22,.2);color:var(--orange)}.pk3{background:var(--blue-light);border-color:rgba(99,102,241,.2);color:var(--blue)}
+.form-section{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px;margin-bottom:16px}
+.fs-title{font-size:16px;font-weight:700;margin-bottom:4px}.fs-desc{font-size:13px;color:var(--t2);margin-bottom:20px}
+.form-group{margin-bottom:16px}.form-label{font-size:12px;color:var(--t2);font-weight:600;margin-bottom:6px;display:block}
+.form-input{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--t1);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+.form-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.08)}.form-input::placeholder{color:var(--t3)}
+.form-select{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--t1);font-size:14px;font-family:inherit;outline:none;appearance:none}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+textarea.form-input{min-height:100px;resize:vertical}
+.btn-submit{width:100%;padding:16px;border-radius:14px;border:none;background:var(--red);color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(239,68,68,.2);margin-top:8px}.btn-submit:hover{background:#DC2626}
+.submit-note{font-size:12px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.6}
 
-.form-wrap{padding:16px}
-.page-header{text-align:center;padding:20px 0 24px}
-.ph-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.2);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--r);margin-bottom:14px}
-.ph-title{font-family:"Bebas Neue",sans-serif;font-size:36px;letter-spacing:2px;margin-bottom:8px;line-height:1}
-.ph-title em{color:var(--r);font-style:normal}
-.ph-sub{font-size:13px;color:var(--t2);line-height:1.6}
-.bcard-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
-.bcard{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px;text-align:center}
-.bc-n{font-size:18px;font-weight:900;color:var(--r);margin-bottom:3px}
-.bc-l{font-size:10px;color:var(--t2)}
-.form-section{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px;margin-bottom:12px}
-.fs-title{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.fs-num{width:22px;height:22px;border-radius:50%;background:var(--r);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fg{margin-bottom:12px}
-.fg:last-child{margin-bottom:0}
-.fg-label{font-size:12px;color:var(--t2);font-weight:600;margin-bottom:5px}
-.fg-input,.fg-select{width:100%;padding:12px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;color:var(--t);font-size:16px;font-family:inherit;outline:none}
-.fg-input:focus{border-color:var(--r)}
-.fg-input::placeholder{color:var(--t3)}
-.cat-grid{display:flex;flex-wrap:wrap;gap:7px}
-.cat-btn{padding:7px 13px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--b1);background:none;color:var(--t2);cursor:pointer;font-family:inherit;transition:.15s}
-.cat-btn.on{background:var(--r);border-color:var(--r);color:#fff}
-.agree-list{display:flex;flex-direction:column;gap:10px}
-.ag-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--t2)}
-.ag-item input{accent-color:var(--r);width:16px;height:16px;margin-top:1px;flex-shrink:0}
-.submit-btn{width:100%;padding:15px;border-radius:12px;background:var(--r);border:none;color:#fff;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;margin-top:8px}
-.submit-note{font-size:12px;color:var(--t3);text-align:center;margin-top:8px}
-
-</style>
-</head>
-<body>
-
-<div class="nav"><div class="nb" onclick="history.back()">←</div><div class="nt">인플루언서 신청</div></div>
-<div class="form-wrap">
-  <div class="page-header">
-    <div class="ph-badge">✨ 파트너 모집 중</div>
-    <div class="ph-title">제품만 골라오세요<br><em>나머지는 GUGU</em></div>
-    <div class="ph-sub">입점 무료 · 3개월 수수료 0% · 이후 5%만</div>
-  </div>
-  <div class="bcard-row">
-    <div class="bcard"><div class="bc-n">5%</div><div class="bc-l">수수료</div></div>
-    <div class="bcard"><div class="bc-n">3개월</div><div class="bc-l">수수료 0%</div></div>
-    <div class="bcard"><div class="bc-n">0원</div><div class="bc-l">입점비</div></div>
-  </div>
-  <div class="form-section">
-    <div class="fs-title"><span class="fs-num">1</span>기본 정보</div>
-    <div class="fg"><div class="fg-label">이름 *</div><input class="fg-input" type="text" placeholder="실명 입력"></div>
-    <div class="fg"><div class="fg-label">활동 닉네임 *</div><input class="fg-input" type="text" placeholder="예: 지민뷰티"></div>
-    <div class="fg"><div class="fg-label">이메일 *</div><input class="fg-input" type="email" placeholder="연락받을 이메일"></div>
-    <div class="fg"><div class="fg-label">휴대폰 *</div><input class="fg-input" type="tel" placeholder="010-0000-0000"></div>
-  </div>
-  <div class="form-section">
-    <div class="fs-title"><span class="fs-num">2</span>채널 정보</div>
-    <div class="fg"><div class="fg-label">채널 URL *</div><input class="fg-input" type="url" placeholder="https://instagram.com/..."></div>
-    <div class="fg"><div class="fg-label">팔로워/구독자 수 *</div>
-      <select class="fg-select"><option value="">선택</option><option>1만~5만</option><option>5만~10만</option><option>10만~30만</option><option>30만~100만</option><option>100만 이상</option></select>
-    </div>
-  </div>
-  <div class="form-section">
-    <div class="fs-title"><span class="fs-num">3</span>카테고리</div>
-    <div class="cat-grid">
-      <button class="cat-btn on" onclick="this.classList.toggle('on')">💄 뷰티</button>
-      <button class="cat-btn" onclick="this.classList.toggle('on')">👗 패션</button>
-      <button class="cat-btn" onclick="this.classList.toggle('on')">🍎 푸드</button>
-      <button class="cat-btn" onclick="this.classList.toggle('on')">🏠 라이프</button>
-      <button class="cat-btn" onclick="this.classList.toggle('on')">💪 피트니스</button>
-      <button class="cat-btn" onclick="this.classList.toggle('on')">👶 육아</button>
-    </div>
-  </div>
-  <div class="form-section">
-    <div class="fs-title"><span class="fs-num">4</span>약관 동의</div>
-    <div class="agree-list">
-      <label class="ag-item"><input type="checkbox" id="all" onchange="document.querySelectorAll('.ag-cb').forEach(c=>c.checked=this.checked)">[전체 동의]</label>
-      <label class="ag-item"><input class="ag-cb" type="checkbox">[필수] 이용약관에 동의합니다</label>
-      <label class="ag-item"><input class="ag-cb" type="checkbox">[필수] 개인정보처리방침에 동의합니다</label>
-      <label class="ag-item"><input class="ag-cb" type="checkbox">[필수] 수수료 조건에 동의합니다</label>
-    </div>
-  </div>
-  <button class="submit-btn" onclick="alert('신청 완료! 영업일 3일 내 이메일로 연락드릴게요 🎉');location.href='index.html'">파트너 신청하기 →</button>
-  <div class="submit-note">심사 후 영업일 3일 이내 이메일로 결과 안내</div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}.wrap{padding:20px 16px}input,select,textarea{font-size:16px!important}}
+@media(max-width:768px){.ph-title{font-size:28px}.form-grid{grid-template-columns:1fr}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a><div class="nav-right"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button></div></div></nav>
+<div class="wrap">
+<div class="page-header">
+<div class="ph-badge">✨ GUGU 파트너 신청</div>
+<div class="ph-title">인플루언서 <em>파트너</em><br>지금 신청하세요</div>
+<div class="ph-desc">3개월 수수료 0% · 7일 정산 보장 · 1건 테스트 후 해지 가능</div>
+<div class="perks"><span class="perk pk1">✓ 3개월 무료</span><span class="perk pk2">✓ 7일 자동 정산</span><span class="perk pk3">✓ CS 전담</span></div>
 </div>
-<nav class="bna">
-  <a class="bi" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a class="bi" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a class="bi" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a class="bi" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a class="bi" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-</body>
-</html>
+<div class="form-section"><div class="fs-title">기본 정보</div><div class="fs-desc">파트너 검토에 필요한 기본 정보를 입력해주세요</div>
+<div class="form-grid">
+<div class="form-group"><label class="form-label">이름</label><input class="form-input" type="text" placeholder="홍길동"></div>
+<div class="form-group"><label class="form-label">이메일</label><input class="form-input" type="email" placeholder="email@example.com"></div>
+<div class="form-group"><label class="form-label">휴대폰 번호</label><input class="form-input" type="tel" placeholder="010-0000-0000"></div>
+<div class="form-group"><label class="form-label">활동명 (닉네임)</label><input class="form-input" type="text" placeholder="지민뷰티"></div>
+</div></div>
+<div class="form-section"><div class="fs-title">채널 정보</div><div class="fs-desc">주로 활동하는 SNS 채널 정보를 입력해주세요</div>
+<div class="form-group"><label class="form-label">주요 채널</label><select class="form-select"><option>인스타그램</option><option>유튜브</option><option>틱톡</option><option>블로그</option></select></div>
+<div class="form-group"><label class="form-label">채널 URL</label><input class="form-input" type="url" placeholder="https://instagram.com/username"></div>
+<div class="form-grid">
+<div class="form-group"><label class="form-label">팔로워 수</label><input class="form-input" type="text" placeholder="50,000"></div>
+<div class="form-group"><label class="form-label">주요 카테고리</label><select class="form-select"><option>뷰티</option><option>패션</option><option>푸드</option><option>라이프</option><option>피트니스</option><option>테크</option></select></div>
+</div></div>
+<div class="form-section"><div class="fs-title">추가 정보</div><div class="fs-desc">공구 경험이나 하고 싶은 말을 자유롭게 적어주세요</div>
+<div class="form-group"><label class="form-label">공구 경험</label><select class="form-select"><option>처음이에요</option><option>1~5회</option><option>6~20회</option><option>20회 이상</option></select></div>
+<div class="form-group"><label class="form-label">자기소개 / 하고 싶은 말</label><textarea class="form-input" placeholder="어떤 공구를 하고 싶은지, 기대하는 점 등을 자유롭게 적어주세요"></textarea></div>
+</div>
+<button class="btn-submit">파트너 신청하기 →</button>
+<div class="submit-note">신청 후 1~3 영업일 이내 검토 결과를 이메일로 안내드려요.<br>문의: partner@gugu.kr</div>
+</div>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

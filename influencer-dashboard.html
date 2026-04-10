@@ -1,106 +1,79 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 인플루언서 대시보드</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden;min-height:100vh}
-body{padding-top:52px;padding-bottom:70px}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
-.nb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
-.nt{font-size:17px;font-weight:800;flex:1}
-.bna{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 인플루언서 대시보드</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-badge{background:var(--red-light);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:10px;padding:3px 10px;border-radius:6px;font-weight:600}
+.nav-right{display:flex;align-items:center;gap:12px;margin-left:auto}
+.nav-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;cursor:pointer}
+.nav-name{font-size:13px;font-weight:500}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none}.btn-primary{background:var(--red);color:#fff}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px)}
+.sidebar{border-right:1px solid var(--border);padding:20px 0;background:var(--white)}
+.sb-label{font-size:10px;color:var(--t3);font-weight:700;letter-spacing:1px;padding:0 18px;margin-bottom:6px;margin-top:12px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:var(--t2);cursor:pointer;transition:.15s;border-left:3px solid transparent}
+.sb-item:hover{color:var(--t1);background:var(--bg)}.sb-item.active{color:var(--t1);background:var(--bg);border-left-color:var(--red);font-weight:600}
+.sb-item .ic{width:16px;text-align:center;font-size:14px}
+.sb-item .cnt{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
+.main{padding:28px 32px}
+.main-title{font-size:20px;font-weight:800;margin-bottom:4px}.main-sub{font-size:13px;color:var(--t2);margin-bottom:24px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px}
+.stat-card .l{font-size:11px;color:var(--t2);margin-bottom:6px}.stat-card .n{font-size:24px;font-weight:800}.stat-card .n.r{color:var(--red)}.stat-card .n.g{color:var(--green)}.stat-card .n.o{color:var(--orange)}
+.stat-card .delta{font-size:11px;font-weight:600;margin-top:4px}.delta.up{color:var(--green)}.delta.down{color:var(--red)}
+.section{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.section-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.gugu-list{display:flex;flex-direction:column;gap:10px}
+.gl-item{display:flex;align-items:center;gap:14px;padding:12px;background:var(--bg);border-radius:12px}
+.gl-img{width:48px;height:48px;border-radius:10px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.gl-info{flex:1}.gl-name{font-size:13px;font-weight:600;margin-bottom:2px}.gl-meta{font-size:11px;color:var(--t2)}
+.gl-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;flex-shrink:0}
+.gl-live{background:var(--red-light);color:var(--red)}.gl-done{background:var(--bg);color:var(--t3);border:1px solid var(--border)}
+.gl-revenue{font-size:14px;font-weight:700;flex-shrink:0}
 
-.wrap{padding:0 16px}
-.dash-header{padding:16px 0 12px;display:flex;align-items:center;justify-content:space-between}
-.dh-title{font-size:20px;font-weight:900}
-.dh-new{padding:9px 16px;border-radius:10px;background:var(--r);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
-.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.kpi-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px}
-.kc-label{font-size:11px;color:var(--t2);margin-bottom:6px;font-weight:600}
-.kc-val{font-size:22px;font-weight:900;letter-spacing:-.5px}
-.kc-change{font-size:11px;margin-top:3px}
-.kc-change.up{color:var(--g)}.kc-change.down{color:var(--r)}
-.sec-title{font-size:15px;font-weight:800;margin-bottom:10px}
-.gugu-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.gl-item{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px;cursor:pointer}
-.gl-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.gl-img{width:48px;height:48px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.gl-info{flex:1}
-.gl-name{font-size:13px;font-weight:700;margin-bottom:3px}
-.gl-meta{font-size:11px;color:var(--t2)}
-.gl-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
-.status-live{background:rgba(255,59,59,.1);color:var(--r)}
-.status-end{background:rgba(100,100,100,.1);color:var(--t2)}
-.gl-stats{display:flex;gap:16px}
-.gs-item{text-align:center}
-.gs-n{font-size:14px;font-weight:800}.gs-l{font-size:10px;color:var(--t2)}
-.gl-prog{height:3px;background:var(--b2);border-radius:2px;margin-top:10px}
-.gl-fill{height:100%;background:linear-gradient(90deg,var(--r),var(--o));border-radius:2px}
-
-</style>
-</head>
-<body>
-
-<div class="nav"><div class="nb" onclick="history.back()">←</div><div class="nt">대시보드</div></div>
-<div class="wrap">
-  <div class="dash-header">
-    <div class="dh-title">안녕하세요 👋<br>지민뷰티님</div>
-    <button class="dh-new" onclick="location.href='open-gugu.html'">+ 공구 오픈</button>
-  </div>
-  <div class="kpi-grid">
-    <div class="kpi-card"><div class="kc-label">이번 달 수익</div><div class="kc-val" style="color:var(--r)">4.2만원</div><div class="kc-change up">↑ +12% vs 지난달</div></div>
-    <div class="kpi-card"><div class="kc-label">총 참여자</div><div class="kc-val">8,103명</div><div class="kc-change up">↑ +341명</div></div>
-    <div class="kpi-card"><div class="kc-label">진행 중 공구</div><div class="kc-val">2개</div><div class="kc-change" style="color:var(--t2)">마감 임박 1개</div></div>
-    <div class="kpi-card"><div class="kc-label">평균 평점</div><div class="kc-val">4.9⭐</div><div class="kc-change up">↑ 상위 5%</div></div>
-  </div>
-  <div class="sec-title">진행 중인 공구</div>
-  <div class="gugu-list">
-    <div class="gl-item" onclick="location.href='product-detail.html'">
-      <div class="gl-top">
-        <div class="gl-img">🧴</div>
-        <div class="gl-info">
-          <div class="gl-name">레티날 0.1% 나이트 세럼</div>
-          <div class="gl-meta">마감까지 02:14:33 · 40,800원</div>
-        </div>
-        <div class="gl-status status-live">LIVE</div>
-      </div>
-      <div class="gl-stats">
-        <div class="gs-item"><div class="gs-n">4,812명</div><div class="gs-l">참여</div></div>
-        <div class="gs-item"><div class="gs-n">196만원</div><div class="gs-l">예상 수익</div></div>
-        <div class="gs-item"><div class="gs-n">82%</div><div class="gs-l">달성률</div></div>
-      </div>
-      <div class="gl-prog"><div class="gl-fill" style="width:82%"></div></div>
-    </div>
-    <div class="gl-item" onclick="location.href='product-detail.html'">
-      <div class="gl-top">
-        <div class="gl-img">💄</div>
-        <div class="gl-info">
-          <div class="gl-name">롬앤 쥬시래스팅틴트</div>
-          <div class="gl-meta">마감까지 5일 · 11,200원</div>
-        </div>
-        <div class="gl-status status-live">LIVE</div>
-      </div>
-      <div class="gl-stats">
-        <div class="gs-item"><div class="gs-n">3,291명</div><div class="gs-l">참여</div></div>
-        <div class="gs-item"><div class="gs-n">17.4만원</div><div class="gs-l">예상 수익</div></div>
-        <div class="gs-item"><div class="gs-n">89%</div><div class="gs-l">달성률</div></div>
-      </div>
-      <div class="gl-prog"><div class="gl-fill" style="width:89%"></div></div>
-    </div>
-  </div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}input,select,textarea{font-size:16px!important}}
+@media(max-width:768px){.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px 16px}.stat-grid{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<nav><div class="nav-inner">
+<a class="logo" href="index.html">GUGU<em>.</em></a><div class="nav-badge">인플루언서</div>
+<div class="nav-right"><button class="btn btn-primary" onclick="location.href='open-gugu.html'">+ 새 공구 열기</button><div class="nav-av">지</div><span class="nav-name">지민뷰티</span></div>
+</div></nav>
+<div class="layout">
+<div class="sidebar">
+<div class="sb-label">메뉴</div>
+<div class="sb-item active"><span class="ic">📊</span>대시보드</div>
+<div class="sb-item"><span class="ic">🛍️</span>내 공구<span class="cnt">3</span></div>
+<div class="sb-item"><span class="ic">💰</span>정산</div>
+<div class="sb-item"><span class="ic">📈</span>통계</div>
+<div class="sb-item"><span class="ic">👥</span>팔로워</div>
+<div class="sb-label">설정</div>
+<div class="sb-item"><span class="ic">⚙️</span>프로필 설정</div>
+<div class="sb-item"><span class="ic">🔔</span>알림 설정</div>
 </div>
-<nav class="bna">
-  <a class="bi" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a class="bi" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a class="bi" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a class="bi" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a class="bi" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-</body>
-</html>
+<div class="main">
+<div class="main-title">대시보드</div>
+<div class="main-sub">지민뷰티님, 오늘도 화이팅! 현재 3개 공구가 진행 중이에요.</div>
+<div class="stat-grid">
+<div class="stat-card"><div class="l">이번 달 매출</div><div class="n r">12,480,000원</div><div class="delta up">↑ 23% vs 지난달</div></div>
+<div class="stat-card"><div class="l">진행중 공구</div><div class="n">3개</div><div class="delta up">↑ 1개 vs 지난달</div></div>
+<div class="stat-card"><div class="l">총 참여자</div><div class="n o">8,294명</div><div class="delta up">↑ 15% vs 지난달</div></div>
+<div class="stat-card"><div class="l">정산 예정</div><div class="n g">4,280,000원</div><div class="delta">다음 정산: 04/10</div></div>
+</div>
+<div class="section">
+<div class="section-title">진행중인 공구<a href="#" style="font-size:13px;color:var(--t3);font-weight:500">전체보기 →</a></div>
+<div class="gugu-list">
+<div class="gl-item"><div class="gl-img">🧴</div><div class="gl-info"><div class="gl-name">레티날 0.1% 나이트 세럼</div><div class="gl-meta">4,812명 참여 · 82% 달성 · 2일 남음</div></div><span class="gl-status gl-live">🔴 LIVE</span><div class="gl-revenue">40,800원</div></div>
+<div class="gl-item"><div class="gl-img">💄</div><div class="gl-info"><div class="gl-name">롬앤 쥬시래스팅틴트 전색상</div><div class="gl-meta">3,291명 참여 · 89% 달성 · 1일 남음</div></div><span class="gl-status gl-live">🔴 LIVE</span><div class="gl-revenue">11,200원</div></div>
+<div class="gl-item"><div class="gl-img">✨</div><div class="gl-info"><div class="gl-name">엑소좀 앰플 + 크림 세트</div><div class="gl-meta">1,580명 참여 · 62% 달성 · 5일 남음</div></div><span class="gl-status gl-live">🔴 LIVE</span><div class="gl-revenue">75,000원</div></div>
+</div></div>
+<div class="section">
+<div class="section-title">최근 완료된 공구</div>
+<div class="gugu-list">
+<div class="gl-item"><div class="gl-img">🌿</div><div class="gl-info"><div class="gl-name">이니스프리 그린티 씨드 세럼</div><div class="gl-meta">6,102명 참여 · 100% 달성</div></div><span class="gl-status gl-done">종료</span><div class="gl-revenue" style="color:var(--green)">+6,840,000원</div></div>
+<div class="gl-item"><div class="gl-img">💊</div><div class="gl-info"><div class="gl-name">닥터지 레드 블레미쉬 크림</div><div class="gl-meta">4,231명 참여 · 100% 달성</div></div><span class="gl-status gl-done">종료</span><div class="gl-revenue" style="color:var(--green)">+3,920,000원</div></div>
+</div></div>
+</div></div>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon">🔔</span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

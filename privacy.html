@@ -1,69 +1,44 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 개인정보처리방침</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:70px}}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>개인정보처리방침 — GUGU.</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}.nav-title{font-size:16px;font-weight:700}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
+.wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px}
+.doc-title{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:8px}.doc-title em{color:var(--red);font-style:normal}
+.doc-meta{font-size:13px;color:var(--t2);margin-bottom:32px}
+.doc-section{margin-bottom:32px}.doc-section h2{font-size:17px;font-weight:800;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.doc-section p{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:10px}
+.doc-section ul{display:flex;flex-direction:column;gap:7px;padding-left:0;list-style:none}
+.doc-section ul li{font-size:14px;color:var(--t2);line-height:1.7;padding-left:14px;position:relative}.doc-section ul li::before{content:'·';position:absolute;left:0;color:var(--red)}
+strong{color:var(--t1)}
+.highlight-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px;margin:14px 0}.highlight-box p{font-size:13px;color:var(--t2);line-height:1.75;margin:0}.highlight-box strong{color:var(--green)}
+.data-table{width:100%;border-collapse:collapse;margin:14px 0;background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.data-table th{padding:11px 14px;font-size:12px;font-weight:700;color:var(--t3);background:var(--bg);text-align:left;border-bottom:1px solid var(--border)}
+.data-table td{padding:11px 14px;font-size:13px;color:var(--t2);border-bottom:1px solid var(--border)}.data-table tr:last-child td{border-bottom:none}
 
-.doc-wrap{padding:20px 16px}
-.doc-header{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--b1)}
-.doc-tag{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--r);text-transform:uppercase;margin-bottom:8px}
-.doc-title{font-size:24px;font-weight:800;margin-bottom:6px}
-.doc-date{font-size:12px;color:var(--t2)}
-.doc-section{margin-bottom:24px}
-.doc-section h2{font-size:15px;font-weight:800;margin-bottom:10px;padding-top:6px;border-top:1px solid var(--b1)}
-.doc-section p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:8px}
-.doc-section ul{padding-left:18px;margin-bottom:8px}
-.doc-section li{font-size:13px;color:var(--t2);line-height:1.8;list-style:disc;margin-bottom:4px}
-.info-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:12px;margin-bottom:8px}
-.ic-title{font-size:12px;font-weight:700;margin-bottom:4px}
-.ic-val{font-size:12px;color:var(--t2);line-height:1.6}
-
-</style>
-</head>
-<body>
-
-<div class="nav">
-  <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)" onclick="history.back()">←</div>
-  <div style="font-size:17px;font-weight:800;flex:1">개인정보처리방침</div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}.wrap{padding:20px 16px}input,select,textarea{font-size:16px!important}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a></div></nav>
+<div class="wrap">
+<div class="doc-title">개인정보<em>처리방침</em></div>
+<div class="doc-meta">시행일: 2026년 01월 01일 · 최종 수정: 2026년 04월 01일</div>
+<div class="highlight-box"><p><strong>GUGU.은 개인정보 보호를 중요하게 생각합니다.</strong> 본 방침은 개인정보보호법 등 관련 법령에 따라 수집하는 개인정보의 항목, 수집 및 이용 목적, 보유 기간 등을 안내합니다.</p></div>
+<div class="doc-section"><h2>1. 수집하는 개인정보 항목</h2>
+<table class="data-table"><thead><tr><th>구분</th><th>필수 항목</th><th>선택 항목</th></tr></thead><tbody>
+<tr><td>회원가입</td><td>이메일, 비밀번호, 닉네임</td><td>프로필 이미지, 생년월일</td></tr>
+<tr><td>공구 참여</td><td>배송지 주소, 수령인 이름, 연락처</td><td>배송 메모</td></tr>
+<tr><td>결제</td><td>결제수단 정보 (PG사 처리)</td><td>—</td></tr>
+</tbody></table></div>
+<div class="doc-section"><h2>2. 개인정보 수집 및 이용 목적</h2><ul><li>회원 관리: 회원 식별, 로그인, 계정 보안</li><li>서비스 제공: 공구 참여, 주문 처리, 배송, 결제</li><li>알림 서비스: 공구 오픈 알림, 마감 알림</li></ul></div>
+<div class="doc-section"><h2>6. 이용자의 권리</h2><ul><li>개인정보 열람·수정·삭제 요청</li><li>개인정보 처리 정지 요청</li><li>회원 탈퇴 (마이페이지 → 프로필 설정)</li></ul></div>
+<div class="doc-section"><h2>8. 개인정보 보호 책임자</h2><div class="highlight-box"><p><strong>개인정보 보호 책임자</strong><br>이름: GUGU 개인정보보호팀<br>이메일: privacy@gugu.kr<br>처리 기간: 영업일 3일 이내 답변</p></div></div>
 </div>
-<div class="doc-wrap">
-  <div class="doc-header">
-    <div class="doc-tag">Legal</div>
-    <div class="doc-title">개인정보처리방침</div>
-    <div class="doc-date">시행일: 2026년 1월 1일</div>
-  </div>
-  <div class="doc-section"><h2>1. 수집 항목</h2>
-    <div class="info-card"><div class="ic-title">회원가입 (필수)</div><div class="ic-val">이메일, 비밀번호, 닉네임, 휴대폰 번호</div></div>
-    <div class="info-card"><div class="ic-title">주문·결제</div><div class="ic-val">이름, 배송지, 휴대폰, 결제정보(암호화)</div></div>
-    <div class="info-card"><div class="ic-title">자동 수집</div><div class="ic-val">IP, 쿠키, 기기정보, 서비스 이용 이력</div></div>
-  </div>
-  <div class="doc-section"><h2>2. 수집 목적</h2><ul><li>회원 가입 및 서비스 제공</li><li>주문 처리, 배송, CS 응대</li><li>인플루언서 파트너 수익 정산</li><li>서비스 개선 및 통계 분석</li></ul></div>
-  <div class="doc-section"><h2>3. 보유 기간</h2><ul><li>회원 정보: 탈퇴 시까지</li><li>주문·결제: 5년 (전자상거래법)</li><li>CS 상담: 3년</li></ul></div>
-  <div class="doc-section"><h2>8. 개인정보 보호 문의</h2><p>이메일: privacy@gugu.kr<br>운영 시간: 평일 09:00~18:00</p></div>
-</div>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0px)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="index.html"><span style="font-size:20px;line-height:1">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="category.html"><span style="font-size:20px;line-height:1">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="search.html"><span style="font-size:20px;line-height:1">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="notifications.html"><span style="font-size:20px;line-height:1">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="mypage.html"><span style="font-size:20px;line-height:1">👤</span>마이</a>
-</nav>
-</body>
-</html>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

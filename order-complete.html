@@ -1,151 +1,72 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 주문 완료</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 결제완료</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:66px}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid var(--b1)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;flex:1}
-.nav-logo em{color:var(--r);font-style:normal}
-
-/* 완료 헤더 */
-.complete-hero{text-align:center;padding:40px 24px 28px}
-.ch-anim{width:80px;height:80px;border-radius:50%;background:rgba(34,197,94,.12);border:2px solid rgba(34,197,94,.3);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px;animation:pop .4s ease}
-@keyframes pop{0%{transform:scale(.6);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
-.ch-title{font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
-.ch-sub{font-size:14px;color:var(--t2);line-height:1.6}
-
-/* 주문 요약 */
-.order-card{margin:0 16px 12px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;overflow:hidden}
-.oc-header{padding:14px 16px;border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center}
-.oc-num{font-size:12px;color:var(--t2)}
-.oc-num strong{color:var(--t);font-weight:700}
-.oc-amount{font-size:14px;font-weight:800;color:var(--r)}
-.oc-item{display:flex;align-items:center;gap:12px;padding:14px 16px}
-.oci-img{width:48px;height:48px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.oci-info{flex:1}
-.oci-name{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.3}
-.oci-meta{font-size:11px;color:var(--t2)}
-.oc-delivery{padding:12px 16px;background:rgba(99,102,241,.04);border-top:1px solid var(--b1);font-size:12px;color:var(--t2);display:flex;align-items:center;gap:6px}
-
-/* 배송 트래킹 */
-.tracking-card{margin:0 16px 12px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px}
-.tc-title{font-size:13px;font-weight:800;margin-bottom:16px;color:var(--t)}
-.track-steps{display:flex;align-items:center}
-.ts{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
-.ts-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;z-index:1}
-.ts-dot.done{background:var(--r);color:#fff}
-.ts-dot.now{background:var(--s1);border:2px solid var(--r);color:var(--r)}
-.ts-dot.idle{background:var(--s2);border:1px solid var(--b1);color:var(--t3)}
-.ts-label{font-size:9px;color:var(--t3);text-align:center;white-space:nowrap}
-.ts-label.done{color:var(--t2)}.ts-label.now{color:var(--r);font-weight:700}
-.ts-line{flex:1;height:2px;background:var(--b1);margin:0 -2px;margin-top:-21px}
-.ts-line.done{background:var(--r)}
-
-/* 버튼 행 */
-.btn-row{display:flex;gap:10px;padding:0 16px;margin-bottom:16px}
-.brow-btn{flex:1;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:1px solid var(--b1);background:none;color:var(--t2)}
-.brow-btn.r{background:var(--r);border-color:var(--r);color:#fff}
-
-/* 추천 상품 */
-.rec-section{padding:0 0 8px}
-.rec-title{font-size:15px;font-weight:800;padding:0 16px 10px}
-.rec-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px}
-.rec-scroll::-webkit-scrollbar{display:none}
-.rcard{flex-shrink:0;width:140px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;overflow:hidden;cursor:pointer}
-.rc-img{height:110px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:42px}
-.rc-body{padding:10px}
-.rc-inf{font-size:10px;color:var(--t2);margin-bottom:3px}
-.rc-name{font-size:12px;font-weight:700;line-height:1.3;margin-bottom:5px;min-height:30px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.rc-sale{font-size:14px;font-weight:800}
-.rc-disc{font-size:10px;color:var(--r);font-weight:700;margin-left:3px}
-
-/* 하단 탭바 */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:var(--t3);text-decoration:none;font-size:10px;font-weight:600}
-.bn-icon{font-size:20px;line-height:1}
-</style>
-</head>
-<body>
-<div class="nav">
-  <div class="nav-logo">GUGU<em>.</em></div>
-</div>
-
-<div class="complete-hero">
-  <div class="ch-anim">🎉</div>
-  <div class="ch-title">주문이 완료됐어요!</div>
-  <div class="ch-sub">공구 마감 후 2~3 영업일 내 발송돼요<br>발송 시작 시 알림으로 알려드릴게요 📦</div>
-</div>
-
-<!-- 주문 요약 -->
-<div class="order-card">
-  <div class="oc-header">
-    <div class="oc-num">주문번호 <strong>GG-20260409-4821</strong></div>
-    <div class="oc-amount">40,800원</div>
+*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;min-height:100vh;display:flex;flex-direction:column}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.steps{display:flex;align-items:center;gap:0;margin-left:40px}.step{display:flex;align-items:center;gap:6px;font-size:12px}
+.step-c{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.step.done .step-c{background:var(--green);color:#fff}.step.active .step-c{background:var(--red);color:#fff}
+.step.done .step-l{color:var(--green)}.step.active .step-l{color:var(--t1);font-weight:600}
+.step-line{width:32px;height:1px;background:var(--green);margin:0 6px}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.box{width:100%;max-width:560px}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--green-light);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.success-title{font-size:24px;font-weight:800;text-align:center;margin-bottom:6px}
+.success-sub{font-size:14px;color:var(--t2);text-align:center;margin-bottom:28px}
+.order-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.order-card-title{font-size:13px;color:var(--t2);margin-bottom:14px;font-weight:500}
+.order-product{display:flex;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.order-img{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#FFF1F2,#FEE2E2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.order-name{font-size:14px;font-weight:600;margin-bottom:4px}.order-opt{font-size:12px;color:var(--t2);margin-bottom:4px}.order-price{font-size:14px;font-weight:700;color:var(--red)}
+.info-list{display:flex;flex-direction:column;gap:10px}
+.info-item{display:flex;justify-content:space-between;font-size:13px}.info-item .k{color:var(--t2)}.info-item .v{font-weight:500}.info-item .v.green{color:var(--green);font-weight:700}
+.track-bar{background:var(--bg);border-radius:12px;padding:16px;margin-top:16px}
+.track-steps{display:flex;align-items:flex-start}
+.t-step{flex:1;text-align:center;position:relative}
+.t-step-dot{width:20px;height:20px;border-radius:50%;background:var(--border);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:9px;position:relative;z-index:1}
+.t-step.done .t-step-dot{background:var(--green);color:#fff}.t-step.current .t-step-dot{background:var(--orange);color:#fff;box-shadow:0 0 0 3px rgba(249,115,22,.2)}
+.t-step-line{position:absolute;top:10px;left:50%;width:100%;height:1px;background:var(--border);z-index:0}.t-step.done .t-step-line{background:var(--green)}
+.t-step:last-child .t-step-line{display:none}
+.t-step-label{font-size:10px;color:var(--t3)}.t-step.done .t-step-label,.t-step.current .t-step-label{color:var(--t1)}
+.btn-row{display:flex;gap:10px;margin-top:4px}
+.btn-p{flex:1;padding:14px;border-radius:14px;border:none;background:var(--red);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(239,68,68,.2)}
+.btn-sec{flex:1;padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--white);color:var(--t1);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}.steps{display:none}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}input,select,textarea{font-size:16px!important}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a>
+<div class="steps"><div class="step done"><div class="step-c">✓</div><span class="step-l">장바구니</span></div><div class="step-line"></div><div class="step done"><div class="step-c">✓</div><span class="step-l">주문/결제</span></div><div class="step-line"></div><div class="step active"><div class="step-c">✓</div><span class="step-l">완료</span></div></div>
+</div></nav>
+<div class="main"><div class="box">
+  <div class="success-icon">✓</div>
+  <div class="success-title">결제가 완료됐어요!</div>
+  <div class="success-sub">공구 마감 후 배송이 시작돼요. 마이페이지에서 배송 현황을 확인하세요.</div>
+  <div class="order-card"><div class="order-card-title">주문 상품</div>
+    <div class="order-product"><div class="order-img">🧴</div><div><div class="order-name">닥터자르트 시카페어 크림 50ml</div><div class="order-opt">지민뷰티 공구 · 50ml · 1개</div><div class="order-price">31,900원</div></div></div>
+    <div class="info-list">
+      <div class="info-item"><span class="k">주문번호</span><span class="v">GG-2026040301</span></div>
+      <div class="info-item"><span class="k">결제 수단</span><span class="v">신용카드</span></div>
+      <div class="info-item"><span class="k">결제 금액</span><span class="v green">31,900원</span></div>
+      <div class="info-item"><span class="k">배송지</span><span class="v">서울특별시 강남구 테헤란로 152</span></div>
+      <div class="info-item"><span class="k">예상 배송</span><span class="v">공구 마감 후 3~5일 이내</span></div>
+    </div>
+    <div class="track-bar"><div class="track-steps">
+      <div class="t-step done"><div class="t-step-line"></div><div class="t-step-dot">✓</div><div class="t-step-label">주문완료</div></div>
+      <div class="t-step current"><div class="t-step-line"></div><div class="t-step-dot">·</div><div class="t-step-label">공구진행</div></div>
+      <div class="t-step"><div class="t-step-line"></div><div class="t-step-dot"></div><div class="t-step-label">배송준비</div></div>
+      <div class="t-step"><div class="t-step-line"></div><div class="t-step-dot"></div><div class="t-step-label">배송중</div></div>
+      <div class="t-step"><div class="t-step-line"></div><div class="t-step-dot"></div><div class="t-step-label">배송완료</div></div>
+    </div></div>
   </div>
-  <div class="oc-item">
-    <div class="oci-img">🧴</div>
-    <div class="oci-info">
-      <div class="oci-name">레티날 0.1% 나이트 세럼 30ml 단독 특가</div>
-      <div class="oci-meta">지민뷰티 공구 · 30ml × 1 · 무료배송</div>
-    </div>
+  <div class="btn-row" style="margin-bottom:28px">
+    <button class="btn-sec" onclick="location.href='mypage.html'">주문내역 보기</button>
+    <button class="btn-p" onclick="location.href='index.html'">계속 쇼핑하기</button>
   </div>
-  <div class="oc-delivery">📍 서울 마포구 서교동 · CJ대한통운 예정</div>
-</div>
-
-<!-- 배송 단계 -->
-<div class="tracking-card">
-  <div class="tc-title">배송 현황</div>
-  <div class="track-steps">
-    <div class="ts"><div class="ts-dot done">✓</div><div class="ts-line done"></div><div class="ts-label done">주문완료</div></div>
-    <div class="ts"><div class="ts-dot done">✓</div><div class="ts-line done"></div><div class="ts-label done">결제완료</div></div>
-    <div class="ts"><div class="ts-dot now">📦</div><div class="ts-line"></div><div class="ts-label now">발송준비</div></div>
-    <div class="ts"><div class="ts-dot idle">🚚</div><div class="ts-line"></div><div class="ts-label">배송중</div></div>
-    <div class="ts"><div class="ts-dot idle">✅</div><div class="ts-label">배송완료</div></div>
-  </div>
-</div>
-
-<!-- 버튼 -->
-<div class="btn-row">
-  <button class="brow-btn" onclick="location.href='mypage.html'">주문 내역 보기</button>
-  <button class="brow-btn r" onclick="location.href='index.html'">계속 쇼핑 →</button>
-</div>
-
-<!-- 추천 상품 -->
-<div class="rec-section">
-  <div class="rec-title">함께 많이 구매해요</div>
-  <div class="rec-scroll">
-    <div class="rcard" onclick="location.href='product-detail.html'">
-      <div class="rc-img" style="background:linear-gradient(135deg,#100508,#180a0e)">💄</div>
-      <div class="rc-body"><div class="rc-inf">지민뷰티</div><div class="rc-name">엑소좀 앰플 + 크림 세트</div><span class="rc-sale">75,000원</span><span class="rc-disc">-40%</span></div>
-    </div>
-    <div class="rcard" onclick="location.href='product-detail.html'">
-      <div class="rc-img" style="background:linear-gradient(135deg,#050514,#0a0a20)">💊</div>
-      <div class="rc-body"><div class="rc-inf">건강언니</div><div class="rc-name">저분자 콜라겐 스틱 30포</div><span class="rc-sale">39,000원</span><span class="rc-disc">-35%</span></div>
-    </div>
-    <div class="rcard" onclick="location.href='product-detail.html'">
-      <div class="rc-img" style="background:linear-gradient(135deg,#0a1000,#0f1800)">💪</div>
-      <div class="rc-body"><div class="rc-inf">머슬박사</div><div class="rc-name">제로슈거 웨이프로틴 2kg</div><span class="rc-sale">53,400원</span><span class="rc-disc">-40%</span></div>
-    </div>
-    <div class="rcard" onclick="location.href='product-detail.html'">
-      <div class="rc-img" style="background:linear-gradient(135deg,#100505,#1c0808)">🌸</div>
-      <div class="rc-body"><div class="rc-inf">채링이</div><div class="rc-name">이니스프리 그린티 씨드 세럼</div><span class="rc-sale">22,800원</span><span class="rc-disc">-40%</span></div>
-    </div>
-  </div>
-</div>
-
-<nav class="bottom-nav">
-  <a class="bn-item" href="index.html"><span class="bn-icon">🏠</span>홈</a>
-  <a class="bn-item" href="category.html"><span class="bn-icon">🔍</span>탐색</a>
-  <a class="bn-item" href="search.html"><span class="bn-icon">⌕</span>검색</a>
-  <a class="bn-item" href="notifications.html"><span class="bn-icon">🔔</span>알림</a>
-  <a class="bn-item" href="mypage.html"><span class="bn-icon">👤</span>마이</a>
-</nav>
-</body>
-</html>
+</div></div>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon">🔔</span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

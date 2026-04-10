@@ -1,77 +1,59 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 고객센터</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden}
-body{padding-top:52px;padding-bottom:70px}}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 고객센터</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}.nav-title{font-size:16px;font-weight:700}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
+.hero{background:var(--white);border-bottom:1px solid var(--border);padding:40px 24px;text-align:center}
+.hero-title{font-size:24px;font-weight:800;margin-bottom:8px}.hero-sub{font-size:14px;color:var(--t2);margin-bottom:20px}
+.search-box{max-width:480px;margin:0 auto;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:8px}
+.search-box input{background:none;border:none;outline:none;color:var(--t1);font-size:15px;font-family:inherit;width:100%}.search-box input::placeholder{color:var(--t3)}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:28px}
+.sidebar-nav{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;height:fit-content}
+.sn-item{padding:13px 18px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--t2);transition:.15s}.sn-item:last-child{border-bottom:none}
+.sn-item:hover{background:var(--bg);color:var(--t1)}.sn-item.active{color:var(--t1);background:var(--bg);border-left:3px solid var(--red);font-weight:600}
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;cursor:pointer;font-size:14px;font-weight:500;transition:.15s}.faq-q:hover{background:var(--bg)}
+.faq-q .q-icon{color:var(--red);font-weight:700;margin-right:10px}.faq-q .arrow{color:var(--t3);font-size:16px;transition:.2s}.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 18px 16px 42px;font-size:13px;color:var(--t2);line-height:1.7;border-top:1px solid var(--border)}.faq-a.open{display:block}
+.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.contact-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center}
+.cc-icon{font-size:28px;margin-bottom:10px}.cc-title{font-size:14px;font-weight:600;margin-bottom:4px}.cc-desc{font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6}
+.cc-btn{padding:10px 20px;border-radius:10px;border:1px solid var(--border);background:var(--white);color:var(--t1);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}.cc-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.section-title{font-size:16px;font-weight:700;margin-bottom:16px}
 
-.wrap{padding:16px}
-.help-hero{background:var(--s1);border-radius:14px;padding:20px;text-align:center;margin-bottom:16px}
-.hh-icon{font-size:40px;margin-bottom:10px}
-.hh-title{font-size:18px;font-weight:800;margin-bottom:6px}
-.hh-sub{font-size:13px;color:var(--t2)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.ccard{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px;text-align:center;cursor:pointer}
-.cc-icon{font-size:28px;margin-bottom:8px}
-.cc-title{font-size:13px;font-weight:700;margin-bottom:3px}
-.cc-sub{font-size:11px;color:var(--t2)}
-.faq-title{font-size:15px;font-weight:800;margin-bottom:12px}
-.faq-item{background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin-bottom:8px;overflow:hidden}
-.faq-q{display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer}
-.faq-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,59,59,.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.faq-qtext{font-size:13px;font-weight:600;flex:1;line-height:1.35}
-.faq-arr{color:var(--t3);font-size:16px;transition:.2s}
-.faq-item.open .faq-arr{transform:rotate(90deg)}
-.faq-a{display:none;padding:0 14px 14px;padding-left:52px;font-size:13px;color:var(--t2);line-height:1.7}
-.faq-item.open .faq-a{display:block}
-
-</style>
-</head>
-<body>
-
-<div class="nav">
-  <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)" onclick="history.back()">←</div>
-  <div style="font-size:17px;font-weight:800;flex:1">고객센터</div>
-</div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}.wrap{padding:20px 16px}input,select,textarea{font-size:16px!important}}
+.layout{gap:16px}@media(max-width:768px){.layout{grid-template-columns:1fr}.sidebar-nav{display:flex;overflow-x:auto;border-radius:10px}.sidebar-nav::-webkit-scrollbar{display:none}.sn-item{white-space:nowrap;border-bottom:none!important}.contact-cards{grid-template-columns:1fr}.hero{padding:24px 16px}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a><div class="nav-right"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button></div></div></nav>
+<div class="hero"><div class="hero-title">무엇을 도와드릴까요?</div><div class="hero-sub">자주 묻는 질문이나 문의 사항을 검색해보세요</div><div class="search-box"><span style="color:var(--t3);font-size:18px">⌕</span><input type="text" placeholder="배송, 환불, 공구 참여 방법 등 검색"></div></div>
 <div class="wrap">
-  <div class="help-hero">
-    <div class="hh-icon">💬</div>
-    <div class="hh-title">무엇을 도와드릴까요?</div>
-    <div class="hh-sub">평일 09:00~18:00 · 주말/공휴일 휴무</div>
-  </div>
-  <div class="contact-grid">
-    <div class="ccard"><div class="cc-icon">💬</div><div class="cc-title">카카오 채널</div><div class="cc-sub">평균 응답 2시간</div></div>
-    <div class="ccard"><div class="cc-icon">📧</div><div class="cc-title">이메일 문의</div><div class="cc-sub">help@gugu.kr</div></div>
-  </div>
-  <div class="faq-title">자주 묻는 질문</div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-icon">📦</div><div class="faq-qtext">공구 마감 후 얼마나 기다려야 하나요?</div><div class="faq-arr">›</div></div><div class="faq-a">공구 마감 후 셀러 발송 준비 기간을 거쳐 2~5 영업일 내 발송됩니다. 발송 시작 시 카카오 알림톡으로 안내드려요.</div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-icon">💳</div><div class="faq-qtext">결제 취소는 어떻게 하나요?</div><div class="faq-arr">›</div></div><div class="faq-a">공구 마감 24시간 전까지 마이페이지 → 주문 내역에서 직접 취소 가능해요. 마감 이후에는 고객센터로 문의해주세요.</div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-icon">🔄</div><div class="faq-qtext">반품·교환은 어떻게 신청하나요?</div><div class="faq-arr">›</div></div><div class="faq-a">수령 후 7일 이내 마이페이지 → 주문 내역 → 반품/교환 신청에서 접수해주세요. 상품 불량·오배송은 무상 처리됩니다.</div></div>
-  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-icon">✨</div><div class="faq-qtext">인플루언서 파트너는 어떻게 신청하나요?</div><div class="faq-arr">›</div></div><div class="faq-a">마이페이지 → 인플루언서 신청 또는 하단 메뉴에서 신청 가능해요. 심사 후 영업일 3일 이내 결과 안내드려요.</div></div>
+<div class="layout">
+<div class="sidebar-nav"><div class="sn-item active">전체</div><div class="sn-item">공구/주문</div><div class="sn-item">배송</div><div class="sn-item">결제/환불</div><div class="sn-item">회원/계정</div><div class="sn-item">인플루언서</div></div>
+<div>
+<div class="section-title">자주 묻는 질문</div>
+<div class="faq-list">
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>공구 참여 후 취소할 수 있나요?</span><span class="arrow">▾</span></div><div class="faq-a">공구 마감 전까지는 취소가 가능해요. 마이페이지 > 주문내역에서 취소 신청을 하시면 돼요.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>배송은 언제 시작되나요?</span><span class="arrow">▾</span></div><div class="faq-a">공구 마감 이후 셀러가 상품을 준비하고 발송해요. 일반적으로 공구 마감 후 3~5일 이내에 배송이 시작돼요.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>환불/반품은 어떻게 하나요?</span><span class="arrow">▾</span></div><div class="faq-a">상품 수령 후 7일 이내에 마이페이지 > 주문내역 > 반품/교환 신청을 통해 접수하실 수 있어요.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>목표 인원에 미달되면 어떻게 되나요?</span><span class="arrow">▾</span></div><div class="faq-a">기본적으로 진행돼요. 단, 최소 인원이 설정된 경우 미달 시 자동으로 취소되고 전액 환불돼요.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-icon">Q</span>인플루언서로 활동하고 싶어요</span><span class="arrow">▾</span></div><div class="faq-a">인플루언서 신청 페이지에서 신청하시면 돼요. 검토 후 승인 메일을 발송해드려요.</div></div>
 </div>
-<script>function toggleFaq(el){el.closest('.faq-item').classList.toggle('open')}</script>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-
-<nav style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(10,10,10,.97);border-top:1px solid #242428;display:flex;padding-bottom:env(safe-area-inset-bottom,0px)">
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="index.html"><span style="font-size:20px;line-height:1">🏠</span>홈</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="category.html"><span style="font-size:20px;line-height:1">🔍</span>탐색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="search.html"><span style="font-size:20px;line-height:1">⌕</span>검색</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="notifications.html"><span style="font-size:20px;line-height:1">🔔</span>알림</a>
-  <a style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600;white-space:nowrap" href="mypage.html"><span style="font-size:20px;line-height:1">👤</span>마이</a>
-</nav>
-</body>
-</html>
+<div class="contact-cards">
+<div class="contact-card"><div class="cc-icon">💬</div><div class="cc-title">채팅 상담</div><div class="cc-desc">평일 오전 9시 ~ 오후 6시<br>실시간 채팅으로 빠르게</div><button class="cc-btn primary">채팅 시작</button></div>
+<div class="contact-card"><div class="cc-icon">📧</div><div class="cc-title">이메일 문의</div><div class="cc-desc">24시간 접수 가능<br>1일 이내 답변</div><button class="cc-btn">문의하기</button></div>
+<div class="contact-card"><div class="cc-icon">📞</div><div class="cc-title">전화 상담</div><div class="cc-desc">02-1234-5678<br>평일 오전 9시 ~ 오후 6시</div><button class="cc-btn">전화하기</button></div>
+</div></div></div></div>
+<script>
+function toggleFaq(el){const a=el.nextElementSibling;const o=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));document.querySelectorAll('.faq-q').forEach(x=>x.classList.remove('open'));if(!o){a.classList.add('open');el.classList.add('open')}}
+document.querySelectorAll('.sn-item').forEach(i=>i.addEventListener('click',function(){document.querySelectorAll('.sn-item').forEach(x=>x.classList.remove('active'));this.classList.add('active')}))
+</script>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>

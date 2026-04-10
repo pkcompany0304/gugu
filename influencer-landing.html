@@ -1,81 +1,91 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GUGU. — 인플루언서 파트너</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0A0A0A;--s1:#111114;--s2:#181818;--b1:#242428;--r:#FF3B3B;--o:#FF8A00;--g:#22c55e;--bl:#6366f1;--t:#F2F2F5;--t2:#8a8a9a;--t3:#464650}
-html,body{background:var(--bg);color:var(--t);font-family:'Noto Sans KR',sans-serif;font-size:14px;overflow-x:hidden;min-height:100vh}
-body{padding-top:52px;padding-bottom:70px}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);height:52px;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--b1)}
-.nb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;color:var(--t2)}
-.nt{font-size:17px;font-weight:800;flex:1}
-.bna{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.97);border-top:1px solid var(--b1);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;color:#464650;text-decoration:none;font-size:10px;font-weight:600}
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GUGU. — 인플루언서 공구 전용 플랫폼</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#F8F8F7;--white:#FFF;--border:#E8E8E8;--border2:#D8D8D8;--red:#EF4444;--red-light:#FEF2F2;--orange:#F97316;--green:#10B981;--green-light:#ECFDF5;--blue:#6366F1;--blue-light:#EEF2FF;--t1:#111;--t2:#6B7280;--t3:#9CA3AF;--shadow-md:0 4px 12px rgba(0,0,0,.07);--r:16px}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6}a{text-decoration:none;color:inherit}
+nav:not(.mob-bottom-nav){position:sticky;top:0;z-index:500;background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;height:60px;gap:16px}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--t1)}.logo em{color:var(--red);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:.15s}
+.btn-outline{background:var(--white);border:1px solid var(--border);color:var(--t1)}.btn-primary{background:var(--red);color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
+.sec{padding:80px 24px}.sec-inner{max-width:1120px;margin:0 auto}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--red);margin-bottom:10px;text-transform:uppercase}
+.sec-title{font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:12px;line-height:1.25}
+.sec-sub{font-size:15px;color:var(--t2);line-height:1.75;max-width:560px;margin-bottom:40px}
+.red{color:var(--red)}.green{color:var(--green)}.orange{color:var(--orange)}
+.hero-sec{background:linear-gradient(135deg,#FFF1F2,#FEE2E2,#FFF7ED);border-bottom:1px solid var(--border)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero-title{font-family:'Plus Jakarta Sans','Noto Sans KR',sans-serif;font-size:48px;font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:16px}
+.hero-desc{font-size:16px;color:var(--t2);line-height:1.75;margin-bottom:28px}
+.hero-stats{display:flex;gap:28px;margin-bottom:28px}.hs .n{font-size:28px;font-weight:800}.hs .l{font-size:12px;color:var(--t3);margin-top:2px}
+.hero-btns{display:flex;gap:10px}.btn-lg{padding:16px 32px;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;border:none;transition:.2s}
+.btn-lg-red{background:var(--red);color:#fff;box-shadow:0 4px 14px rgba(239,68,68,.25)}.btn-lg-ghost{background:var(--white);border:1px solid var(--border);color:var(--t1)}
+.hero-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:32px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
+.hc-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.hc-stat{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}.hc-stat:last-child{border-bottom:none}
+.hc-stat .k{font-size:13px;color:var(--t2)}.hc-stat .v{font-size:16px;font-weight:800}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;transition:.2s}.feat:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.feat-icon{font-size:36px;margin-bottom:12px}.feat-title{font-size:15px;font-weight:700;margin-bottom:6px}.feat-desc{font-size:13px;color:var(--t2);line-height:1.6}
+.compare-table{width:100%;background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.compare-table th{padding:14px;font-size:13px;font-weight:700;text-align:left;background:var(--bg);border-bottom:1px solid var(--border)}
+.compare-table td{padding:14px;font-size:13px;color:var(--t2);border-bottom:1px solid var(--border)}.compare-table tr:last-child td{border-bottom:none}
+.compare-table .highlight{background:var(--red-light);color:var(--red);font-weight:700}
+.cta-sec{background:linear-gradient(135deg,#FFF1F2,#FEE2E2);border-top:1px solid var(--border)}
+.cta-box{text-align:center;max-width:600px;margin:0 auto}
 
-.hero{background:linear-gradient(170deg,#160303,#0d0d0d);padding:32px 20px;text-align:center}
-.h-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.2);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--r);margin-bottom:16px}
-.h-title{font-family:"Bebas Neue",sans-serif;font-size:42px;letter-spacing:2px;line-height:1;margin-bottom:10px}
-.h-title em{color:var(--r);font-style:normal}
-.h-sub{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:24px}
-.h-cta{display:flex;flex-direction:column;gap:10px}
-.h-btn{padding:14px;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;border:none}
-.h-btn.r{background:var(--r);color:#fff}
-.h-btn.o{background:none;border:1px solid var(--b1);color:var(--t2)}
-.benefit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
-.bcard{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px;text-align:center}
-.bc-num{font-size:20px;font-weight:900;color:var(--r);margin-bottom:4px}
-.bc-label{font-size:11px;color:var(--t2)}
-.section{padding:20px 16px}
-.section-title{font-size:20px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
-.section-sub{font-size:13px;color:var(--t2);margin-bottom:16px;line-height:1.6}
-.process-list{display:flex;flex-direction:column;gap:12px}
-.pitem{display:flex;align-items:flex-start;gap:14px;background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:16px}
-.p-num{width:28px;height:28px;border-radius:50%;background:var(--r);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.p-text h4{font-size:14px;font-weight:700;margin-bottom:3px}
-.p-text p{font-size:12px;color:var(--t2);line-height:1.5}
-
-</style>
-</head>
-<body>
-
-<div class="nav"><div class="nb" onclick="history.back()">←</div><div class="nt">인플루언서 파트너</div></div>
-<div class="hero">
-  <div class="h-badge">✨ 인플루언서 파트너 모집 중</div>
-  <div class="h-title">제품만<br>골라오세요<br><em>나머지는 GUGU</em></div>
-  <div class="h-sub">정산·CS·페이지 제작 — 공구의 모든 귀찮음을 없애드려요</div>
-  <div class="h-cta">
-    <button class="h-btn r" onclick="location.href='influencer-apply.html'">지금 신청하기 →</button>
-    <button class="h-btn o" onclick="location.href='influencer-dashboard.html'">대시보드 미리보기</button>
-  </div>
+.mob-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);border-top:1px solid var(--border);z-index:500;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.mbn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;font-size:10px;color:var(--t3);font-weight:600}.mbn-item:hover,.mbn-item.on{color:var(--red)}.mbn-icon{font-size:20px;line-height:1}.mbn-label{font-size:10px}
+.mbn-badge{position:absolute;top:-2px;right:-6px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--white)}
+@media(max-width:768px){body{padding-bottom:62px}.mob-bottom-nav{display:flex}nav:not(.mob-bottom-nav) .nav-inner{padding:0 16px}.wrap{padding:20px 16px}input,select,textarea{font-size:16px!important}}
+@media(max-width:768px){.hero-grid{grid-template-columns:1fr}.hero-title{font-size:32px}.feature-grid{grid-template-columns:1fr}.hero-btns{flex-direction:column}.btn-lg{width:100%;text-align:center}.sec{padding:48px 16px}.compare-table{display:block;overflow-x:auto}}
+</style></head><body>
+<nav><div class="nav-inner"><a class="logo" href="index.html">GUGU<em>.</em></a><div class="nav-right"><button class="btn btn-outline" onclick="location.href='login.html'">로그인</button><button class="btn btn-primary" onclick="location.href='login.html'">시작하기</button></div></div></nav>
+<div class="sec hero-sec"><div class="sec-inner"><div class="hero-grid">
+<div>
+<div class="sec-tag">GUGU FOR INFLUENCERS</div>
+<div class="hero-title">공구, 이제<br><span class="red">3분이면</span> 열어요</div>
+<div class="hero-desc">DM으로 주문 받고 엑셀 정리하느라 12시간? GUGU에서 3분이면 전문 공구 페이지가 완성돼요.</div>
+<div class="hero-stats"><div class="hs"><div class="n">1,247</div><div class="l">활동 인플루언서</div></div><div class="hs"><div class="n">5%</div><div class="l">수수료 (3개월 0%)</div></div><div class="hs"><div class="n">7일</div><div class="l">자동 정산</div></div></div>
+<div class="hero-btns"><button class="btn-lg btn-lg-red" onclick="location.href='influencer-apply.html'">파트너 신청하기 →</button><button class="btn-lg btn-lg-ghost">자세히 알아보기</button></div>
 </div>
-<div class="benefit-row">
-  <div class="bcard"><div class="bc-num">5%</div><div class="bc-label">수수료만</div></div>
-  <div class="bcard"><div class="bc-num">3개월</div><div class="bc-label">수수료 0%</div></div>
-  <div class="bcard"><div class="bc-num">0원</div><div class="bc-label">입점비</div></div>
+<div class="hero-card"><div class="hc-title">🧮 수익 시뮬레이션</div>
+<div class="hc-stat"><span class="k">팔로워 수</span><span class="v">50,000명</span></div>
+<div class="hc-stat"><span class="k">공구 참여율 (평균)</span><span class="v">3.2%</span></div>
+<div class="hc-stat"><span class="k">예상 참여자</span><span class="v">1,600명</span></div>
+<div class="hc-stat"><span class="k">평균 객단가</span><span class="v">45,000원</span></div>
+<div class="hc-stat"><span class="k">예상 매출</span><span class="v" style="color:var(--red)">72,000,000원</span></div>
+<div class="hc-stat"><span class="k">GUGU 수수료 (5%)</span><span class="v">3,600,000원</span></div>
+<div class="hc-stat"><span class="k">내 수익</span><span class="v" style="color:var(--green);font-size:20px">68,400,000원</span></div>
 </div>
-<div class="section">
-  <div class="section-title">어떻게 진행되나요?</div>
-  <div class="section-sub">4단계만 따라오세요</div>
-  <div class="process-list">
-    <div class="pitem"><div class="p-num">1</div><div class="p-text"><h4>셀러 섭외</h4><p>마음에 드는 제품 셀러와 가격 협의</p></div></div>
-    <div class="pitem"><div class="p-num">2</div><div class="p-text"><h4>GUGU에 등록</h4><p>정보 입력하면 공구 페이지 자동 생성</p></div></div>
-    <div class="pitem"><div class="p-num">3</div><div class="p-text"><h4>SNS 링크 공유</h4><p>팔로워에게 링크만 공유하면 끝</p></div></div>
-    <div class="pitem"><div class="p-num">4</div><div class="p-text"><h4>정산 자동 입금</h4><p>마감 후 5 영업일 내 자동 정산</p></div></div>
-  </div>
-</div>
-<div style="padding:16px 20px 24px">
-  <button onclick="location.href='influencer-apply.html'" style="width:100%;padding:15px;border-radius:12px;background:var(--r);border:none;color:#fff;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer">파트너 신청하기 →</button>
-</div>
-<nav class="bna">
-  <a class="bi" href="index.html"><span style="font-size:20px">🏠</span>홈</a>
-  <a class="bi" href="category.html"><span style="font-size:20px">🔍</span>탐색</a>
-  <a class="bi" href="search.html"><span style="font-size:20px">⌕</span>검색</a>
-  <a class="bi" href="notifications.html"><span style="font-size:20px">🔔</span>알림</a>
-  <a class="bi" href="mypage.html"><span style="font-size:20px">👤</span>마이</a>
-</nav>
-</body>
-</html>
+</div></div></div>
+<div class="sec"><div class="sec-inner">
+<div class="sec-tag">WHY GUGU</div>
+<div class="sec-title">왜 <span class="red">GUGU</span>인가요?</div>
+<div class="sec-sub">DM 주문, 엑셀 정리, 정산 지연... 공구의 모든 고통을 없앴어요.</div>
+<div class="feature-grid">
+<div class="feat"><div class="feat-icon">⚡</div><div class="feat-title">3분 공구 오픈</div><div class="feat-desc">상품 선택 → 할인율 설정 → 기간 설정. 끝. 전문 공구 페이지가 자동 생성돼요.</div></div>
+<div class="feat"><div class="feat-icon">💰</div><div class="feat-title">업계 최저 수수료</div><div class="feat-desc">단 5%. 첫 3개월은 0%. 핫트(30~40%)와 비교해보세요.</div></div>
+<div class="feat"><div class="feat-icon">📊</div><div class="feat-title">실시간 대시보드</div><div class="feat-desc">참여자 수, 매출, 전환율을 실시간으로 확인하세요.</div></div>
+<div class="feat"><div class="feat-icon">🏦</div><div class="feat-title">7일 자동 정산</div><div class="feat-desc">공구 마감 후 7영업일 이내 자동 정산. 지연 시 선정산.</div></div>
+<div class="feat"><div class="feat-icon">🛡️</div><div class="feat-title">CS 전담 처리</div><div class="feat-desc">주문, 배송, 반품 CS를 GUGU가 1차 처리해요.</div></div>
+<div class="feat"><div class="feat-icon">🔗</div><div class="feat-title">셀러 매칭</div><div class="feat-desc">원하는 상품이 있으면 GUGU가 셀러를 연결해드려요.</div></div>
+</div></div></div>
+<div class="sec" style="background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)"><div class="sec-inner">
+<div class="sec-tag">COMPARISON</div>
+<div class="sec-title">경쟁사와 비교해보세요</div>
+<table class="compare-table"><thead><tr><th></th><th class="highlight">GUGU</th><th>핫트</th><th>셀럽션</th><th>직접 운영</th></tr></thead><tbody>
+<tr><td>수수료</td><td class="highlight">5% (3개월 0%)</td><td>30~40%</td><td>15~20%</td><td>0%</td></tr>
+<tr><td>오픈 소요시간</td><td class="highlight">3분</td><td>3~5일</td><td>1~2일</td><td>12시간+</td></tr>
+<tr><td>정산</td><td class="highlight">7일 자동</td><td>30일</td><td>14일</td><td>수동</td></tr>
+<tr><td>CS 지원</td><td class="highlight">전담 처리</td><td>부분</td><td>부실</td><td>직접</td></tr>
+<tr><td>위약금</td><td class="highlight">0원</td><td>있음</td><td>있음</td><td>-</td></tr>
+</tbody></table></div></div>
+<div class="sec cta-sec"><div class="sec-inner"><div class="cta-box">
+<div class="sec-tag">GET STARTED</div>
+<div class="sec-title" style="font-size:32px">지금 바로 시작하세요</div>
+<div class="sec-sub" style="margin:0 auto 28px;text-align:center">1건만 테스트 후 언제든 해지 가능. 위약금 0원.</div>
+<button class="btn-lg btn-lg-red" onclick="location.href='influencer-apply.html'" style="font-size:18px;padding:18px 40px">파트너 신청하기 →</button>
+</div></div></div>
+<footer style="border-top:1px solid var(--border);padding:24px;background:var(--white)"><div style="max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--t3);flex-wrap:wrap;gap:12px"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:var(--t1)">GUGU<em style="color:var(--red);font-style:normal">.</em></div><div><a href="terms.html" style="color:var(--t3);margin-right:16px">이용약관</a><a href="privacy.html" style="color:var(--t3)">개인정보처리방침</a></div><div>© 2026 GUGU. All rights reserved.</div></div></footer>
+<nav class="mob-bottom-nav"><a class="mbn-item" href="index.html"><span class="mbn-icon">🏠</span><span class="mbn-label">홈</span></a><a class="mbn-item" href="category.html"><span class="mbn-icon">🔍</span><span class="mbn-label">탐색</span></a><a class="mbn-item" href="search.html"><span class="mbn-icon">⌕</span><span class="mbn-label">검색</span></a><a class="mbn-item" href="notifications.html"><span class="mbn-icon" style="position:relative">🔔<span class="mbn-badge"></span></span><span class="mbn-label">알림</span></a><a class="mbn-item" href="mypage.html"><span class="mbn-icon">👤</span><span class="mbn-label">마이</span></a></nav>
+</body></html>
