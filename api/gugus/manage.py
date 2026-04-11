@@ -71,6 +71,12 @@ class handler(BaseHTTPRequestHandler):
         }))
 
     def do_POST(self):
+        try:
+            return self._do_POST()
+        except Exception as e:
+            return self._send(*err(f"SERVER_ERROR: {type(e).__name__}: {e}", 500))
+
+    def _do_POST(self):
         user, profile = get_user_with_profile(self.headers)
         if not user:
             return self._send(*err("로그인 필요", 401))
