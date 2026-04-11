@@ -11,10 +11,12 @@ def get_user(headers: dict):
     auth = headers.get("authorization") or headers.get("Authorization", "")
     if not auth.startswith("Bearer "):
         return None
-    token = auth[7:]
+    token = auth[7:].strip()
+    if not token:
+        return None
     try:
         cl = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
-        cl.auth.set_session(token, "")
+        # set_session 호출 제거 — refresh token 없이 호출하면 예외 발생
         resp = cl.auth.get_user(token)
         return resp.user
     except Exception:

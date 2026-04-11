@@ -275,10 +275,10 @@ tr:hover td{background:rgba(255,255,255,.02)}
         <table>
           <thead><tr>
             <th>상품</th><th>카테고리</th><th>공구가</th><th>참여 현황</th>
-            <th>마감일</th><th>상태</th><th>관리</th>
+            <th>마감일</th><th>상태</th><th>브랜드 연동</th><th>관리</th>
           </tr></thead>
           <tbody id="gugusTbody">
-            <tr><td colspan="7" style="text-align:center;padding:32px;color:var(--t2)">불러오는 중...</td></tr>
+            <tr><td colspan="8" style="text-align:center;padding:32px;color:var(--t2)">불러오는 중...</td></tr>
           </tbody>
         </table>
       </div>
@@ -528,20 +528,33 @@ async function changeStatus(orderId, newStatus){
 function renderGugus(gugus){
   const tbody = document.getElementById('gugusTbody');
   if(!gugus.length){
-    tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="ei">🛍️</div><div class="et">등록한 공구가 없어요</div><div class="es">첫 공구를 열어보세요!</div></div></td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="ei">🛍️</div><div class="et">등록한 공구가 없어요</div><div class="es">첫 공구를 열어보세요!</div></div></td></tr>`;
     return;
   }
   tbody.innerHTML = gugus.map(g=>{
-    const portalBtn = g.brand_token
-      ? `<button class="btn-edit" onclick='copyBrandPortal(${JSON.stringify(g).replace(/"/g,'&quot;')})'>브랜드링크</button>`
-      : '';
     const p = pct(g.current_participants, g.target_participants);
     const statusCls = g.status==='active'?'b-active':'b-closed';
     const statusTxt = g.status==='active'?'진행중':'마감';
+    const typeLbl = g.gugu_type==='quantity'?'수량형':g.gugu_type==='funding'?'펀딩형':'기간형';
+
+    let brandCell = '';
+    if(g.brand_token){
+      const portalUrl = `${location.origin}/brand-portal.html?token=${g.brand_token}`;
+      brandCell = `<div style="display:flex;flex-direction:column;gap:4px">
+        ${g.brand_name?`<span style="font-size:11px;font-weight:600;color:var(--bl)">${g.brand_name}</span>`:''}
+        <div style="display:flex;gap:4px">
+          <button class="btn-edit" style="font-size:10px;padding:3px 8px" onclick="copyBrandLink('${portalUrl}')">🔗 링크</button>
+          <button class="btn-edit" style="font-size:10px;padding:3px 8px;border-color:rgba(34,197,94,.3);color:var(--g)" onclick="downloadGuguCSV('${g.brand_token}')">⬇ CSV</button>
+        </div>
+      </div>`;
+    } else {
+      brandCell = `<a href="open-gugu.html" style="font-size:11px;color:var(--t3)">+ 연결</a>`;
+    }
+
     return `<tr>
       <td><div class="gugu-row">
         <div class="gugu-emoji">${g.emoji||'🛍️'}</div>
-        <div class="gugu-info"><div class="name">${g.title}</div><div class="cat">${g.category||''}${g.brand_name ? ` · ${g.brand_name}` : ''}</div></div>
+        <div class="gugu-info"><div class="name">${g.title}</div><div class="cat">${typeLbl}</div></div>
       </div></td>
       <td>${g.category||'—'}</td>
       <td><strong>${fmt(g.sale_price)}원</strong><br><span style="font-size:11px;color:var(--t2);text-decoration:line-through">${fmt(g.original_price)}원</span></td>
@@ -551,13 +564,49 @@ function renderGugus(gugus){
       </div></td>
       <td style="font-size:12px">${g.end_date||'—'}</td>
       <td><span class="badge ${statusCls}">${statusTxt}</span></td>
+      <td>${brandCell}</td>
       <td><div class="act-btns">
-        ${portalBtn}
         <button class="btn-edit" onclick="openEditModal(${JSON.stringify(g).replace(/"/g,'&quot;')})">수정</button>
         <button class="btn-del" onclick="deleteGugu('${g.id}','${g.title}')">삭제</button>
       </div></td>
     </tr>`;
   }).join('');
+}
+
+function copyBrandLink(url){
+  navigator.clipboard.writeText(url).then(()=>{
+    alert('브랜드 포털 링크가 복사됐습니다!\n\n' + url);
+  }).catch(()=>{
+    prompt('링크를 복사하세요:', url);
+  });
+}
+
+async function downloadGuguCSV(brandToken){
+  const res = await fetch(`/api/gugus/manage?brand_token=${encodeURIComponent(brandToken)}`);
+  const json = await res.json().catch(()=>({}));
+  if(!res.ok || !json.data){ alert('CSV 다운로드 실패'); return; }
+
+  const { gugu, orders } = json.data;
+  const STATUS = {pending:'입금대기',paid:'결제완료',preparing:'상품준비중',shipped:'배송중',delivered:'배달완료',cancelled:'취소'};
+
+  const headers = ['번호','수령인','연락처','주소','상세주소','우편번호','수량','금액','결제','상태','택배사','송장번호','주문일'];
+  const rows = orders.map((o,i)=>[
+    i+1, o.shipping_name||'', o.shipping_phone||'',
+    o.shipping_address||'', o.shipping_detail||'', o.shipping_zip||'',
+    o.quantity, o.total_amount,
+    o.payment_method==='bank_transfer'?'무통장':'카드',
+    STATUS[o.status]||o.status,
+    o.shipping_carrier||'', o.tracking_number||'',
+    o.created_at ? new Date(o.created_at).toLocaleDateString('ko-KR') : ''
+  ]);
+
+  const csv = [headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=`${gugu.title}_주문목록_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
 // ─── 공구 수정 모달 ───

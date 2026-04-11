@@ -180,14 +180,14 @@ input, select, textarea { font-size: 16px !important; }
           </div>
           <div class="form-group">
             <label class="form-label">카테고리 <span class="req">*</span></label>
-            <select class="form-select">
-              <option>카테고리 선택</option>
-              <option selected>뷰티 · 스킨케어</option>
-              <option>뷰티 · 메이크업</option>
-              <option>패션</option>
-              <option>푸드</option>
-              <option>라이프</option>
-              <option>피트니스</option>
+            <select class="form-select" id="category">
+              <option value="">카테고리 선택</option>
+              <option value="뷰티·스킨케어" selected>뷰티 · 스킨케어</option>
+              <option value="뷰티·메이크업">뷰티 · 메이크업</option>
+              <option value="패션">패션</option>
+              <option value="푸드">푸드</option>
+              <option value="라이프">라이프</option>
+              <option value="피트니스">피트니스</option>
             </select>
           </div>
           <div class="form-group">
@@ -486,15 +486,14 @@ async function submitGugu(){
   const productName = document.getElementById('pname').value.trim();
   const origPrice = Number(document.getElementById('origprice').value);
   const salePrice = Number(document.getElementById('saleprice').value);
-  const startDate = document.querySelector('input[type=date]')?.value;
   const target = Number(document.getElementById('target')?.value)||0;
-  const category = document.querySelector('.form-select')?.value;
+  const category = document.getElementById('category')?.value || '';
   const desc = document.getElementById('pdesc')?.value?.trim()||'';
 
   if(!productName){ errEl.style.display='block'; errEl.textContent='제품명을 입력해주세요.'; return; }
   if(!origPrice||!salePrice){ errEl.style.display='block'; errEl.textContent='정가와 공구가를 입력해주세요.'; return; }
-  if(salePrice>origPrice){ errEl.style.display='block'; errEl.textContent='공구가는 정가보다 낮아야 합니다.'; return; }
-  if(!startDate){ errEl.style.display='block'; errEl.textContent='시작일을 선택해주세요.'; return; }
+  if(salePrice>=origPrice){ errEl.style.display='block'; errEl.textContent='공구가는 정가보다 낮아야 합니다.'; return; }
+  if(!category){ errEl.style.display='block'; errEl.textContent='카테고리를 선택해주세요.'; return; }
   if(!currentUser){ errEl.style.display='block'; errEl.textContent='로그인이 필요합니다.'; return; }
 
   // 공구 기간 계산
@@ -533,8 +532,23 @@ async function submitGugu(){
     btn.textContent='공구 등록하기'; btn.disabled=false; return;
   }
 
-  const {data:{session}} = await sb.auth.getSession();
-  const token = session?.access_token || '';
+  // 토큰 취득 — null 역구조화 안전하게 처리
+  let token = '';
+  try {
+    const sd = await sb.auth.getSession();
+    token = sd?.data?.session?.access_token || '';
+    if(!token) {
+      const rd = await sb.auth.refreshSession();
+      token = rd?.data?.session?.access_token || '';
+    }
+  } catch(e) { token = ''; }
+  if(!token){
+    errEl.style.display='block';
+    errEl.textContent='세션이 만료됐습니다. 다시 로그인해주세요.';
+    btn.textContent='공구 등록하기'; btn.disabled=false;
+    setTimeout(()=>location.href='login.html', 1500);
+    return;
+  }
 
   const res = await fetch('/api/gugus/manage', {
     method: 'POST',
@@ -542,7 +556,7 @@ async function submitGugu(){
     body: JSON.stringify({
       title:              productName,
       description:        desc,
-      category:           category==='카테고리 선택' ? '기타' : category,
+      category:           category,
       original_price:     origPrice,
       sale_price:         salePrice,
       target_participants:finalTarget,
