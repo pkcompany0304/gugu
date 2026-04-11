@@ -93,27 +93,30 @@ class handler(BaseHTTPRequestHandler):
             gugu_type = "period"
 
         db = get_db()
-        start_date = body.get("start_date") or datetime.datetime.utcnow().isoformat()
-        gugu = db.table("gugus").insert({
-            "id":                   str(uuid.uuid4()),
-            "influencer_id":        user.id,
-            "product_name":         body["title"],
-            "description":          body.get("description", ""),
-            "category":             body.get("category", ""),
-            "emoji":                body.get("emoji", "🛍️"),
-            "original_price":       original,
-            "sale_price":           sale,
-            "target_participants":  int(body["target_participants"]),
-            "min_per_person":       int(body.get("min_participants", body.get("min_per_person", 1))),
-            "current_participants": 0,
-            "status":               "active",
-            "gugu_type":            gugu_type,
-            "brand_name":           body.get("brand_name", ""),
-            "brand_email":          body.get("brand_email", ""),
-            "brand_token":          secrets.token_urlsafe(24),
-            "start_date":           start_date,
-            "end_date":             body["end_date"],
-        }).execute()
+        start_date = body.get("start_date") or datetime.datetime.utcnow().date().isoformat()
+        try:
+            gugu = db.table("gugus").insert({
+                "id":                   str(uuid.uuid4()),
+                "influencer_id":        user.id,
+                "product_name":         body["title"],
+                "description":          body.get("description", ""),
+                "category":             body.get("category", ""),
+                "emoji":                body.get("emoji", "🛍️"),
+                "original_price":       original,
+                "sale_price":           sale,
+                "target_participants":  int(body["target_participants"]),
+                "min_per_person":       int(body.get("min_participants", body.get("min_per_person", 1))),
+                "current_participants": 0,
+                "status":               "active",
+                "gugu_type":            gugu_type,
+                "brand_name":           body.get("brand_name", ""),
+                "brand_email":          body.get("brand_email", ""),
+                "brand_token":          secrets.token_urlsafe(24),
+                "start_date":           start_date,
+                "end_date":             body["end_date"],
+            }).execute()
+        except Exception as e:
+            return self._send(*err(f"DB 오류: {e}", 500))
         row = gugu.data[0] if gugu.data else {}
         app_base = os.getenv("APP_BASE_URL", "").rstrip("/")
         if row.get("brand_token"):
