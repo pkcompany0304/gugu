@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { Gugu } from '@/types'
 import { useRealtimeParticipants } from '@/lib/hooks/useGonggu'
@@ -32,6 +32,136 @@ function Bar({ cur, goal, h = 5, label = true }: { cur: number; goal: number; h?
   )
 }
 
+/* ── Carousel (video first → images) ── */
+const SAMPLE_VIDEO = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+
+interface SlideItem { type: 'video' | 'image' | 'emoji'; src: string }
+
+function Carousel({
+  thumb, emoji, title, discountRate, urgent, participants, endAt, images,
+}: {
+  thumb: string | null; emoji: string; title: string; discountRate: number
+  urgent: boolean; participants: number; endAt: string | null; images?: string[]
+}) {
+  const [idx, setIdx] = useState(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const touchX = useRef(0)
+
+  // Build slides: video first, then images
+  const slides: SlideItem[] = []
+  slides.push({ type: 'video', src: SAMPLE_VIDEO })
+  if (images?.length) {
+    images.forEach(url => slides.push({ type: 'image', src: url }))
+  } else if (thumb) {
+    slides.push({ type: 'image', src: thumb })
+  }
+  // Always ensure at least 2 slides for the indicator to show
+  if (slides.length === 1) {
+    slides.push({ type: 'emoji', src: emoji })
+  }
+
+  const total = slides.length
+
+  const goTo = useCallback((n: number) => {
+    setIdx(Math.max(0, Math.min(n, total - 1)))
+  }, [total])
+
+  // Video ended → auto advance
+  const handleVideoEnd = useCallback(() => {
+    if (idx < total - 1) goTo(idx + 1)
+  }, [idx, total, goTo])
+
+  // Pause/play video based on active slide
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    if (idx === 0) {
+      v.currentTime = 0
+      v.play().catch(() => {})
+    } else {
+      v.pause()
+    }
+  }, [idx])
+
+  // Swipe handlers
+  const onTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchX.current
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? idx + 1 : idx - 1)
+  }
+
+  return (
+    <div
+      style={{ position: 'relative', width: '100%', aspectRatio: '9/11', background: '#000', overflow: 'hidden' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Track */}
+      <div style={{ display: 'flex', width: '100%', height: '100%', transform: `translateX(-${idx * 100}%)`, transition: 'transform .35s cubic-bezier(.22,1,.36,1)' }}>
+        {slides.map((s, i) => (
+          <div key={i} style={{ width: '100%', height: '100%', flexShrink: 0 }}>
+            {s.type === 'video' ? (
+              <video
+                ref={videoRef}
+                src={s.src}
+                autoPlay
+                muted
+                playsInline
+                onEnded={handleVideoEnd}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : s.type === 'image' ? (
+              <img src={s.src} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 120, background: 'linear-gradient(135deg, #f3f4f6, #e5e7eb)' }}>
+                {s.src}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Gradient overlay */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(transparent,rgba(0,0,0,.45))', pointerEvents: 'none' }} />
+
+      {/* Badges */}
+      <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', gap: 5 }}>
+        {urgent && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: C.red, color: C.wh, fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, animation: 'bp 2s infinite' }}>마감임박</span>}
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: 'rgba(0,0,0,.6)', color: C.wh, fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999 }}>{discountRate}% OFF</span>
+      </div>
+
+      {/* Bottom: live count + timer */}
+      <div style={{ position: 'absolute', bottom: 12, left: 12, right: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(0,0,0,.6)', borderRadius: 999, padding: '4px 10px 4px 6px' }}>
+          <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ADE80' }} />
+          <span style={{ color: C.wh, fontSize: 11, fontWeight: 600, fontFamily: "'JetBrains Mono',monospace" }}>{fm(participants)}명</span>
+        </div>
+        {endAt && <CountdownTimer endAt={endAt} />}
+      </div>
+
+      {/* Dot indicators */}
+      {total > 1 && (
+        <div style={{ position: 'absolute', bottom: 42, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 5 }}>
+          {slides.map((_, i) => (
+            <span
+              key={i}
+              onClick={() => goTo(i)}
+              style={{
+                width: i === idx ? 16 : 6,
+                height: 6,
+                borderRadius: 999,
+                background: i === idx ? C.wh : 'rgba(255,255,255,.4)',
+                transition: 'all .25s ease',
+                cursor: 'pointer',
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 interface Props {
   gugu: Gugu
   reviewCount: number
@@ -58,28 +188,17 @@ export default function GongguDetail({ gugu: g, reviewCount }: Props) {
         <div style={{ width: 36 }} />
       </div>
 
-      {/* Image */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '9/11', background: '#000' }}>
-        {thumb ? (
-          <img src={thumb} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 120, background: 'linear-gradient(135deg, #f3f4f6, #e5e7eb)' }}>
-            {g.emoji ?? '🛍️'}
-          </div>
-        )}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(transparent,rgba(0,0,0,.45))', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', gap: 5 }}>
-          {urgent && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: C.red, color: C.wh, fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, animation: 'bp 2s infinite' }}>마감임박</span>}
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: 'rgba(0,0,0,.6)', color: C.wh, fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999 }}>{g.discount_rate}% OFF</span>
-        </div>
-        <div style={{ position: 'absolute', bottom: 12, left: 12, right: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(0,0,0,.6)', borderRadius: 999, padding: '4px 10px 4px 6px' }}>
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ADE80' }} />
-            <span style={{ color: C.wh, fontSize: 11, fontWeight: 600, fontFamily: "'JetBrains Mono',monospace" }}>{fm(participants)}명</span>
-          </div>
-          {endAt && <CountdownTimer endAt={endAt} />}
-        </div>
-      </div>
+      {/* Carousel */}
+      <Carousel
+        thumb={thumb}
+        emoji={g.emoji ?? '🛍️'}
+        title={title}
+        discountRate={g.discount_rate}
+        urgent={urgent}
+        participants={participants}
+        endAt={endAt}
+        images={g.images}
+      />
 
       {/* Seller */}
       {displayName && (
