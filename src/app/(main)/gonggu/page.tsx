@@ -47,8 +47,8 @@ export default async function GongguListPage({
             href={tab.value ? `/gonggu?status=${tab.value}` : '/gonggu'}
             className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
               status === tab.value || (!status && !tab.value)
-                ? 'bg-pink-500 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:border-pink-300'
+                ? 'bg-red-500 text-white'
+                : 'bg-white text-gray-600 border border-gray-200 hover:border-red-300'
             }`}
           >
             {tab.label}

@@ -101,7 +101,7 @@ function OrderForm() {
                   {...register(name)}
                   type={type || 'text'}
                   maxLength={maxLength}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-300"
                   placeholder={placeholder}
                 />
                 {errors[name] && (
@@ -114,7 +114,7 @@ function OrderForm() {
               <label className="text-sm font-semibold text-gray-700 mb-1 block">배송 메모</label>
               <input
                 {...register('memo')}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-300"
                 placeholder="배송 시 요청사항 (선택)"
               />
             </div>

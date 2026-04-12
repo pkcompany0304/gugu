@@ -45,7 +45,7 @@ function SuccessContent() {
   if (confirming) {
     return (
       <div className="flex flex-col items-center justify-center min-h-64 gap-4">
-        <div className="animate-spin w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full" />
         <p className="text-gray-500 font-medium">결제 확인 중...</p>
       </div>
     )

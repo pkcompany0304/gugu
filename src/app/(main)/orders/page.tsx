@@ -61,7 +61,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
                 href={tab.value === 'all' ? '/orders' : `/orders?status=${tab.value}`}
                 className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
                   active
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-red-500 text-white'
                     : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                 }`}
               >
@@ -105,7 +105,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
                     {guguThumb ? (
                       <img src={guguThumb} alt={guguTitle ?? ''} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-2xl bg-pink-50">
+                      <div className="w-full h-full flex items-center justify-center text-2xl bg-red-50">
                         {(gugu?.emoji as string) ?? '🛍️'}
                       </div>
                     )}
@@ -115,7 +115,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
                       {guguTitle ?? '공구 상품'}
                     </p>
                     <p className="text-xs text-gray-400">{order.quantity}개</p>
-                    <p className="text-base font-black text-pink-500 mt-1">
+                    <p className="text-base font-black text-red-500 mt-1">
                       {formatPrice(totalPrice(order))}
                     </p>
                   </div>
@@ -129,7 +129,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
                       <Link
                         href={`/orders/${order.id}/review`}
                         onClick={e => e.stopPropagation()}
-                        className="flex-1 text-center text-sm font-semibold bg-pink-500 text-white py-2 rounded-xl"
+                        className="flex-1 text-center text-sm font-semibold bg-red-500 text-white py-2 rounded-xl"
                       >
                         리뷰 작성
                       </Link>
@@ -162,7 +162,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
             </p>
             <Link
               href="/gonggu"
-              className="flex items-center gap-1.5 bg-pink-500 text-white text-sm font-bold px-5 py-2.5 rounded-xl"
+              className="flex items-center gap-1.5 bg-red-500 text-white text-sm font-bold px-5 py-2.5 rounded-xl"
             >
               공구 보러가기 <ChevronRight size={15} />
             </Link>

@@ -62,7 +62,7 @@ export default function GongguOrderButton({ gugu }: Props) {
       {/* 합계 */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-sm text-gray-500">합계</span>
-        <span className="text-xl font-black text-pink-500">{formatPrice(price * quantity)}</span>
+        <span className="text-xl font-black text-red-500">{formatPrice(price * quantity)}</span>
       </div>
 
       <Button size="lg" className="w-full" onClick={handleOrder}>

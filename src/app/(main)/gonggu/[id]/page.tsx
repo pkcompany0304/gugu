@@ -48,7 +48,7 @@ export default async function GongguDetailPage({ params }: Props) {
           {thumb ? (
             <img src={thumb} alt={title} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-7xl bg-gradient-to-br from-pink-50 to-rose-50">
+            <div className="w-full h-full flex items-center justify-center text-7xl bg-gradient-to-br from-red-50 to-red-50">
               {g.emoji ?? '🛍️'}
             </div>
           )}
@@ -58,7 +58,7 @@ export default async function GongguDetailPage({ params }: Props) {
         <BackButton className="absolute top-4 left-4 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm" />
 
         {/* 할인 뱃지 */}
-        <div className="absolute top-4 right-4 bg-pink-500 text-white text-sm font-black px-2.5 py-1 rounded-xl shadow-sm">
+        <div className="absolute top-4 right-4 bg-red-500 text-white text-sm font-black px-2.5 py-1 rounded-xl shadow-sm">
           {g.discount_rate}% OFF
         </div>
 
@@ -80,9 +80,9 @@ export default async function GongguDetailPage({ params }: Props) {
           {displayName && (
             <div className="flex items-center gap-2">
               {g.influencer?.avatar_url ? (
-                <img src={g.influencer.avatar_url} alt={displayName} className="w-8 h-8 rounded-full object-cover ring-2 ring-pink-100" />
+                <img src={g.influencer.avatar_url} alt={displayName} className="w-8 h-8 rounded-full object-cover ring-2 ring-red-100" />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-400 to-red-500 flex items-center justify-center">
                   <span className="text-white text-xs font-bold">{displayName.charAt(0)}</span>
                 </div>
               )}
@@ -106,11 +106,11 @@ export default async function GongguDetailPage({ params }: Props) {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm font-bold text-gray-700">공구가</span>
-            <span className="text-2xl font-black text-pink-500">{formatPrice(price)}</span>
+            <span className="text-2xl font-black text-red-500">{formatPrice(price)}</span>
           </div>
-          <div className="mt-3 bg-pink-50 rounded-xl px-3 py-2 flex items-center gap-2">
-            <span className="text-xs text-pink-600">💰</span>
-            <span className="text-xs text-pink-600 font-semibold">
+          <div className="mt-3 bg-red-50 rounded-xl px-3 py-2 flex items-center gap-2">
+            <span className="text-xs text-red-600">💰</span>
+            <span className="text-xs text-red-600 font-semibold">
               {formatPrice(g.original_price - price)} 절약
             </span>
           </div>
@@ -130,10 +130,10 @@ export default async function GongguDetailPage({ params }: Props) {
         <div className="bg-white rounded-2xl p-4 border border-gray-100/80">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <Users size={16} className="text-pink-500" />
+              <Users size={16} className="text-red-500" />
               <span className="text-sm font-bold text-gray-900">참여 현황</span>
             </div>
-            <span className="text-sm font-black text-pink-500">{Math.round(progress)}%</span>
+            <span className="text-sm font-black text-red-500">{Math.round(progress)}%</span>
           </div>
           <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden mb-2">
             <div
@@ -142,7 +142,7 @@ export default async function GongguDetailPage({ params }: Props) {
                 width: `${Math.min(progress, 100)}%`,
                 background: progress >= 80
                   ? 'linear-gradient(90deg, #f97316, #ef4444)'
-                  : 'linear-gradient(90deg, #f472b6, #ec4899)',
+                  : 'linear-gradient(90deg, #E63225, #dc2626)',
               }}
             />
           </div>
@@ -202,7 +202,7 @@ export default async function GongguDetailPage({ params }: Props) {
             <div className="flex items-center gap-2">
               <Star size={15} className="text-yellow-400 fill-yellow-400" />
               <span className="text-sm font-bold text-gray-900">리뷰</span>
-              <span className="text-sm font-bold text-pink-500">{reviewCount ?? 0}</span>
+              <span className="text-sm font-bold text-red-500">{reviewCount ?? 0}</span>
             </div>
             <ChevronRight size={16} className="text-gray-300" />
           </div>

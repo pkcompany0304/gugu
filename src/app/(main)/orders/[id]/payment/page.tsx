@@ -15,8 +15,8 @@ export default function PaymentPage() {
       </div>
 
       <div className="max-w-lg mx-auto px-4 flex flex-col items-center justify-center" style={{ minHeight: 'calc(100vh - 3.5rem)' }}>
-        <div className="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mb-6">
-          <CreditCard size={36} className="text-pink-400" />
+        <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mb-6">
+          <CreditCard size={36} className="text-red-400" />
         </div>
         <h2 className="text-xl font-black text-gray-900 mb-2">결제 기능 준비 중</h2>
         <p className="text-sm text-gray-400 text-center mb-8 leading-relaxed">
@@ -25,7 +25,7 @@ export default function PaymentPage() {
         </p>
         <Link
           href="/"
-          className="px-8 py-3 bg-pink-500 text-white font-bold rounded-2xl active:scale-95 transition-transform"
+          className="px-8 py-3 bg-red-500 text-white font-bold rounded-2xl active:scale-95 transition-transform"
         >
           홈으로 돌아가기
         </Link>

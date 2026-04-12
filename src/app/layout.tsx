@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: {
-    default: "GUGU | 인플루언서 공동구매",
-    template: "%s | GUGU",
-  },
-  description:
-    "인플루언서가 큐레이션한 뷰티 공동구매 플랫폼. 기간 한정 특가로 함께 구매하세요.",
+  title: { default: "GUGU | 인플루언서 공동구매", template: "%s | GUGU" },
+  description: "인플루언서가 큐레이션한 뷰티 공동구매 플랫폼",
   keywords: ["공동구매", "뷰티", "인플루언서", "할인", "공구"],
   openGraph: {
     title: "GUGU | 인플루언서 공동구매",
@@ -20,14 +13,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className={`${geist.className} bg-gray-50 min-h-screen`}>
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body className="min-h-screen" style={{ background: '#FAFAFA' }}>
         {children}
       </body>
     </html>

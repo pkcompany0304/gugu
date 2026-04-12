@@ -119,7 +119,7 @@ export default function SearchPage() {
           ) : results.length > 0 ? (
             <>
               <p className="text-xs text-gray-400 mb-3">
-                <span className="text-pink-500 font-bold">"{query}"</span> 검색 결과 {results.length}개
+                <span className="text-red-500 font-bold">"{query}"</span> 검색 결과 {results.length}개
               </p>
               <div className="space-y-3">
                 {results.map(g => {
@@ -136,7 +136,7 @@ export default function SearchPage() {
                         {thumb(g) ? (
                           <img src={thumb(g)!} alt={title(g)} className="w-full h-full object-cover" />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-2xl bg-pink-50">
+                          <div className="w-full h-full flex items-center justify-center text-2xl bg-red-50">
                             {g.emoji ?? '🛍️'}
                           </div>
                         )}
@@ -150,8 +150,8 @@ export default function SearchPage() {
                         </p>
                         <div className="flex items-center justify-between">
                           <div className="flex items-baseline gap-1.5">
-                            <span className="text-sm font-black text-pink-500">{formatPrice(price(g))}</span>
-                            <span className="text-xs font-bold text-pink-400">{g.discount_rate}%</span>
+                            <span className="text-sm font-black text-red-500">{formatPrice(price(g))}</span>
+                            <span className="text-xs font-bold text-red-400">{g.discount_rate}%</span>
                           </div>
                           {g.status === 'active' && ea && (
                             <CountdownBadge endAt={ea} mode="compact" className="text-[11px]" />
@@ -209,7 +209,7 @@ export default function SearchPage() {
             {/* 인기 키워드 */}
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <TrendingUp size={14} className="text-pink-500" />
+                <TrendingUp size={14} className="text-red-500" />
                 <span className="text-sm font-bold text-gray-700">인기 검색어</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
@@ -219,7 +219,7 @@ export default function SearchPage() {
                     onClick={() => { setQuery(kw); handleSubmit(kw) }}
                     className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 card-tap border border-gray-100/80"
                   >
-                    <span className="text-sm font-black text-pink-400 w-5">{i + 1}</span>
+                    <span className="text-sm font-black text-red-400 w-5">{i + 1}</span>
                     <span className="text-sm text-gray-800">{kw}</span>
                   </button>
                 ))}

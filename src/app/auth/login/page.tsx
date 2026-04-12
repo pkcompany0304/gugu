@@ -23,7 +23,7 @@ function LoginContent() {
       <div className="w-full max-w-sm">
         {/* 로고 */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-black text-pink-500 mb-2">GUGU</h1>
+          <h1 className="text-4xl font-black text-red-500 mb-2">GUGU</h1>
           <p className="text-gray-500 text-sm">인플루언서 공동구매 플랫폼</p>
         </div>
 

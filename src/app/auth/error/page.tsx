@@ -11,7 +11,7 @@ export default function AuthErrorPage() {
         </p>
         <Link
           href="/auth/login"
-          className="inline-flex items-center justify-center w-full py-4 bg-pink-500 text-white font-bold rounded-2xl"
+          className="inline-flex items-center justify-center w-full py-4 bg-red-500 text-white font-bold rounded-2xl"
         >
           다시 로그인하기
         </Link>

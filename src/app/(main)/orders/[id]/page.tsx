@@ -51,7 +51,7 @@ export default async function OrderDetailPage({ params }: Props) {
               {STEPS.map((label, i) => (
                 <div key={label} className="flex flex-col items-center flex-1">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center mb-1.5 ${
-                    i <= step ? 'bg-pink-500' : 'bg-gray-100'
+                    i <= step ? 'bg-red-500' : 'bg-gray-100'
                   }`}>
                     {i < step ? (
                       <Check size={14} className="text-white" />
@@ -62,7 +62,7 @@ export default async function OrderDetailPage({ params }: Props) {
                     )}
                   </div>
                   <span className={`text-[10px] font-semibold text-center ${
-                    i === step ? 'text-pink-500' : i < step ? 'text-gray-400' : 'text-gray-300'
+                    i === step ? 'text-red-500' : i < step ? 'text-gray-400' : 'text-gray-300'
                   }`}>{label}</span>
                 </div>
               ))}
@@ -70,7 +70,7 @@ export default async function OrderDetailPage({ params }: Props) {
             {/* 연결선 */}
             <div className="relative -mt-11 mb-8 mx-4 flex items-center justify-between px-4">
               {[0,1,2].map(i => (
-                <div key={i} className={`flex-1 h-0.5 ${i < step ? 'bg-pink-500' : 'bg-gray-100'}`} />
+                <div key={i} className={`flex-1 h-0.5 ${i < step ? 'bg-red-500' : 'bg-gray-100'}`} />
               ))}
             </div>
           </div>
@@ -92,7 +92,7 @@ export default async function OrderDetailPage({ params }: Props) {
               {thumb ? (
                 <img src={thumb} alt={title ?? ''} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-3xl bg-pink-50">
+                <div className="w-full h-full flex items-center justify-center text-3xl bg-red-50">
                   {(gugu?.emoji as string) ?? '🛍️'}
                 </div>
               )}
@@ -100,7 +100,7 @@ export default async function OrderDetailPage({ params }: Props) {
             <div className="flex-1">
               <p className="text-sm font-bold text-gray-900 line-clamp-2 leading-snug">{title}</p>
               <p className="text-xs text-gray-400 mt-1">{order.quantity}개</p>
-              <p className="text-base font-black text-pink-500 mt-1">{formatPrice(total)}</p>
+              <p className="text-base font-black text-red-500 mt-1">{formatPrice(total)}</p>
             </div>
           </div>
 
@@ -124,7 +124,7 @@ export default async function OrderDetailPage({ params }: Props) {
         {order.shipping_name && (
           <div className="bg-white rounded-2xl p-4 border border-gray-100/80">
             <div className="flex items-center gap-2 mb-3">
-              <MapPin size={15} className="text-pink-500" />
+              <MapPin size={15} className="text-red-500" />
               <span className="text-sm font-bold text-gray-900">배송지</span>
             </div>
             <p className="text-sm font-semibold text-gray-800">{order.shipping_name}</p>
@@ -140,7 +140,7 @@ export default async function OrderDetailPage({ params }: Props) {
         {/* 결제 정보 */}
         <div className="bg-white rounded-2xl p-4 border border-gray-100/80">
           <div className="flex items-center gap-2 mb-3">
-            <CreditCard size={15} className="text-pink-500" />
+            <CreditCard size={15} className="text-red-500" />
             <span className="text-sm font-bold text-gray-900">결제 정보</span>
           </div>
           <div className="space-y-2">
@@ -154,7 +154,7 @@ export default async function OrderDetailPage({ params }: Props) {
             </div>
             <div className="border-t border-gray-50 pt-2 flex justify-between">
               <span className="text-sm font-bold text-gray-900">총 결제금액</span>
-              <span className="text-base font-black text-pink-500">{formatPrice(total)}</span>
+              <span className="text-base font-black text-red-500">{formatPrice(total)}</span>
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default async function OrderDetailPage({ params }: Props) {
           <div className="pt-2">
             <a
               href={`/orders/${id}/review`}
-              className="block w-full py-3.5 text-sm font-bold text-white bg-pink-500 rounded-2xl text-center"
+              className="block w-full py-3.5 text-sm font-bold text-white bg-red-500 rounded-2xl text-center"
             >
               리뷰 작성하기 ✍️
             </a>

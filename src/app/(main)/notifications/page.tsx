@@ -21,7 +21,7 @@ const ICON_MAP: Record<NotifType, { icon: typeof Bell; bg: string; color: string
   order:        { icon: Package,    bg: 'bg-blue-100',   color: 'text-blue-500' },
   gonggu_open:  { icon: Tag,        bg: 'bg-green-100',  color: 'text-green-500' },
   closing_soon: { icon: Clock,      bg: 'bg-orange-100', color: 'text-orange-500' },
-  discount:     { icon: Tag,        bg: 'bg-pink-100',   color: 'text-pink-500' },
+  discount:     { icon: Tag,        bg: 'bg-red-100',   color: 'text-red-500' },
   system:       { icon: Megaphone,  bg: 'bg-gray-100',   color: 'text-gray-500' },
 }
 
@@ -92,7 +92,7 @@ export default async function NotificationsPage() {
             <div>
               <h1 className="text-base font-black text-gray-900">알림</h1>
               {unreadCount > 0 && (
-                <p className="text-xs text-pink-500 font-semibold -mt-0.5">읽지 않은 알림 {unreadCount}개</p>
+                <p className="text-xs text-red-500 font-semibold -mt-0.5">읽지 않은 알림 {unreadCount}개</p>
               )}
             </div>
           </div>
@@ -113,7 +113,7 @@ export default async function NotificationsPage() {
                 className={`flex gap-3 p-4 rounded-2xl border card-tap transition-colors ${
                   notif.read
                     ? 'bg-white border-gray-100/80'
-                    : 'bg-pink-50/50 border-pink-100'
+                    : 'bg-red-50/50 border-red-100'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${bg}`}>
@@ -125,7 +125,7 @@ export default async function NotificationsPage() {
                       {notif.title}
                     </p>
                     {!notif.read && (
-                      <span className="w-2 h-2 bg-pink-500 rounded-full flex-shrink-0 mt-1.5" />
+                      <span className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0 mt-1.5" />
                     )}
                   </div>
                   <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">{notif.body}</p>

@@ -20,7 +20,7 @@ export function StatusBadge({ status }: { status: GongguStatus }) {
 
 export function DiscountBadge({ rate }: { rate: number }) {
   return (
-    <span className="text-sm font-bold bg-pink-500 text-white px-2.5 py-1 rounded-full">
+    <span className="text-sm font-bold bg-red-500 text-white px-2.5 py-1 rounded-full">
       {rate}% OFF
     </span>
   )

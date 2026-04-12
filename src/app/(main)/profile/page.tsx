@@ -63,7 +63,7 @@ export default async function ProfilePage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* 프로필 헤더 */}
-      <div className="bg-gradient-to-br from-pink-500 to-rose-500 pt-6 pb-8 px-4">
+      <div className="bg-gradient-to-br from-red-500 to-red-600 pt-6 pb-8 px-4">
         <div className="max-w-lg mx-auto flex items-center gap-4">
           {/* 아바타 */}
           <div className="relative">
@@ -88,8 +88,8 @@ export default async function ProfilePage() {
           {/* 이름 + 이메일 */}
           <div className="flex-1">
             <h1 className="text-xl font-black text-white">{displayName}</h1>
-            <p className="text-pink-100 text-sm mt-0.5">{profile?.email ?? user.email}</p>
-            <p className="text-pink-200 text-xs mt-0.5">가입일 {profile && formatDate(profile.created_at)}</p>
+            <p className="text-red-100 text-sm mt-0.5">{profile?.email ?? user.email}</p>
+            <p className="text-red-200 text-xs mt-0.5">가입일 {profile && formatDate(profile.created_at)}</p>
           </div>
 
           <Link href="/settings" className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
@@ -106,7 +106,7 @@ export default async function ProfilePage() {
           ].map(stat => (
             <div key={stat.label} className="bg-white/15 rounded-2xl py-3 text-center">
               <p className="text-2xl font-black text-white">{stat.value}</p>
-              <p className="text-xs text-pink-100 font-semibold mt-0.5">{stat.label}</p>
+              <p className="text-xs text-red-100 font-semibold mt-0.5">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -130,7 +130,7 @@ export default async function ProfilePage() {
                 </div>
                 <span className="flex-1 text-sm font-semibold text-gray-800">{item.label}</span>
                 {item.badge && (
-                  <span className="bg-pink-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                  <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
                     {item.badge}
                   </span>
                 )}

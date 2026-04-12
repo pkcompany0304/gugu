@@ -1,102 +1,76 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
-  --pink-primary: #F43F5E;
+  --color-primary: #E63225;
+  --color-primary-dark: #C9271C;
+  --color-primary-bg: #FFF0EF;
+  --color-bg: #FAFAFA;
+  --color-dk: #111;
   --safe-area-top: env(safe-area-inset-top, 0px);
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-dk);
+  --color-brand: #E63225;
+  --color-brand-dark: #C9271C;
+  --color-brand-bg: #FFF0EF;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 html {
-  background: #f9fafb;
+  background: #FAFAFA;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family:
-    'Apple SD Gothic Neo', 'Pretendard', -apple-system,
-    BlinkMacSystemFont, 'Malgun Gothic', 'Noto Sans KR',
-    sans-serif;
+  background: #FAFAFA;
+  color: #111;
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
 }
 
-/* 스크롤바 숨김 (모바일 스타일) */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+input, textarea {
+  font-size: 16px;
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
 }
 
-/* 수평 스냅 스크롤 */
-.snap-x-mandatory {
-  scroll-snap-type: x mandatory;
-}
-.snap-start {
-  scroll-snap-align: start;
-}
+::-webkit-scrollbar { display: none; }
 
-/* safe area 패딩 */
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.pt-safe {
-  padding-top: env(safe-area-inset-top, 0px);
-}
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 
-/* 바텀 네비게이션 높이 + safe area만큼 하단 여백 */
-.pb-nav {
-  padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
-}
+.snap-x-mandatory { scroll-snap-type: x mandatory; }
+.snap-start { scroll-snap-align: start; }
 
-/* 카드 탭 피드백 */
-.card-tap {
-  transition: transform 120ms ease, box-shadow 120ms ease;
-}
-.card-tap:active {
-  transform: scale(0.97);
-}
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+.pb-nav { padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px)); }
 
-/* 진행바 애니메이션 */
-@keyframes progress-fill {
-  from { width: 0%; }
-}
-.progress-bar {
-  animation: progress-fill 0.8s ease-out both;
-}
+.card-tap { transition: transform 120ms ease; cursor: pointer; }
+.card-tap:active { transform: scale(0.97); }
 
-/* 펄스 뱃지 (live) */
-@keyframes live-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-.live-dot {
-  animation: live-pulse 1.5s ease-in-out infinite;
-}
+.tabular-nums { font-variant-numeric: tabular-nums; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
 
-/* 부드러운 등장 */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.fade-up {
-  animation: fade-up 0.4s ease-out both;
-}
+@keyframes bp { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes fu { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes su { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+@keyframes sd { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fo { to{opacity:0;transform:translateY(-14px);pointer-events:none} }
 
-/* 숫자 변경 부드럽게 */
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
-}
+.animate-pulse-dot { animation: bp 2s infinite; }
+.animate-fade-up { animation: fu .4s ease both; }
+.animate-slide-up { animation: su .2s ease; }
+
+.progress-bar { animation: fu 0.8s ease-out both; }
+.live-dot { animation: bp 1.5s ease-in-out infinite; }
+.fade-up { animation: fu 0.4s ease-out both; }
