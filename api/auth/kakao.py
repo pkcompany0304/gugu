@@ -11,7 +11,7 @@ from api._db import get_db
 
 KAKAO_CLIENT_ID     = os.environ.get("KAKAO_CLIENT_ID", "")
 KAKAO_CLIENT_SECRET = os.environ.get("KAKAO_CLIENT_SECRET", "")
-APP_BASE_URL        = os.environ.get("APP_BASE_URL", "https://gugu.vercel.app")
+APP_BASE_URL        = os.environ.get("APP_BASE_URL", "https://gugu2-six.vercel.app")
 REDIRECT_URI        = f"{APP_BASE_URL}/api/auth/kakao"
 
 
@@ -26,7 +26,7 @@ class handler(BaseHTTPRequestHandler):
                 "client_id":     KAKAO_CLIENT_ID,
                 "redirect_uri":  REDIRECT_URI,
                 "response_type": "code",
-                "scope":         "profile_nickname,account_email",
+                "scope":         "profile_nickname",
             })
             self._redirect(f"https://kauth.kakao.com/oauth/authorize?{params}")
             return
