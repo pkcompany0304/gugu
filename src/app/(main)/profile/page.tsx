@@ -1,11 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { formatDate } from '@/lib/utils/format'
 import Link from 'next/link'
-import {
-  Package, Star, Heart, Bell, HelpCircle,
-  FileText, ChevronRight, Settings, LogOut, User
-} from 'lucide-react'
 import LogoutButton from '@/components/auth/LogoutButton'
 
 export default async function ProfilePage() {
@@ -25,125 +20,103 @@ export default async function ProfilePage() {
     .select('*', { count: 'exact', head: true })
     .eq('consumer_id', user.id)
 
-  const { count: reviewCount } = await supabase
-    .from('reviews')
-    .select('*', { count: 'exact', head: true })
-    .eq('user_id', user.id)
+  const displayName = profile?.nickname ?? profile?.name ?? user.email?.split('@')[0] ?? '구구 회원'
 
-  const displayName = profile?.nickname ?? profile?.name ?? user.email?.split('@')[0] ?? '사용자'
-  const roleLabel = profile?.role === 'admin' ? '관리자' : profile?.role === 'influencer' ? '인플루언서' : '일반회원'
-  const roleColor = profile?.role === 'admin' ? 'bg-red-100 text-red-600' : profile?.role === 'influencer' ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-500'
-
-  const MENU_GROUPS = [
+  const MENU_SECTIONS = [
     {
-      title: '쇼핑',
+      title: '쇼핑 정보',
       items: [
-        { href: '/orders',        icon: Package,   label: '주문 내역',    badge: orderCount ? String(orderCount) : null },
-        { href: '/orders?status=shipped', icon: Package, label: '배송 조회', badge: null },
-        { href: '/wishlist',      icon: Heart,     label: '찜 목록',      badge: null },
+        { icon: '📦', label: '주문/배송 조회', href: '/orders' },
+        { icon: '↩️', label: '교환/반품 내역', href: '/orders' },
+        { icon: '⭐', label: '내가 쓴 후기', href: '/orders' },
       ],
     },
     {
-      title: '활동',
+      title: '혜택',
       items: [
-        { href: '/reviews',       icon: Star,      label: '내 리뷰',      badge: reviewCount ? String(reviewCount) : null },
-        { href: '/notifications', icon: Bell,      label: '알림 설정',    badge: null },
+        { icon: '🎫', label: '쿠폰함', href: '/profile' },
+        { icon: '💰', label: '포인트 내역', href: '/profile' },
+        { icon: '🎁', label: '이벤트', href: '/profile' },
       ],
     },
     {
-      title: '고객지원',
+      title: '설정',
       items: [
-        { href: '/faq',           icon: HelpCircle, label: '자주 묻는 질문', badge: null },
-        { href: '/terms',         icon: FileText,   label: '이용약관',       badge: null },
-        { href: '/settings',      icon: Settings,   label: '설정',           badge: null },
+        { icon: '👤', label: '회원정보 수정', href: '/profile' },
+        { icon: '🔔', label: '알림 설정', href: '/notifications' },
+        { icon: '❓', label: '고객센터', href: '/profile' },
+        { icon: '📋', label: '이용약관', href: '/profile' },
       ],
     },
   ]
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      {/* 프로필 헤더 */}
-      <div className="bg-gradient-to-br from-red-500 to-red-600 pt-6 pb-8 px-4">
-        <div className="max-w-lg mx-auto flex items-center gap-4">
-          {/* 아바타 */}
-          <div className="relative">
-            {profile?.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                alt={displayName}
-                className="w-18 h-18 rounded-full object-cover border-4 border-white/40"
-                style={{ width: 72, height: 72 }}
-              />
-            ) : (
-              <div className="w-18 h-18 rounded-full bg-white/20 flex items-center justify-center border-4 border-white/40"
-                style={{ width: 72, height: 72 }}>
-                <User size={32} className="text-white/80" />
-              </div>
-            )}
-            <div className={`absolute -bottom-1 -right-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white ${roleColor}`}>
-              {roleLabel}
-            </div>
-          </div>
+    <div style={{ paddingBottom: 70 }}>
+      {/* Header */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(250,250,250,.97)', padding: '0 20px', height: 52, display: 'flex', alignItems: 'center', borderBottom: '1px solid #EFEFEF' }}>
+        <span style={{ fontSize: 17, fontWeight: 800 }}>MY</span>
+      </div>
 
-          {/* 이름 + 이메일 */}
-          <div className="flex-1">
-            <h1 className="text-xl font-black text-white">{displayName}</h1>
-            <p className="text-red-100 text-sm mt-0.5">{profile?.email ?? user.email}</p>
-            <p className="text-red-200 text-xs mt-0.5">가입일 {profile && formatDate(profile.created_at)}</p>
-          </div>
-
-          <Link href="/settings" className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
-            <Settings size={18} className="text-white" />
-          </Link>
+      {/* Profile */}
+      <div style={{ padding: 20, display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,#E63225,#FF7B73)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 22, fontWeight: 800, overflow: 'hidden', flexShrink: 0 }}>
+          {profile?.avatar_url ? (
+            <img src={profile.avatar_url} alt={displayName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ) : (
+            displayName.charAt(0)
+          )}
         </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>{displayName}</p>
+          <p style={{ margin: '2px 0 0', fontSize: 13, color: '#999' }}>혜택을 받아보세요</p>
+        </div>
+      </div>
 
-        {/* 통계 */}
-        <div className="max-w-lg mx-auto mt-5 grid grid-cols-3 gap-3">
+      {/* Stats Grid */}
+      <div style={{ padding: '0 20px 16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: '#fff', borderRadius: 16, border: '1px solid #EFEFEF' }}>
           {[
-            { label: '주문', value: orderCount ?? 0 },
-            { label: '리뷰', value: reviewCount ?? 0 },
-            { label: '찜', value: 0 },
-          ].map(stat => (
-            <div key={stat.label} className="bg-white/15 rounded-2xl py-3 text-center">
-              <p className="text-2xl font-black text-white">{stat.value}</p>
-              <p className="text-xs text-red-100 font-semibold mt-0.5">{stat.label}</p>
+            { l: '쿠폰', v: '0장', i: '🎫' },
+            { l: '포인트', v: '0P', i: '💰' },
+            { l: '찜', v: `${orderCount ?? 0}개`, i: '❤️' },
+          ].map((s, idx) => (
+            <div key={s.l} style={{ textAlign: 'center', padding: '16px 8px', borderRight: idx < 2 ? '1px solid #EFEFEF' : 'none' }}>
+              <span style={{ fontSize: 22 }}>{s.i}</span>
+              <p style={{ margin: '4px 0 1px', fontSize: 16, fontWeight: 800 }}>{s.v}</p>
+              <p style={{ margin: 0, fontSize: 11, color: '#999' }}>{s.l}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* 메뉴 그룹 */}
-      <div className="px-4 -mt-3 max-w-lg mx-auto space-y-3 pb-6">
-        {MENU_GROUPS.map(group => (
-          <div key={group.title} className="bg-white rounded-2xl border border-gray-100/80 overflow-hidden">
-            <p className="px-4 pt-3 pb-2 text-xs font-bold text-gray-400">{group.title}</p>
-            {group.items.map((item, i) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-3.5 card-tap ${
-                  i < group.items.length - 1 ? 'border-b border-gray-50' : ''
-                }`}
-              >
-                <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <item.icon size={16} className="text-gray-500" />
+      {/* Menu Sections */}
+      {MENU_SECTIONS.map((sec, si) => (
+        <div key={si} style={{ padding: '0 20px', marginBottom: 6 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#999', margin: '12px 0 6px' }}>{sec.title}</p>
+          <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #EFEFEF', overflow: 'hidden' }}>
+            {sec.items.map((item, i) => (
+              <Link key={i} href={item.href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={{ padding: '14px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: i < sec.items.length - 1 ? '1px solid #EFEFEF' : 'none' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontSize: 18 }}>{item.icon}</span>
+                    <span style={{ fontSize: 14 }}>{item.label}</span>
+                  </div>
+                  <span style={{ color: '#bbb' }}>›</span>
                 </div>
-                <span className="flex-1 text-sm font-semibold text-gray-800">{item.label}</span>
-                {item.badge && (
-                  <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
-                    {item.badge}
-                  </span>
-                )}
-                <ChevronRight size={15} className="text-gray-300 flex-shrink-0" />
               </Link>
             ))}
           </div>
-        ))}
+        </div>
+      ))}
 
-        {/* 로그아웃 */}
+      {/* Logout */}
+      <div style={{ padding: '0 20px', marginTop: 6 }}>
         <LogoutButton />
+      </div>
 
-        <p className="text-center text-xs text-gray-300 py-2">GUGU v0.1.0</p>
+      {/* Version */}
+      <div style={{ padding: 20, textAlign: 'center' }}>
+        <span style={{ fontSize: 12, color: '#bbb' }}>GUGU v1.0.0</span>
       </div>
     </div>
   )
