@@ -12,9 +12,16 @@ const tabs = [
 
 export default function BottomNav() {
   const pathname = usePathname()
+  const isShorts = pathname === '/gonggu'
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 max-w-[480px] mx-auto" style={{ background: '#fff', borderTop: '1px solid #EFEFEF' }}>
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-30 max-w-[480px] mx-auto"
+      style={{
+        background: isShorts ? 'rgba(0,0,0,.9)' : '#fff',
+        borderTop: `1px solid ${isShorts ? 'rgba(255,255,255,.1)' : '#EFEFEF'}`,
+      }}
+    >
       <div
         className="flex justify-around items-center"
         style={{ height: 56, paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
@@ -29,7 +36,15 @@ export default function BottomNav() {
               style={{ padding: '5px 14px' }}
             >
               <span style={{ fontSize: 19, opacity: active ? 1 : 0.3 }}>{icon}</span>
-              <span style={{ fontSize: 10, fontWeight: active ? 700 : 500, color: active ? '#E63225' : '#999' }}>{label}</span>
+              <span style={{
+                fontSize: 10,
+                fontWeight: active ? 700 : 500,
+                color: active
+                  ? '#E63225'
+                  : isShorts ? 'rgba(255,255,255,.4)' : '#999',
+              }}>
+                {label}
+              </span>
             </Link>
           )
         })}
