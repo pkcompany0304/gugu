@@ -15,7 +15,7 @@ function deriveCredentials(kakaoId: string) {
 }
 
 function debugJson(step: string, error: unknown) {
-  return NextResponse.json({ step, error: String(error) }, { status: 500 })
+  return NextResponse.json({ step, error }, { status: 500 })
 }
 
 export async function GET(request: Request) {
