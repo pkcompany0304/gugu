@@ -32,7 +32,7 @@ export async function GET(request: Request) {
       grant_type: 'authorization_code',
       client_id: process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!,
       client_secret: process.env.KAKAO_CLIENT_SECRET!,
-      redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/kakao/callback`,
+      redirect_uri: `${origin}/api/auth/kakao/callback`,
       code,
     }),
   })

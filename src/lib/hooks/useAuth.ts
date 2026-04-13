@@ -51,7 +51,7 @@ export function useAuth() {
   }, [])
 
   const signInWithKakao = (next = '/') => {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin
+    const appUrl = window.location.origin
     const url = new URL('https://kauth.kakao.com/oauth/authorize')
     url.searchParams.set('response_type', 'code')
     url.searchParams.set('client_id', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!)
