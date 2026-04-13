@@ -52,10 +52,15 @@ export function useAuth() {
 
   const signInWithKakao = (next = '/') => {
     const appUrl = window.location.origin
+    const clientId = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY || ''
+    const redirectUri = `${appUrl}/api/auth/kakao/callback`
+
+    alert(`[디버그]\norigin: ${appUrl}\nclient_id: ${clientId}\nredirect_uri: ${redirectUri}`)
+
     const url = new URL('https://kauth.kakao.com/oauth/authorize')
     url.searchParams.set('response_type', 'code')
-    url.searchParams.set('client_id', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!)
-    url.searchParams.set('redirect_uri', `${appUrl}/api/auth/kakao/callback`)
+    url.searchParams.set('client_id', clientId)
+    url.searchParams.set('redirect_uri', redirectUri)
     url.searchParams.set('scope', 'profile_nickname profile_image')
     url.searchParams.set('state', encodeURIComponent(next))
     window.location.href = url.toString()
