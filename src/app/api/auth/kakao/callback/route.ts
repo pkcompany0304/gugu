@@ -14,69 +14,46 @@ function deriveCredentials(kakaoId: string) {
   return { email, password }
 }
 
-function debugJson(step: string, error: unknown) {
-  return NextResponse.json({ step, error }, { status: 500 })
-}
-
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('state') ? decodeURIComponent(searchParams.get('state')!) : '/'
 
   if (!code) {
-    return debugJson('no_code', 'code 파라미터 없음')
-  }
-
-  // 환경변수 확인
-  const clientId = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
-  const clientSecret = process.env.KAKAO_CLIENT_SECRET
-  const authSecret = process.env.KAKAO_AUTH_SECRET
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-  if (!clientId || !clientSecret || !authSecret || !supabaseUrl || !serviceKey) {
-    return debugJson('env_missing', {
-      clientId: !!clientId,
-      clientSecret: !!clientSecret,
-      authSecret: !!authSecret,
-      supabaseUrl: !!supabaseUrl,
-      serviceKey: !!serviceKey,
-    })
+    return NextResponse.redirect(`${origin}/auth/error`)
   }
 
   // ── 1. 카카오 토큰 교환 ─────────────────────────────────────────────────
-  const redirectUri = `${origin}/api/auth/kakao/callback`
-
   const tokenRes = await fetch(KAKAO_TOKEN_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
     body: new URLSearchParams({
       grant_type: 'authorization_code',
-      client_id: clientId,
-      client_secret: clientSecret,
-      redirect_uri: redirectUri,
+      client_id: process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!,
+      client_secret: process.env.KAKAO_CLIENT_SECRET!,
+      redirect_uri: `${origin}/api/auth/kakao/callback`,
       code,
     }),
   })
 
-  const tokenBody = await tokenRes.text()
   if (!tokenRes.ok) {
-    return debugJson('token_exchange', { status: tokenRes.status, body: tokenBody, redirectUri })
+    console.error('[kakao] token exchange failed', await tokenRes.text())
+    return NextResponse.redirect(`${origin}/auth/error`)
   }
 
-  const { access_token } = JSON.parse(tokenBody) as { access_token: string }
+  const { access_token } = await tokenRes.json() as { access_token: string }
 
   // ── 2. 카카오 프로필 조회 ────────────────────────────────────────────────
   const profileRes = await fetch(KAKAO_PROFILE_URL, {
     headers: { Authorization: `Bearer ${access_token}` },
   })
 
-  const profileBody = await profileRes.text()
   if (!profileRes.ok) {
-    return debugJson('profile_fetch', { status: profileRes.status, body: profileBody })
+    console.error('[kakao] profile fetch failed', await profileRes.text())
+    return NextResponse.redirect(`${origin}/auth/error`)
   }
 
-  const kakaoUser = JSON.parse(profileBody) as {
+  const kakaoUser = await profileRes.json() as {
     id: number
     kakao_account?: { profile?: { nickname?: string; profile_image_url?: string } }
   }
@@ -114,7 +91,8 @@ export async function GET(request: Request) {
     })
 
     if (createError) {
-      return debugJson('create_user', { error: createError.message, email })
+      console.error('[kakao] createUser failed', createError)
+      return NextResponse.redirect(`${origin}/auth/error`)
     }
 
     const result = await supabase.auth.signInWithPassword({ email, password })
@@ -123,7 +101,8 @@ export async function GET(request: Request) {
   }
 
   if (signInError || !signInData?.user) {
-    return debugJson('sign_in', { error: signInError?.message })
+    console.error('[kakao] signIn failed', signInError)
+    return NextResponse.redirect(`${origin}/auth/error`)
   }
 
   // ── 4. 프로필 업데이트 ──────────────────────────────────────────────────
