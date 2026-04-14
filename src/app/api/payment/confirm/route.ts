@@ -1,27 +1,42 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
+type PortOnePayment = {
+  id?: string
+  paymentId?: string
+  status?: string
+  storeId?: string
+  amount?: {
+    total?: number
+    paid?: number
+  }
+  totalAmount?: number
+  message?: string
+}
+
+function getPaidAmount(payment: PortOnePayment) {
+  return Number(payment.amount?.total ?? payment.amount?.paid ?? payment.totalAmount ?? 0)
+}
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
 
-  // ── 인증 확인 ────────────────────────────────────────────────────────────
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
     return NextResponse.json({ error: '로그인이 필요합니다.' }, { status: 401 })
   }
 
-  const { paymentKey, orderId, amount } = await request.json()
+  const { paymentId, orderId } = await request.json()
 
-  if (!paymentKey || !orderId || !amount) {
+  if (!paymentId || !orderId) {
     return NextResponse.json({ error: '필수 파라미터가 누락되었습니다.' }, { status: 400 })
   }
 
-  // ── 주문 소유권 확인 + 이중 결제 방지 ───────────────────────────────────
   const { data: order, error: orderError } = await supabase
     .from('orders')
-    .select('id, gugu_id, total_price, total_amount, payment_status, consumer_id')
+    .select('id, gugu_id, total_price, total_amount, payment_status, payment_key, consumer_id')
     .eq('id', orderId)
-    .eq('consumer_id', user.id)   // 본인 주문만
+    .eq('consumer_id', user.id)
     .single()
 
   if (orderError || !order) {
@@ -29,48 +44,67 @@ export async function POST(request: NextRequest) {
   }
 
   if (order.payment_status === 'paid') {
+    if (order.payment_key === paymentId) {
+      return NextResponse.json({ success: true, alreadyPaid: true })
+    }
+
     return NextResponse.json({ error: '이미 결제 완료된 주문입니다.' }, { status: 409 })
   }
 
-  // ── 금액 검증 ────────────────────────────────────────────────────────────
-  const expectedAmount = order.total_price ?? order.total_amount
-  if (Number(amount) !== expectedAmount) {
-    return NextResponse.json({ error: '결제 금액이 일치하지 않습니다.' }, { status: 400 })
+  const apiSecret = process.env.PORTONE_API_SECRET
+  if (!apiSecret) {
+    return NextResponse.json({ error: 'PortOne API Secret이 설정되지 않았습니다.' }, { status: 500 })
   }
 
-  // ── 토스페이먼츠 결제 승인 ───────────────────────────────────────────────
-  const encryptedKey = Buffer.from(`${process.env.TOSS_SECRET_KEY}:`).toString('base64')
+  const paymentRes = await fetch(
+    `https://api.portone.io/payments/${encodeURIComponent(paymentId)}`,
+    {
+      headers: {
+        Authorization: `PortOne ${apiSecret}`,
+      },
+      cache: 'no-store',
+    }
+  )
 
-  const tossRes = await fetch('https://api.tosspayments.com/v1/payments/confirm', {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${encryptedKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ paymentKey, orderId, amount }),
-  })
+  const payment = await paymentRes.json() as PortOnePayment
 
-  const tossData = await tossRes.json()
-
-  if (!tossRes.ok) {
+  if (!paymentRes.ok) {
     return NextResponse.json(
-      { error: tossData.message || '결제 승인에 실패했습니다.' },
-      { status: tossRes.status }
+      { error: payment.message || 'PortOne 결제 조회에 실패했습니다.' },
+      { status: paymentRes.status }
     )
   }
 
-  // ── DB 업데이트 ──────────────────────────────────────────────────────────
-  await supabase
+  if (payment.status !== 'PAID') {
+    return NextResponse.json({ error: '결제가 완료되지 않았습니다.' }, { status: 400 })
+  }
+
+  if (payment.storeId && payment.storeId !== process.env.NEXT_PUBLIC_PORTONE_STORE_ID) {
+    return NextResponse.json({ error: '결제 상점 정보가 일치하지 않습니다.' }, { status: 400 })
+  }
+
+  const expectedAmount = Number(order.total_price ?? order.total_amount ?? 0)
+  const paidAmount = getPaidAmount(payment)
+
+  if (paidAmount !== expectedAmount) {
+    return NextResponse.json({ error: '결제 금액이 일치하지 않습니다.' }, { status: 400 })
+  }
+
+  const { error: updateError } = await supabase
     .from('orders')
     .update({
       status: 'paid',
       payment_status: 'paid',
-      payment_key: paymentKey,
+      payment_key: paymentId,
     })
     .eq('id', orderId)
+    .eq('consumer_id', user.id)
 
-  // 공구 참여자 수 증가
+  if (updateError) {
+    return NextResponse.json({ error: '주문 결제 상태 업데이트에 실패했습니다.' }, { status: 500 })
+  }
+
   await supabase.rpc('increment_gonggu_participants', { p_gonggu_id: order.gugu_id })
 
-  return NextResponse.json({ success: true, data: tossData })
+  return NextResponse.json({ success: true, payment })
 }

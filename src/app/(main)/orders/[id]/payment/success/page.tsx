@@ -15,11 +15,10 @@ function SuccessContent() {
 
   useEffect(() => {
     const confirm = async () => {
-      const paymentKey = searchParams.get('paymentKey')
-      const orderId = searchParams.get('orderId')
-      const amount = searchParams.get('amount')
+      const paymentId = searchParams.get('paymentId')
+      const orderId = params.id as string
 
-      if (!paymentKey || !orderId || !amount) {
+      if (!paymentId || !orderId) {
         setError('결제 정보가 올바르지 않습니다.')
         setConfirming(false)
         return
@@ -28,19 +27,19 @@ function SuccessContent() {
       const response = await fetch('/api/payment/confirm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ paymentKey, orderId, amount: parseInt(amount) }),
+        body: JSON.stringify({ paymentId, orderId }),
       })
 
       if (!response.ok) {
-        const data = await response.json()
-        setError(data.error || '결제 확인에 실패했습니다.')
+        const data = await response.json().catch(() => null)
+        setError(data?.error || '결제 확인에 실패했습니다.')
       }
 
       setConfirming(false)
     }
 
     confirm()
-  }, [searchParams])
+  }, [params.id, searchParams])
 
   if (confirming) {
     return (
@@ -53,8 +52,7 @@ function SuccessContent() {
 
   if (error) {
     return (
-      <div className="text-center py-16">
-        <p className="text-4xl mb-4">❌</p>
+      <div className="text-center py-16 px-4">
         <h2 className="text-xl font-black text-gray-900 mb-2">결제 확인 실패</h2>
         <p className="text-gray-500 text-sm mb-6">{error}</p>
         <Button onClick={() => router.back()}>다시 시도</Button>
@@ -63,14 +61,13 @@ function SuccessContent() {
   }
 
   return (
-    <div className="max-w-sm mx-auto text-center py-16">
+    <div className="max-w-sm mx-auto text-center py-16 px-4">
       <div className="flex justify-center mb-6">
         <CheckCircle size={72} className="text-green-500" />
       </div>
       <h2 className="text-2xl font-black text-gray-900 mb-2">결제 완료!</h2>
       <p className="text-gray-500 mb-8">
-        공구 참여가 완료되었습니다.<br />
-        배송이 시작되면 알림을 보내드릴게요 🎉
+        공동구매 참여가 완료되었습니다.
       </p>
       <div className="flex flex-col gap-3">
         <Link href={`/orders/${params.id}`}>
